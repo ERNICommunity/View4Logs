@@ -1,6 +1,14 @@
-<Project>
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
   <Import Project="$(SolutionDir)\config\View4Logs.Common.props" />
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+  <PropertyGroup>
+    <CustomProjectExtensionsPath>$(SolutionDir)\config\WPF\</CustomProjectExtensionsPath>
+  </PropertyGroup>
+
+  <Import Project="$(SolutionDir)\config\WPF\WpfProject.props" />
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -10,39 +18,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Uncomment following if needed -->
-    <!--<EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />-->
-    <!--<Compile Update="Properties\Resources.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Resources.resx" />-->
-    <!--<Compile Update="Settings.Designer.cs" AutoGen="True" DependentUpon="Settings.settings" />-->
-    <!--<None Update="Settings.settings" LastGenOutput="Settings.Designer.cs" Generator="SettingsSingleFileGenerator" />-->
-
-    <Page Include="**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" Exclude="App.xaml" />
-    <Compile Update="**\*.xaml.cs" SubType="Designer" DependentUpon="%(Filename)" />
-
-    <Resource Include="assets\*.*" />
-
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MsBuild:Compile</Generator>
-    </ApplicationDefinition>
+    <ApplicationDefinition Include="App.xaml" SubType="Designer" Generator="MSBuild:Compile" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="6.5.0.3766">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.Reactive" Version="4.0.0-preview00001" />
   </ItemGroup>
 
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
 </Project>

@@ -1,9 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View4Logs", "src\View4Logs\View4Logs.csproj", "{909280A8-DE74-42C3-8C69-47958CD4D396}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View4Logs", "src\View4Logs\View4Logs.csproj", "{909280A8-DE74-42C3-8C69-47958CD4D396}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{BB6417F5-A034-4002-A807-3933316A76A5}"
+	ProjectSection(SolutionItems) = preProject
+		config\View4Logs.Common.props = config\View4Logs.Common.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{4644325E-28C2-4BC1-ADAC-8350F62E9EF2}"
+	ProjectSection(SolutionItems) = preProject
+		config\WPF\WpfProject.props = config\WPF\WpfProject.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rules", "Rules", "{5584E39D-DD3F-4472-84F3-F3E6980D78CC}"
+	ProjectSection(SolutionItems) = preProject
+		config\WPF\Rules\ApplicationDefinition.xaml = config\WPF\Rules\ApplicationDefinition.xaml
+		config\WPF\Rules\Page.xaml = config\WPF\Rules\Page.xaml
+		config\WPF\Rules\ProjectItemsSchema.xaml = config\WPF\Rules\ProjectItemsSchema.xaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +35,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4644325E-28C2-4BC1-ADAC-8350F62E9EF2} = {BB6417F5-A034-4002-A807-3933316A76A5}
+		{5584E39D-DD3F-4472-84F3-F3E6980D78CC} = {4644325E-28C2-4BC1-ADAC-8350F62E9EF2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4374D047-9A6C-4A63-9E1D-2DAE6DF4611A}
