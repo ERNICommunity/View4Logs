@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Markup;
 
-namespace View4Logs.Core.MVVMComponent
+namespace View4Logs.Base
 {
     [ContentProperty(nameof(Template))]
     public abstract class View

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace View4Logs.Core.MVVMComponent
+namespace View4Logs.Base
 {
     public abstract class ViewModel : INotifyPropertyChanged
     {

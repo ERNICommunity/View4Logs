@@ -1,0 +1,9 @@
+﻿<base:View x:Class="View4Logs.UI.View.AppView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"             
+             xmlns:base="clr-namespace:View4Logs.Base"
+             xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
+    <DataTemplate DataType="{x:Type vm:AppViewModel}">
+        <TextBlock Text="{Binding Path=Test}"/>
+    </DataTemplate>
+</base:View>

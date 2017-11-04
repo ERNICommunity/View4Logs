@@ -52,10 +52,12 @@
   </ItemGroup>
 
   <!-- Nesting of files in visual studio solution explorer -->
+  <!--
   <ItemGroup>
     <Compile Update="**\*ViewModel.cs" DependentUpon="$([System.Text.RegularExpressions.Regex]::Replace(%(Filename),`ViewModel$`, ``)).cs" />
     <Page Update="**\*View.xaml" SubType="Designer" DependentUpon="$([System.Text.RegularExpressions.Regex]::Replace(%(Filename),`View$`, ``)).cs" />
   </ItemGroup>
+  -->
 
   <!--
      Workaround to fix Intellisense file generation for XAML projects

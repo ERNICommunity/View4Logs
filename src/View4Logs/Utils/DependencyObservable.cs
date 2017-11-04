@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Reactive.Linq;
 using System.Windows;
 
-namespace View4Logs.Core.MVVMComponent
+namespace View4Logs.Utils
 {
     public static class DependencyObservable
     {
