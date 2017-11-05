@@ -1,7 +1,17 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:theme="clr-namespace:View4Logs.Theme">
-    <SolidColorBrush x:Key="{x:Static theme:Brush.Background}" Color="{StaticResource {x:Static theme:Color.Background}}"/>
-    <SolidColorBrush x:Key="{x:Static theme:Brush.Border}" Color="{StaticResource {x:Static theme:Color.Border}}"/>
-    <SolidColorBrush x:Key="{x:Static theme:Brush.Text}" Color="{StaticResource {x:Static theme:Color.Text}}"/>
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:theme="clr-namespace:View4Logs.Theme">
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.Background}"
+        Color="{StaticResource {x:Static theme:Color.Background}}" />
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.Border}"
+        Color="{StaticResource {x:Static theme:Color.Border}}" />
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.HintText}"
+        Color="{StaticResource {x:Static theme:Color.HintText}}" />
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.Text}"
+        Color="{StaticResource {x:Static theme:Color.Text}}" />
 </ResourceDictionary>

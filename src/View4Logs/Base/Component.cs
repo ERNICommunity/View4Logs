@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -9,7 +8,7 @@ namespace View4Logs.Base
 {
     public abstract class Component : ContentControl
     {
-        public static readonly DependencyProperty ScopeProperty = DependencyProperty.RegisterAttached("Scope", typeof(ILifetimeScope), typeof(Component), new FrameworkPropertyMetadata { Inherits = true });
+        public static readonly DependencyProperty ScopeProperty = DependencyProperty.RegisterAttached(nameof(Scope), typeof(ILifetimeScope), typeof(Component), new FrameworkPropertyMetadata { Inherits = true });
 
         public static ILifetimeScope GetScope(Component target)
         {
@@ -32,8 +31,6 @@ namespace View4Logs.Base
         where TView : View, IComponentConnector, new()
         where TViewModel : class
     {
-
-
         private static readonly Lazy<TView> View = new Lazy<TView>(ViewFactory);
 
         protected Component()

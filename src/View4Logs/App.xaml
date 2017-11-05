@@ -9,6 +9,8 @@
                 <ResourceDictionary Source="Theme/Resources/FontFamily.xaml"/>
                 <ResourceDictionary Source="Theme/Resources/FontSize.xaml"/>
                 <ResourceDictionary Source="Theme/Resources/ItemsControl.xaml"/>
+                <ResourceDictionary Source="Theme/Resources/TextBlock.xaml"/>
+                <ResourceDictionary Source="Theme/Resources/TextBox.xaml"/>
                 <ResourceDictionary Source="Theme/Resources/Window.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

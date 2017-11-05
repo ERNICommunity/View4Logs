@@ -1,9 +1,12 @@
-﻿<base:View x:Class="View4Logs.UI.View.TimelineView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"             
-             xmlns:base="clr-namespace:View4Logs.Base"
-             xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
+﻿<base:View
+    x:Class="View4Logs.UI.View.TimelineView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="clr-namespace:View4Logs.Base"
+    xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
+
     <DataTemplate DataType="{x:Type vm:TimelineViewModel}">
-        <Button Content="Timeline"/>
+        <Button Content="Timeline" />
     </DataTemplate>
+
 </base:View>
