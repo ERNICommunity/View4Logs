@@ -1,0 +1,16 @@
+﻿<base:View x:Class="View4Logs.UI.View.LogsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"             
+             xmlns:base="clr-namespace:View4Logs.Base"
+             xmlns:vm="clr-namespace:View4Logs.UI.ViewModel"
+             xmlns:m="clr-namespace:View4Logs.Common">
+    <DataTemplate DataType="{x:Type vm:LogsViewModel}">
+        <ListView ItemsSource="{Binding Path=Messages, Mode=OneTime}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type m:LogMessage}">
+                    <TextBlock Text="{Binding Path=Message, Mode=OneTime}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>            
+        </ListView>
+    </DataTemplate>
+</base:View>

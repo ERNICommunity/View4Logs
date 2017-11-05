@@ -5,7 +5,7 @@ using View4Logs.UI.ViewModel;
 
 namespace View4Logs.UI.Control
 {
-    public class App : Component<AppView, AppViewModel>
+    public sealed class App : Component<AppView, AppViewModel>
     {
         public App(ILifetimeScope scope)
         {

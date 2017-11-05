@@ -3,7 +3,7 @@ using Autofac;
 
 namespace View4Logs.UI.Control
 {
-    public class AppWindow : Window
+    public sealed class AppWindow : Window
     {
         public AppWindow(ILifetimeScope scope)
         {

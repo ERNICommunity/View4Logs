@@ -1,11 +1,12 @@
 ﻿using System.Windows;
 using Autofac;
 using Autofac.Features.ResolveAnything;
+using View4Logs.Services;
 using View4Logs.UI.Control;
 
 namespace View4Logs
 {
-    public partial class App : Application
+    public sealed partial class App : Application
     {
         public App()
         {
@@ -26,6 +27,9 @@ namespace View4Logs
         {
             var builder = new ContainerBuilder();
             builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
+
+            builder.RegisterType<LogSourceService>()
+                .As<ILogSourceService>();
 
             return builder.Build();
         }
