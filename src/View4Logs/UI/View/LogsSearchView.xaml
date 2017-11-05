@@ -18,7 +18,8 @@
                 Visibility="{Binding ElementName=SearchBox, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <TextBox
                 x:Name="SearchBox"
-                Background="Transparent" />
+                Background="Transparent"
+                Text="{Binding Path=Query}" />
         </Grid>
     </DataTemplate>
 

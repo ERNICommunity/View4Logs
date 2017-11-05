@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using View4Logs.Utils;
 
 namespace View4Logs.Base
 {
@@ -23,6 +24,16 @@ namespace View4Logs.Base
             field = newValue;
             RaisePropertyChanged(propertyName);
             return true;
+        }
+
+        protected ObservableProperty<T> CreateProperty<T>(string propertyName)
+        {
+            return new ObservableProperty<T>(propertyName, RaisePropertyChanged);
+        }
+
+        protected ObservableProperty<T> CreateProperty<T>(string propertyName, T initialValue)
+        {
+            return new ObservableProperty<T>(propertyName, RaisePropertyChanged, initialValue);
         }
     }
 }

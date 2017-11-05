@@ -8,7 +8,16 @@ namespace View4Logs.Services
     {
         public LogSourceService()
         {
-            Messages = Observable.Interval(TimeSpan.FromSeconds(2)).Select(_ => new LogMessage { Message = "Lorem Ipsum" });
+            var rand = new Random();
+            var messages = new[]
+            {
+                "Some information",
+                "Catastrophic error",
+                "Just a warning, ignore me",
+                "TRACE: nothing important"
+            };
+
+            Messages = Observable.Interval(TimeSpan.FromSeconds(2)).Select(_ => new LogMessage { Message = messages[rand.Next(0, messages.Length -1)] });
         }
 
         public IObservable<LogMessage> Messages { get; }
