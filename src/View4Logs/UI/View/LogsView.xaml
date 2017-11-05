@@ -10,7 +10,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type m:LogMessage}">
                     <Border BorderThickness="0 0 0 1" BorderBrush="{DynamicResource {x:Static theme:Brush.Border}}">
-                        <TextBlock Text="{Binding Path=Message, Mode=OneTime}"/>
+                        <TextBlock Text="{Binding Path=Message, Mode=OneTime}" Padding="5" FontWeight="Bold"/>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
