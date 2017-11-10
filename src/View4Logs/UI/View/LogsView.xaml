@@ -8,19 +8,22 @@
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
     <DataTemplate DataType="{x:Type vm:LogsViewModel}">
-        <ItemsControl ItemsSource="{Binding Path=Messages}">
-            <ItemsControl.ItemTemplate>
+        <ListBox ItemsSource="{Binding Path=Messages}">
+            <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type data:LogMessage}">
-                    <Border
-                        BorderBrush="{DynamicResource {x:Static theme:Brush.Border}}"
-                        BorderThickness="0 0 0 1">
-                        <TextBlock
-                            Padding="5"
-                            Text="{Binding Path=Message, Mode=OneTime}" />
-                    </Border>
+                    <TextBlock
+                        Padding="5"
+                        Text="{Binding Path=Message, Mode=OneTime}" />
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static theme:Brush.Border}}" />
+                    <Setter Property="BorderThickness" Value="0 1 0 1" />
+                    <Setter Property="Focusable" Value="False" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
     </DataTemplate>
 
 </base:View>
