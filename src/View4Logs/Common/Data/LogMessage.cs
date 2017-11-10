@@ -1,4 +1,4 @@
-namespace View4Logs.Common
+namespace View4Logs.Common.Data
 {
     public class LogMessage
     {

@@ -1,30 +1,25 @@
-﻿using System;
-using System.Reactive.Linq;
-using System.Collections.ObjectModel;
+﻿using System.Reactive.Linq;
 using System.Reactive.Concurrency;
-using System.Windows.Data;
-using View4Logs.Common;
-using View4Logs.Services;
+using View4Logs.Common.Data;
+using View4Logs.Common.Interfaces;
+using View4Logs.Utils;
 
 namespace View4Logs.UI.ViewModel
 {
     public sealed class LogsViewModel : Base.ViewModel
     {
-        private readonly ILogSourceService _logSourceService;
-        private ObservableCollection<LogMessage> _logMessages;
+        private readonly ObservableProperty<LogMessage[]> _messages;
 
-        public LogsViewModel(ILogSourceService logSourceService)
+        public LogsViewModel(ILogFilterResultsService logFilterResultsService)
         {
-            _logSourceService = logSourceService;
-            _logMessages = new ObservableCollection<LogMessage>();
+            _messages = CreateProperty<LogMessage[]>(nameof(Messages));
 
-            Messages = new CollectionView(_logMessages);
-
-            _logSourceService.Messages
+            logFilterResultsService.Messages
                 .ObserveOn(DispatcherScheduler.Current)
-                .Subscribe(msg => _logMessages.Add(msg));
+                .Subscribe(_messages);
         }
 
-        public CollectionView Messages { get; }
+        
+        public LogMessage[] Messages => _messages.Value;
     }
 }

@@ -3,14 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:base="clr-namespace:View4Logs.Base"
-    xmlns:m="clr-namespace:View4Logs.Common"
+    xmlns:data="clr-namespace:View4Logs.Common.Data"
     xmlns:theme="clr-namespace:View4Logs.Theme"
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
     <DataTemplate DataType="{x:Type vm:LogsViewModel}">
-        <ItemsControl ItemsSource="{Binding Path=Messages, Mode=OneTime}">
+        <ItemsControl ItemsSource="{Binding Path=Messages}">
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type m:LogMessage}">
+                <DataTemplate DataType="{x:Type data:LogMessage}">
                     <Border
                         BorderBrush="{DynamicResource {x:Static theme:Brush.Border}}"
                         BorderThickness="0 0 0 1">

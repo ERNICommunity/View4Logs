@@ -19,7 +19,7 @@
             <TextBox
                 x:Name="SearchBox"
                 Background="Transparent"
-                Text="{Binding Path=Query}" />
+                Text="{Binding Path=Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=300}" />
         </Grid>
     </DataTemplate>
 

@@ -4,7 +4,7 @@ using System.Reactive.Subjects;
 
 namespace View4Logs.Utils
 {
-    public sealed class ObservableProperty<T> : IObservable<T>, IDisposable
+    public sealed class ObservableProperty<T> : ISubject<T>, IDisposable
     {
         private readonly Action<string> _raisePropertyChanged;
         private BehaviorSubject<T> _subject;
@@ -23,6 +23,8 @@ namespace View4Logs.Utils
             _subject = new BehaviorSubject<T>(initialValue);
         }
 
+        public string PropertyName { get; }
+
         public T Value
         {
             get
@@ -39,8 +41,6 @@ namespace View4Logs.Utils
             }
         }
 
-        public string PropertyName { get; }
-
         public IDisposable Subscribe(IObserver<T> observer)
         {
             return _subject.Subscribe(observer);
@@ -49,6 +49,21 @@ namespace View4Logs.Utils
         public void Dispose()
         {
             _subject.Dispose();
+        }
+
+        void IObserver<T>.OnNext(T value)
+        {
+            Value = value;
+        }
+
+        void IObserver<T>.OnError(Exception error)
+        {
+            // Do nothing
+        }
+
+        void IObserver<T>.OnCompleted()
+        {
+            // Do nothing
         }
     }
 }

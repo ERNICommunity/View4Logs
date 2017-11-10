@@ -1,27 +1,36 @@
 ﻿using System;
 using System.Reactive.Linq;
-using View4Logs.Common;
-using View4Logs.Services;
+using View4Logs.Common.Data;
+using View4Logs.Common.Interfaces;
 using View4Logs.Utils;
 
 namespace View4Logs.UI.ViewModel
 {
-    public sealed class LogsSearchViewModel : Base.ViewModel
+    public sealed class LogsSearchViewModel : Base.ViewModel, IDisposable
     {
-        private readonly ILogFilterService _logFilterService;
+        private readonly ObservableProperty<string> _query;
 
         public LogsSearchViewModel(ILogFilterService logFilterService)
-        {
-            _logFilterService = logFilterService;
-
-            _query = CreateProperty<string>(nameof(Query));
+        {            
+            _query = CreateProperty<string>(nameof(Query));            
+            var filter = _query.Select(CreateFilter);
+            logFilterService.AddFilter(filter);
         }
-
-        private readonly ObservableProperty<string>  _query;
+        
         public string Query
         {
             get => _query.Value;
             set => _query.Value = value;
+        }
+
+        private Func<LogMessage, bool> CreateFilter(string query)
+        {
+            return msg => string.IsNullOrEmpty(query) || msg.Message.Contains(query);
+        }
+
+        public void Dispose()
+        {
+            _query.Dispose();
         }
     }
 }
