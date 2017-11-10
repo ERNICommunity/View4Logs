@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
+using View4Logs.Common;
 using View4Logs.Common.Data;
 using View4Logs.Common.Interfaces;
 using View4Logs.Utils;
@@ -13,7 +14,7 @@ namespace View4Logs.UI.ViewModel
         public LogsSearchViewModel(ILogFilterService logFilterService)
         {            
             _query = CreateProperty<string>(nameof(Query));            
-            var filter = _query.Select(CreateFilter);
+            var filter = _query.Select(CreateFilter).DistinctUntilChanged();
             logFilterService.AddFilter(filter);
         }
         
@@ -25,7 +26,12 @@ namespace View4Logs.UI.ViewModel
 
         private Func<LogMessage, bool> CreateFilter(string query)
         {
-            return msg => string.IsNullOrEmpty(query) || msg.Message.Contains(query);
+            if (string.IsNullOrEmpty(query))
+            {
+                return LogFilter.PassAll;
+            }
+
+            return msg => msg.Message.Contains(query);
         }
 
         public void Dispose()

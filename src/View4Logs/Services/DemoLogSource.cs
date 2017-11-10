@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive.Linq;
 using View4Logs.Common.Data;
 using View4Logs.Common.Interfaces;
@@ -9,6 +10,16 @@ namespace View4Logs.Services
     {
         private readonly ILogSourceService _logSourceService;
 
+        private readonly Random _rand = new Random();
+
+        private readonly string[] _messages =
+        {
+            "Some information",
+            "Catastrophic error",
+            "Just a warning, ignore me",
+            "TRACE: nothing important"
+        };
+
         public DemoLogSource(ILogSourceService logSourceService)
         {
             _logSourceService = logSourceService;
@@ -16,20 +27,20 @@ namespace View4Logs.Services
 
         public void Start()
         {
-            var rand = new Random();
-            var messages = new[]
+            foreach (var _ in Enumerable.Range(1, 100))
             {
-                "Some information",
-                "Catastrophic error",
-                "Just a warning, ignore me",
-                "TRACE: nothing important"
-            };
+                _logSourceService.Append(GenerateMessage());
+            }
 
-            Observable
-                .Interval(TimeSpan.FromSeconds(2))
-                .Select(_ => new LogMessage { Message = messages[rand.Next(0, messages.Length - 1)] })
-                .Subscribe(_logSourceService.Append);
+            ////Observable
+            ////    .Interval(TimeSpan.FromSeconds(2))
+            ////    .Select(_ => GenerateMessage())
+            ////    .Subscribe(_logSourceService.Append);
+        }
 
+        private LogMessage GenerateMessage()
+        {
+            return new LogMessage {Message = _messages[_rand.Next(0, _messages.Length - 1)]};
         }
     }
 }
