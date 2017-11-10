@@ -27,15 +27,15 @@ namespace View4Logs.Services
 
         public void Start()
         {
-            foreach (var _ in Enumerable.Range(1, 100))
+            foreach (var _ in Enumerable.Range(1, 100_000))
             {
                 _logSourceService.Append(GenerateMessage());
             }
 
-            ////Observable
-            ////    .Interval(TimeSpan.FromSeconds(2))
-            ////    .Select(_ => GenerateMessage())
-            ////    .Subscribe(_logSourceService.Append);
+            Observable
+                .Interval(TimeSpan.FromMilliseconds(5))
+                .Select(_ => GenerateMessage())
+                .Subscribe(_logSourceService.Append);
         }
 
         private LogMessage GenerateMessage()
