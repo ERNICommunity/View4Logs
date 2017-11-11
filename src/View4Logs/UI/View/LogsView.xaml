@@ -8,7 +8,9 @@
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
     <DataTemplate DataType="{x:Type vm:LogsViewModel}">
-        <ListBox ItemsSource="{Binding Path=Messages}">
+        <ListBox
+            ItemsSource="{Binding Path=Messages}"
+            VirtualizingPanel.VirtualizationMode="Recycling">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type data:LogMessage}">
                     <TextBlock
