@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reactive.Subjects;
 
-namespace View4Logs.Utils
+namespace View4Logs.Utils.Observables
 {
     public sealed class ObservableProperty<T> : ISubject<T>, IDisposable
     {

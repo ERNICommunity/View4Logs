@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime;
 
-namespace View4Logs.Utils
+namespace View4Logs.Utils.Collections
 {
     /// <summary>
     /// Basically it's a List which only allows appending element and creating "snapshots".  
@@ -10,10 +10,10 @@ namespace View4Logs.Utils
     /// </summary>
     public sealed class AppendBuffer<T>
     {
-        private const int _defaultCapacity = 4;
+        private const int DefaultCapacity = 4;
         private const int MaxArrayLength = 0X7FEFFFFF;
 
-        static readonly T[] _emptyArray = new T[0];
+        static readonly T[] EmptyArray = new T[0];
 
         private T[] _items;
 
@@ -30,7 +30,7 @@ namespace View4Logs.Utils
 
             if (capacity == 0)
             {
-                _items = _emptyArray;
+                _items = EmptyArray;
             }
             else
             {
@@ -70,7 +70,7 @@ namespace View4Logs.Utils
                     }
                     else
                     {
-                        _items = _emptyArray;
+                        _items = EmptyArray;
                     }
                 }
             }
@@ -103,7 +103,7 @@ namespace View4Logs.Utils
         {
             if (_items.Length < min)
             {
-                int newCapacity = _items.Length == 0 ? _defaultCapacity : _items.Length * 2;
+                int newCapacity = _items.Length == 0 ? DefaultCapacity : _items.Length * 2;
                 if ((uint) newCapacity > MaxArrayLength)
                 {
                     newCapacity = MaxArrayLength;

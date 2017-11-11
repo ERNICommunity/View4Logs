@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using View4Logs.Utils;
+using View4Logs.Utils.Observables;
 
 namespace View4Logs.Base
 {
