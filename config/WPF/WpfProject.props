@@ -22,7 +22,7 @@
     <!--<Compile Update="Properties\Resources.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Resources.resx" />-->
     <!--<Compile Update="Settings.Designer.cs" AutoGen="True" DependentUpon="Settings.settings" />-->
     <!--<None Update="Settings.settings" LastGenOutput="Settings.Designer.cs" Generator="SettingsSingleFileGenerator" />-->
-    <!--<Resource Include="assets\*.*" />-->
+    <Resource Include="assets\**\*" />
   </ItemGroup>
 
   <ItemGroup>

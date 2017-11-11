@@ -4,5 +4,6 @@
     xmlns:theme="clr-namespace:View4Logs.Theme">
 
     <FontFamily x:Key="{x:Static theme:FontFamily.Default}">Calibry</FontFamily>
+    <FontFamily x:Key="{x:Static theme:FontFamily.FontAwesome}">pack://application:,,,/assets/Fonts/fontawesome-webfont.ttf#FontAwesome</FontFamily>
 
 </ResourceDictionary>
