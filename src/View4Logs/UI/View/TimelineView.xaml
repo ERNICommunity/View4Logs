@@ -5,8 +5,6 @@
     xmlns:base="clr-namespace:View4Logs.Base"
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
-    <DataTemplate DataType="{x:Type vm:TimelineViewModel}">
-        <Button Content="Timeline" />
-    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TimelineViewModel}" />
 
 </base:View>

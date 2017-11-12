@@ -1,12 +1,14 @@
-﻿using System.Windows;
+﻿using System.Windows.Media;
+using ColorValue = System.Windows.Media.Color;
 
 namespace View4Logs.Theme
 {
     public static class Color
     {
-        public static readonly ComponentResourceKey Background = new ComponentResourceKey(typeof(Color), nameof(Background));
-        public static readonly ComponentResourceKey Border = new ComponentResourceKey(typeof(Color), nameof(Border));
-        public static readonly ComponentResourceKey HintText = new ComponentResourceKey(typeof(Color), nameof(HintText));
-        public static readonly ComponentResourceKey Text = new ComponentResourceKey(typeof(Color), nameof(Text));
+        public static readonly ColorValue AppBarBackground = (ColorValue)ColorConverter.ConvertFromString("#212121");
+        public static readonly ColorValue Background = (ColorValue)ColorConverter.ConvertFromString("#303030");
+        public static readonly ColorValue Border = (ColorValue)ColorConverter.ConvertFromString("#424242");
+        public static readonly ColorValue HintText = (ColorValue)ColorConverter.ConvertFromString("#828489");
+        public static readonly ColorValue Text = (ColorValue)ColorConverter.ConvertFromString("#c0c0c2");
     }
 }

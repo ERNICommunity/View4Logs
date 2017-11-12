@@ -13,6 +13,7 @@
         <ListBox
             AllowDrop="True"
             ItemsSource="{Binding Path=Messages}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             VirtualizingPanel.VirtualizationMode="Recycling">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type data:LogMessage}">

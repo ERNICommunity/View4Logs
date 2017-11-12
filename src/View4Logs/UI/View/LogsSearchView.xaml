@@ -11,15 +11,39 @@
         <DataTemplate.Resources>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </DataTemplate.Resources>
-        <Grid Margin="5">
-            <TextBlock
-                Foreground="{DynamicResource {x:Static theme:Brush.HintText}}"
-                Text="Search"
-                Visibility="{Binding ElementName=SearchBox, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <TextBox
-                x:Name="SearchBox"
-                Background="Transparent"
-                Text="{Binding Path=Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Grid Background="{DynamicResource {x:Static theme:Brush.AppBarBackground}}">
+            <Grid Margin="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Padding="0 0 20 0"
+                    HorizontalAlignment="Left"
+                    FontFamily="{DynamicResource {x:Static theme:FontFamily.FontAwesome}}"
+                    Foreground="{DynamicResource {x:Static theme:Brush.HintText}}"
+                    Text="{x:Static theme:FontAwesome.Search}"
+                    TextElement.FontSize="{DynamicResource {x:Static theme:FontSize.Large}}" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    Foreground="{DynamicResource {x:Static theme:Brush.HintText}}"
+                    Text="Search"
+                    TextElement.FontSize="{DynamicResource {x:Static theme:FontSize.Large}}"
+                    Visibility="{Binding ElementName=SearchBox, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <TextBox
+                    x:Name="SearchBox"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    Background="Transparent"
+                    BorderBrush="{DynamicResource {x:Static theme:Brush.HintText}}"
+                    BorderThickness="0 0 0 1"
+                    Text="{Binding Path=Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextElement.FontSize="{DynamicResource {x:Static theme:FontSize.Large}}" />
+            </Grid>
         </Grid>
     </DataTemplate>
 
