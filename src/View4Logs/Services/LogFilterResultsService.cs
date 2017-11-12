@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using View4Logs.Common.Data;
 using View4Logs.Common.Interfaces;
-using View4Logs.Utils;
+using View4Logs.Utils.Collections;
 
 namespace View4Logs.Services
 {

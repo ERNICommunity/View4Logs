@@ -3,7 +3,7 @@ using System.Reactive.Linq;
 using View4Logs.Common;
 using View4Logs.Common.Data;
 using View4Logs.Common.Interfaces;
-using View4Logs.Utils;
+using View4Logs.Utils.Observables;
 
 namespace View4Logs.UI.ViewModel
 {

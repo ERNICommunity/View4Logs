@@ -25,8 +25,8 @@ namespace View4Logs
             var window = Container.Resolve<AppWindow>();
             window.Show();
 
-            _demoSource = Container.Resolve<DemoLogSource>();
-            _demoSource.Start();
+            ////_demoSource = Container.Resolve<DemoLogSource>();
+            ////_demoSource.Start();
         }
 
         private IContainer ContainerFactory()
@@ -37,6 +37,7 @@ namespace View4Logs
             builder.RegisterType<LogFilterResultsService>().As<ILogFilterResultsService>().SingleInstance();
             builder.RegisterType<LogFilterService>().As<ILogFilterService>().SingleInstance();
             builder.RegisterType<LogSourceService>().As<ILogSourceService>().SingleInstance();
+            builder.RegisterType<Log4jXmlLogFileImporter>().As<ILogFileImporter>().SingleInstance();
 
             return builder.Build();
         }

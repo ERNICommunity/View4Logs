@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Reactive.Concurrency;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using View4Logs.Base;
 using View4Logs.Common.Data;
@@ -14,7 +13,7 @@ namespace View4Logs.UI.ViewModel
     {
         private readonly ObservableProperty<IList<LogMessage>> _messages;
 
-        public LogsViewModel(ILogFilterResultsService logFilterResultsService)
+        public LogsViewModel(ILogFilterResultsService logFilterResultsService, ILogFileImporter logFileImporter)
         {
             _messages = CreateProperty<IList<LogMessage>>(nameof(Messages));
 
@@ -24,8 +23,7 @@ namespace View4Logs.UI.ViewModel
 
             OpenFileCommand = Command.Create( async (string[] files) =>
             {
-                // TODO
-                await Task.Delay(500);
+                await logFileImporter.Import(files[0]);
             });
         }
 
