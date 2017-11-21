@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using View4Logs.Common.Data;
+﻿using View4Logs.Common.Data;
+using View4Logs.Utils.Collections;
 
 namespace View4Logs.Common.Interfaces
 {
     public interface ILogFilterResultsService
     {
-        IObservable<IList<LogMessage>> Messages { get; }
+        INotifyListChanged<LogMessage> Messages { get; }
     }
 }

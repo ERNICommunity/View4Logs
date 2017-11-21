@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using View4Logs.Common.Data;
+﻿using View4Logs.Common.Data;
+using View4Logs.Utils.Collections;
 
 namespace View4Logs.Common.Interfaces
 {
     public interface ILogSourceService
     {
-        IObservable<ILogMessagesObservableBuffer> Messages { get; }
+        INotifyListChanged<LogMessage> Messages { get; }
 
-        void Append(LogMessage message);
+        INotifyListChanged<ILogSource> Sources { get; }
 
-        void Reset(List<LogMessage> messages);
+        void AddSource(ILogSource source);
+
+        void Clear();
     }
 }
