@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Autofac;
 using Autofac.Features.ResolveAnything;
 using View4Logs.Common.Interfaces;
@@ -9,7 +10,15 @@ namespace View4Logs
 {
     public sealed partial class App : Application
     {
-        private DemoLogSource _demoSource;
+        static App()
+        {
+            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;            
+        }
+
+        private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(((Exception) e.ExceptionObject).Message);
+        }
 
         public App()
         {
@@ -24,9 +33,6 @@ namespace View4Logs
 
             var window = Container.Resolve<AppWindow>();
             window.Show();
-
-            ////_demoSource = Container.Resolve<DemoLogSource>();
-            ////_demoSource.Start();
         }
 
         private IContainer ContainerFactory()
@@ -37,7 +43,7 @@ namespace View4Logs
             builder.RegisterType<LogFilterResultsService>().As<ILogFilterResultsService>().SingleInstance();
             builder.RegisterType<LogFilterService>().As<ILogFilterService>().SingleInstance();
             builder.RegisterType<LogSourceService>().As<ILogSourceService>().SingleInstance();
-            builder.RegisterType<Log4jXmlLogFileImporter>().As<ILogFileImporter>().SingleInstance();
+            builder.RegisterType<Log4JXmlLogFileImporter>().As<ILogFileImporter>().SingleInstance();
 
             return builder.Build();
         }

@@ -8,6 +8,6 @@ namespace View4Logs.Common.Interfaces
     {
         IReadOnlyList<LogMessage> Messages { get; }
 
-        IObservable<LogMessage> NewMessages { get; }
+        IObservable<IList<LogMessage>> NewMessages { get; }
     }
 }

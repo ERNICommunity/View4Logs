@@ -1,72 +1,69 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using View4Logs.Common.Data;
 using View4Logs.Common.Interfaces;
+using View4Logs.Utils.Collections;
 
 namespace View4Logs.Services
 {
     public sealed class LogSourceService : ILogSourceService
     {
         private readonly object _messagesLock;
-        private readonly BehaviorSubject<LogMessagesObservableBuffer> _messages;
+        private readonly object _sourcesLock;
+        private readonly ObservableCowList<ILogSource> _sources;
+        private readonly ObservableCowList<LogMessage> _messages;
 
         public LogSourceService()
         {
             _messagesLock = new object();
-            _messages = new BehaviorSubject<LogMessagesObservableBuffer>(new LogMessagesObservableBuffer());
-            Messages = _messages.AsObservable();
+            _sourcesLock = new object();
+            _sources = new ObservableCowList<ILogSource>();
+            _messages = new ObservableCowList<LogMessage>();
+
+            Sources = _sources;
+            Messages = _messages;
         }
 
-        public IObservable<ILogMessagesObservableBuffer> Messages { get; }
+        public INotifyListChanged<LogMessage> Messages { get; }
 
-        public void Append(LogMessage message)
+        public INotifyListChanged<ILogSource> Sources { get; }
+
+        public void AddSource(ILogSource source)
+        {
+            lock (_sourcesLock)
+            {
+                _sources.Add(source);
+                source.Subscribe(
+                    Append,
+                    () => _sources.Remove(source)
+                );
+            }
+        }
+
+        private void Append(IList<LogMessage> messages)
         {
             lock (_messagesLock)
             {
-                _messages.Value.Append(message);
+                var needSort = messages.Zip(messages.Skip(1), (a, b) => a.TimeStamp < b.TimeStamp).Contains(false);
+                if (needSort)
+                {
+                    messages = messages.OrderBy(msg => msg.TimeStamp).ToList();
+                }
+
+                _messages.Add(messages);
             }
         }
 
-        public void Reset(List<LogMessage> messages)
+        public void Clear()
         {
-            lock (_messagesLock)
+            lock (_sourcesLock)
             {
-                _messages.Value.Dispose();
-                _messages.OnNext(new LogMessagesObservableBuffer(messages));
-            }
-        }
-
-        private sealed class LogMessagesObservableBuffer : ILogMessagesObservableBuffer, IDisposable
-        {
-            private readonly List<LogMessage> _messages;
-            private readonly Subject<LogMessage> _newMessages;
-
-            public LogMessagesObservableBuffer()
-                : this(new List<LogMessage>())
-            { }
-
-            public LogMessagesObservableBuffer(List<LogMessage> messages)
-            {
-                _messages = messages;
-                _newMessages = new Subject<LogMessage>();
-                NewMessages = _newMessages.AsObservable();
-            }
-
-            public IReadOnlyList<LogMessage> Messages => _messages;
-
-            public IObservable<LogMessage> NewMessages { get; }
-
-            public void Append(LogMessage message)
-            {
-                _messages.Add(message);
-                _newMessages.OnNext(message);
-            }
-
-            public void Dispose()
-            {
-                _newMessages.Dispose();
+                lock (_messagesLock)
+                {
+                    _sources.Clear();
+                    _messages.Clear();
+                }
             }
         }
     }

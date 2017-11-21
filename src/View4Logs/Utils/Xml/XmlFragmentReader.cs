@@ -6,7 +6,7 @@ using System.Xml;
 using System.Xml.Linq;
 using View4Logs.Utils.Streams;
 
-namespace View4Logs.Utils.Xnl
+namespace View4Logs.Utils.Xml
 {
     public sealed class XmlFragmentReader
     {

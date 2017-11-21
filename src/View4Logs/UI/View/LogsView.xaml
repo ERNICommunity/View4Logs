@@ -7,6 +7,7 @@
     xmlns:data="clr-namespace:View4Logs.Common.Data"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:theme="clr-namespace:View4Logs.Theme"
+    xmlns:utils="clr-namespace:View4Logs.Utils"
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
     <DataTemplate DataType="{x:Type vm:LogsViewModel}">
@@ -17,9 +18,32 @@
             VirtualizingPanel.VirtualizationMode="Recycling">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type data:LogMessage}">
-                    <TextBlock
-                        Padding="5"
-                        Text="{Binding Path=Message, Mode=OneTime}" />
+                    <DataTemplate.Resources>
+                        <utils:LogLevelColorConverter x:Key="logLevelConverter" />
+                    </DataTemplate.Resources>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
+                                Width="auto"
+                                SharedSizeGroup="LogDatetime" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Text="{Binding Path=TimeStamp, StringFormat='dd.MM.yyyy H:mm:ss'}">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{Binding Path=Level, Converter={StaticResource logLevelConverter}}" />
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="20 0 0 0"
+                            Text="{Binding Path=Message, Mode=OneTime}">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{Binding Path=Level, Converter={StaticResource logLevelConverter}}" />
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
             <ListBox.ItemContainerStyle>

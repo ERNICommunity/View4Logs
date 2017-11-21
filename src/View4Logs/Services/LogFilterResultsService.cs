@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,48 +12,75 @@ namespace View4Logs.Services
 {
     public sealed class LogFilterResultsService : ILogFilterResultsService
     {
-        private const int BufferDefaultSize = 1024;
+        private readonly ObservableCowList<LogMessage> _messages;
 
         public LogFilterResultsService(ILogSourceService logSourceService, ILogFilterService logFilterService)
         {
-            // Produces new array of messages whenever arrives new message which passes the filter or the filter is changed.
-            Messages = Observable.CombineLatest(
-                logFilterService.Filter.ObserveOn(TaskPoolScheduler.Default),
-                logSourceService.Messages.ObserveOn(TaskPoolScheduler.Default),
-                FilterMessages
-            ).Switch();
+            _messages = new ObservableCowList<LogMessage>();
+            Messages = _messages;
+
+            var sourceMessages = logSourceService.Messages.AsBehaviorObservable().Publish();
+            var filterChanges = logFilterService.Filter.Publish();
+            var sourceResetMessages = sourceMessages.Where(e => e.Action == NotifyListChangedAction.Reset).Select(e => e.Items);
+
+            Observable.Merge(
+                Observable.WithLatestFrom(
+                    sourceResetMessages,
+                    filterChanges,
+                    (items, filter) => (items, filter)
+                ),
+                Observable.WithLatestFrom(
+                    filterChanges,
+                    sourceMessages.Select(e => e.Items),
+                    (filter, items) => (items, filter)
+                )
+            )
+            .Select(x =>
+            {
+                (var items, var filter) = x;
+                return Observable.Concat(
+                    InvokeFilter(NotifyListChangedAction.Reset, items, filter),
+                    sourceMessages
+                        .TakeWhile(e => e.Action == NotifyListChangedAction.Add)
+                        .Select(e => InvokeFilter(e.Action, e.NewItems, filter))
+                        .SelectMany(a => a)
+                );
+            })
+            .Switch().Subscribe(x =>
+            {
+                (var action, var items) = x;
+                switch (action)
+                {
+                    case NotifyListChangedAction.Add:
+                        _messages.Add(items);
+                        break;
+                    case NotifyListChangedAction.Reset:
+                        _messages.Reset(items);
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
+            });
+
+            filterChanges.Connect();
+            sourceMessages.Connect();
         }
 
-        public IObservable<IList<LogMessage>> Messages { get; }
+        public INotifyListChanged<LogMessage> Messages { get; }
 
-        private IObservable<IList<LogMessage>> FilterMessages(Func<LogMessage, bool> filter, ILogMessagesObservableBuffer buf)
+        private IObservable<(NotifyListChangedAction, IList<LogMessage>)> InvokeFilter(NotifyListChangedAction action, IList<LogMessage> messages, Func<LogMessage, bool> filter)
         {
-            // Internal buffer for messages which passes the filter condition.
-            var filteredMessagesBuffer = new AppendBuffer<LogMessage>(BufferDefaultSize);
-            
-            return Observable.Concat(
-                // Filter all current messages asynchronously with cancellation support
-                Observable.StartAsync(async token =>
-                {
-                    await Task.Run(() => filteredMessagesBuffer.AddRange(ApplyFilter(buf.Messages, filter, token)), token);
-                    return filteredMessagesBuffer.Snapshot();
-                }),
-                // Append all following messages which passes the filter
-                buf.NewMessages.Where(filter).Select(msg =>
-                {
-                    filteredMessagesBuffer.Add(msg);
-                    return filteredMessagesBuffer.Snapshot();
-                })
-            );
+            return Observable.StartAsync(token => Task.Run(() => (action, ApplyFilter(messages, filter, token)), token));
         }
 
-        private IEnumerable<LogMessage> ApplyFilter(IReadOnlyList<LogMessage> messages, Func<LogMessage, bool> filter, CancellationToken token)
-        {            
+        private IList<LogMessage> ApplyFilter(IList<LogMessage> messages, Func<LogMessage, bool> filter, CancellationToken token)
+        {
             return messages
-                .AsParallel()
-                .AsOrdered()
-                .WithCancellation(token)
-                .Where(filter);
+                    .AsParallel()
+                    .AsOrdered()
+                    .WithCancellation(token)
+                    .Where(filter)
+                    .ToList();
         }
     }
 }

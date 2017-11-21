@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
+using System.Collections.Generic;
 using System.Reactive.Concurrency;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using View4Logs.Base;
 using View4Logs.Common.Data;
 using View4Logs.Common.Interfaces;
+using View4Logs.Utils.Collections;
 using View4Logs.Utils.Observables;
 
 namespace View4Logs.UI.ViewModel
@@ -17,17 +19,16 @@ namespace View4Logs.UI.ViewModel
         {
             _messages = CreateProperty<IList<LogMessage>>(nameof(Messages));
 
-            logFilterResultsService.Messages
+            logFilterResultsService.Messages.AsItemsBehaviorObservable()
                 .ObserveOn(DispatcherScheduler.Current)
                 .Subscribe(_messages);
 
-            OpenFileCommand = Command.Create( async (string[] files) =>
-            {
-                await logFileImporter.Import(files[0]);
-            });
+            OpenFileCommand = Command.Create(async (string[] files) =>
+           {
+               await Task.Run(() => logFileImporter.Import(files[0]));
+           });
         }
 
-        
         public IList<LogMessage> Messages => _messages.Value;
 
         public ICommand OpenFileCommand { get; }
