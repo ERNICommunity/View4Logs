@@ -23,6 +23,7 @@ namespace View4Logs
         public App()
         {
             Container = ContainerFactory();
+            Exit += OnExit;
         }
 
         public IContainer Container { get; }
@@ -46,6 +47,11 @@ namespace View4Logs
             builder.RegisterType<Log4JXmlLogFileImporter>().As<ILogFileImporter>().SingleInstance();
 
             return builder.Build();
+        }
+
+        private void OnExit(object sender, ExitEventArgs e)
+        {
+            Container.Dispose();
         }
     }
 }

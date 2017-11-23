@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Markup;
 using Autofac;
 
 namespace View4Logs.Base
 {
-    public abstract class Component : ContentControl
+    public abstract class Component : ViewPresenter
     {
         public static readonly DependencyProperty ScopeProperty = DependencyProperty.RegisterAttached(nameof(Scope), typeof(ILifetimeScope), typeof(Component), new FrameworkPropertyMetadata { Inherits = true });
 
@@ -31,7 +30,7 @@ namespace View4Logs.Base
         where TView : View, IComponentConnector, new()
         where TViewModel : class
     {
-        private static readonly Lazy<TView> View = new Lazy<TView>(ViewFactory);
+        private static readonly Lazy<TView> ViewTemplate = new Lazy<TView>(ViewTemplateFactory);
 
         protected Component()
         {
@@ -41,34 +40,40 @@ namespace View4Logs.Base
 
         protected TViewModel ViewModel { get; private set; }
 
-        protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
-            ContentTemplate = View.Value.Template;
-        }
-
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            View = ViewFactory();
             ViewModel = ViewModelFactory();
-            Content = ViewModel;
+
+            if (View != null)
+            {
+                View.DataContext = ViewModel;
+                InvalidateMeasure();
+            }            
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
+            View = null;
             (ViewModel as IDisposable)?.Dispose();
-            Content = ViewModel = null;
-        }              
+        }
 
-        private static TView ViewFactory()
+        protected virtual FrameworkElement ViewFactory()
         {
-            var view = new TView();
-            view.InitializeComponent();
-            return view;
+            return (FrameworkElement)ViewTemplate.Value.Template.LoadContent();
         }
 
         protected virtual TViewModel ViewModelFactory()
         {
             return Scope.Resolve<TViewModel>();
+        }
+
+        private static TView ViewTemplateFactory()
+        {
+            var view = new TView();
+            view.InitializeComponent();
+            view.Template.Seal();
+            return view;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace View4Logs.UI.Control
     {
         public App(ILifetimeScope scope)
         {
-            Scope = scope;
+            SetCurrentValue(ScopeProperty, scope);
         }
     }
 }
