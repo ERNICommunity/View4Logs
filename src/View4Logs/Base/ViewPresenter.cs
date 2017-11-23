@@ -33,6 +33,8 @@ namespace View4Logs.Base
                     _view = value;
                     AddVisualChild(_view);
                 }
+
+                InvalidateMeasure();
             }
         }
 

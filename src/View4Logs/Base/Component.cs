@@ -48,8 +48,7 @@ namespace View4Logs.Base
             if (View != null)
             {
                 View.DataContext = ViewModel;
-                InvalidateMeasure();
-            }            
+            }
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
