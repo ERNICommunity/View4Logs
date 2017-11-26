@@ -75,13 +75,16 @@ namespace View4Logs.Utils.Xml
 
         void IContentHandler.EndElement(string uri, string localName, string qName)
         {
-            if (_current.Parent == null)
+            if (_current != null)
             {
-                // It's a root element in which user is interested.
-                _elements.OnNext(_current);
+                if (_current.Parent == null)
+                {
+                    // It's a root element in which user is interested.
+                    _elements.OnNext(_current);
+                }
+
+                _current = _current.Parent;
             }
-            
-            _current = _current.Parent;
         }
 
         void IContentHandler.Characters(char[] ch, int start, int length)
