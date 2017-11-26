@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AElfred.Net" Version="1.2.2" />
     <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="6.5.0.3766">
       <PrivateAssets>all</PrivateAssets>

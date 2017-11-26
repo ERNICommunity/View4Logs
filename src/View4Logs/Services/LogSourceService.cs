@@ -7,7 +7,7 @@ using View4Logs.Utils.Collections;
 
 namespace View4Logs.Services
 {
-    public sealed class LogSourceService : ILogSourceService
+    public sealed class LogSourceService : ILogSourceService, IDisposable
     {
         private readonly object _messagesLock;
         private readonly object _sourcesLock;
@@ -61,10 +61,20 @@ namespace View4Logs.Services
             {
                 lock (_messagesLock)
                 {
+                    foreach (var src in _sources)
+                    {
+                        src.Dispose();
+                    }
+
                     _sources.Clear();
                     _messages.Clear();
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            Clear();
         }
     }
 }
