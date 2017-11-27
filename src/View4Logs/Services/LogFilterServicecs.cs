@@ -6,82 +6,56 @@ using System.Reactive.Subjects;
 using View4Logs.Common;
 using View4Logs.Common.Data;
 using View4Logs.Common.Interfaces;
+using View4Logs.Utils.Collections;
 
 namespace View4Logs.Services
 {
     public sealed class LogFilterService : ILogFilterService, IDisposable
     {
-        private readonly ISubject<Func<LogMessage, bool>> _resultFilter;
-        private readonly Dictionary<object, Func<LogMessage, bool>> _filters;
         private readonly object _filtersLock = new object();
+        private readonly BehaviorSubject<Func<LogMessage, bool>> _filter;
+        private readonly ObservableCowList<IObservable<Func<LogMessage, bool>>> _filters;
 
         public LogFilterService()
         {
-            _resultFilter = new BehaviorSubject<Func<LogMessage, bool>>(LogFilter.PassAll);
+            _filter = new BehaviorSubject<Func<LogMessage, bool>>(LogFilter.PassAll);
+            _filters = new ObservableCowList<IObservable<Func<LogMessage, bool>>>();
 
-            // Storage for all current filters.
-            _filters = new Dictionary<object, Func<LogMessage, bool>>();
+            _filters
+                .AsItemsBehaviorObservable()
+                .Select(items => items.CombineLatest(CombineFilters))
+                .Switch()
+                .DistinctUntilChanged()
+                .Subscribe(_filter);
 
-            Filter = _resultFilter.DistinctUntilChanged();
+            Filter = _filter.AsObservable();
         }
 
         public IObservable<Func<LogMessage, bool>> Filter { get; }
 
         public void AddFilter(IObservable<Func<LogMessage, bool>> filter)
         {
-            // Reference to the observable filter is used as a key
-            object key = filter;
+            lock (_filtersLock)
+            {
+                _filters.Add(filter);
+            }
+        }
 
-            filter.Subscribe(
-                f => SetFilter(key, f),
-                ex => RemoveFilter(key),
-                () => RemoveFilter(key)
-            );
+        private Func<LogMessage, bool> CombineFilters(IList<Func<LogMessage, bool>> filters)
+        {
+            var activeFilters = filters.Where(f => f != LogFilter.PassAll).ToArray();
+
+            if (activeFilters.Length == 0)
+            {
+                return LogFilter.PassAll;
+            }
+
+            return msg => Array.TrueForAll(activeFilters, f => f(msg));
         }
 
         public void Dispose()
         {
-            _resultFilter.OnCompleted();
-        }
-
-        private void SetFilter(object key, Func<LogMessage, bool> filter)
-        {
-            lock (_filtersLock)
-            {
-                if (filter == LogFilter.PassAll)
-                {
-                    _filters.Remove(key);
-                }
-                else
-                {
-                    _filters[key] = filter;
-                }
-                
-                UpdateResultFilter();
-            }
-        }
-
-        private void RemoveFilter(object key)
-        {
-            lock (_filtersLock)
-            {
-                _filters.Remove(key);
-                UpdateResultFilter();
-            }
-        }
-
-        private void UpdateResultFilter()
-        {
-            if (_filters.Count > 0)
-            {
-                var activeFilters = _filters.Values.ToArray();
-                bool Func(LogMessage msg) => Array.TrueForAll(activeFilters, f => f(msg));
-                _resultFilter.OnNext(Func);
-            }
-            else
-            {
-                _resultFilter.OnNext(LogFilter.PassAll);
-            }
+            _filter.Dispose();
         }
     }
 }

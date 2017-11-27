@@ -12,12 +12,12 @@ namespace View4Logs.UI.ViewModel
         private readonly ObservableProperty<string> _query;
 
         public LogsSearchViewModel(ILogFilterService logFilterService)
-        {            
-            _query = CreateProperty<string>(nameof(Query));            
+        {
+            _query = CreateProperty<string>(nameof(Query));
             var filter = _query.Select(CreateFilter).DistinctUntilChanged();
             logFilterService.AddFilter(filter);
         }
-        
+
         public string Query
         {
             get => _query.Value;
