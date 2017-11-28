@@ -1,9 +1,12 @@
 using System;
+using View4Logs.Common.Interfaces;
 
 namespace View4Logs.Common.Data
 {
     public class LogMessage
     {
+        public ILogSource Source { get; set; }
+
         public string Message { get; set; }
 
         public LogLevel Level { get; set; }

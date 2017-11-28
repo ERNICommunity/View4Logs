@@ -34,10 +34,22 @@ namespace View4Logs.Services
             lock (_sourcesLock)
             {
                 _sources.Add(source);
-                source.Subscribe(
+
+                source.Messages.Subscribe(
                     Append,
                     () => _sources.Remove(source)
                 );
+
+                source.Reset.Subscribe(ResetSource);
+            }
+        }
+
+        public void ResetSource(ILogSource source)
+        {
+            lock (_messagesLock)
+            {
+                var messages = _messages.Where(msg => msg.Source != source).ToList();
+                _messages.Reset(messages);
             }
         }
 

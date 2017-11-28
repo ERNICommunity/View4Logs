@@ -3,11 +3,11 @@ using View4Logs.LogSources;
 
 namespace View4Logs.Services
 {
-    public sealed class Log4jXmlLogFileImportService : ILogFileImporter
+    public sealed class Log4JXmlLogFileImportService : ILogFileImporter
     {
         private readonly ILogSourceService _logSourceService;
 
-        public Log4jXmlLogFileImportService(ILogSourceService logSourceService)
+        public Log4JXmlLogFileImportService(ILogSourceService logSourceService)
         {
             _logSourceService = logSourceService;
         }

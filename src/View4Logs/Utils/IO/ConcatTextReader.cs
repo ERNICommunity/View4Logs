@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
 
-namespace View4Logs.Utils.Streams
+namespace View4Logs.Utils.IO
 {
+    /// <summary>
+    /// Wraps array of input text readers and acts as a single text read which concatenates their content.
+    /// </summary>
     public sealed class ConcatTextReader : TextReader
     {
         private readonly TextReader[] _readers;
@@ -55,27 +58,30 @@ namespace View4Logs.Utils.Streams
 
         public override int Read(char[] buffer, int index, int count)
         {
-            while (_current != null)
+            int totalRead = 0;
+            while (_current != null && totalRead < count)
             {
-                var read = _current.Read(buffer, index, count);
+                var read = _current.Read(buffer, index + totalRead, count - totalRead);
                 if (read > 0)
                 {
-                    return read;
+                    totalRead += read;
                 }
-
-                NextReader();
+                else
+                {
+                    NextReader();
+                }
             }
 
-            return -1;
+            return totalRead;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                for (var i = 0; i < _readers.Length; i++)
+                foreach (var reader in _readers)
                 {
-                    _readers[i].Dispose();
+                    reader.Dispose();
                 }
             }
         }
