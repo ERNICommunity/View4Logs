@@ -7,7 +7,7 @@ namespace View4Logs.Utils.Observables
     public sealed class ObservableProperty<T> : ISubject<T>, IDisposable
     {
         private readonly Action<string> _raisePropertyChanged;
-        private BehaviorSubject<T> _subject;
+        private readonly BehaviorSubject<T> _subject;
 
         public ObservableProperty(string propertyName, Action<string> raisePropertyChanged)
         {

@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
-using System.Threading;
+using System.Text;
+using System.Xml;
 using System.Xml.Linq;
-using AElfred.Net;
-using Sax.Net;
 using View4Logs.Common.Data;
-using View4Logs.Common.Interfaces;
 using View4Logs.Utils;
-using View4Logs.Utils.Streams;
-using View4Logs.Utils.Xml;
+using View4Logs.Utils.IO;
 
 namespace View4Logs.LogSources
 {
-    public sealed class Log4JXmlLogFileSource : ILogSource
+    public sealed class Log4JXmlLogFileSource : LogFileSourceBase
     {
         private const string Log4JNamespaceName = "http://logging.apache.org/log4j/2.0/events";
         private const string NLogNamespaceName = "http://www.nlog-project.org/schemas/NLog.xsd";
-        private const int ReadRetryDelay = 100;
 
         private static readonly string XmlPrefix = $"<root xmlns:log4j=\"{Log4JNamespaceName}\" xmlns:nlog=\"{NLogNamespaceName}\">";
         private static readonly string XmlSufix = "</root>";
@@ -34,80 +27,50 @@ namespace View4Logs.LogSources
             { "FATAL", LogLevel.Fatal },
         };
 
-        private readonly Subject<IList<LogMessage>> _messages;
-        private readonly CancellationTokenSource _cts;
-        private readonly Thread _processingThread;
-        private bool _started;
-        private bool _disposed;
+        private static readonly XmlReaderSettings _readerSettings = new XmlReaderSettings
+        {
+            IgnoreComments = true,
+            IgnoreProcessingInstructions = true,
+            IgnoreWhitespace = true,
+            CloseInput = false
+        };
 
         public Log4JXmlLogFileSource(string path)
+            : base(path)
         {
-            Name = Path.GetFileNameWithoutExtension(path);
-            FullPath = Path.GetFullPath(path);
 
-            _messages = new Subject<IList<LogMessage>>();
-            _cts = new CancellationTokenSource();
-
-            _processingThread = new Thread(ProcessFile);
         }
 
-        public string Name { get; }
-
-        public string FullPath { get; }
-
-        public void Start()
-        {
-            ThrowIfDisposed();
-
-            if (_started)
-            {
-                throw new InvalidOperationException("File log source can be started only once.");
-            }
-
-            _started = true;
-            _processingThread.Start();
-        }
-
-        public IDisposable Subscribe(IObserver<IList<LogMessage>> observer)
-        {
-            ThrowIfDisposed();
-            return _messages.Subscribe(observer);
-        }
-
-        private void ProcessFile()
-        {
-            FileStream OpenFile() => new FileStream(FullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            using (var stream = new BlockingRetryStream(OpenFile(), ReadRetryDelay, _cts.Token))
-            {
-                var closingBoundaries = Observable.FromEventPattern(
-                    h => stream.EndOfStreamReached += h,
-                    h => stream.EndOfStreamReached -= h
-                );
-
-                ProcessStream(stream, closingBoundaries);
-            }
-        }
-
-        private void ProcessStream(BlockingRetryStream stream, IObservable<object> bufferClosingBoundaries)
+        protected override IList<LogMessage> ProcessStream(FileStream stream)
         {
             var eventName = XName.Get("event", Log4JNamespaceName);
-            var factory = new XmlReaderFactory();
-            var xmlReader = factory.CreateXmlReader();
-            var handler = new SaxToXElementHandler(eventName);
+            var messages = new List<LogMessage>();
 
-            xmlReader.ContentHandler = handler;
-
-            using (var textReader = new ConcatTextReader(new StringReader(XmlPrefix), new StreamReader(stream, true), new StringReader(XmlSufix)))
+            // Log file is actually not well formed XML document.
+            // There is no root element and XML namespace prefixes are used without definition.
+            // Therefore we wrap the whole content by "fake" root element with needed prefix declarations.
+            using (var textReader = new ConcatTextReader(new StringReader(XmlPrefix), new StreamReader(stream, Encoding.Default, true, 1024, true), new StringReader(XmlSufix)))
+            using (var xmlReader = XmlReader.Create(textReader, _readerSettings))
             {
-                handler
-                    .Elements
-                    .Select(ConvertElementToLogMessage)
-                    .Buffer(bufferClosingBoundaries)
-                    .Subscribe(_messages);
+                xmlReader.MoveToContent();
+                xmlReader.Read();
 
-                var input = new InputSource(textReader);
-                xmlReader.Parse(input);
+                while (xmlReader.NodeType != XmlNodeType.EndElement)
+                {
+                    var node = XNode.ReadFrom(xmlReader);
+                    if (node.NodeType == XmlNodeType.Element)
+                    {
+                        var el = (XElement)node;
+                        if (el.Name == eventName)
+                        {
+                            var msg = ConvertElementToLogMessage(el);
+                            messages.Add(msg);
+                        }
+                    }
+                }
             }
+
+            return messages;
         }
 
         private LogMessage ConvertElementToLogMessage(XElement el)
@@ -116,28 +79,13 @@ namespace View4Logs.LogSources
 
             var logMessage = new LogMessage
             {
+                Source = this,
                 Message = el.Element(XName.Get("message", Log4JNamespaceName)).Value,
                 TimeStamp = UnixTimestampConverter.ConvertFromMilliseconds(timestamp),
                 Level = LogLevelMapping[el.Attribute(XName.Get("level")).Value]
             };
 
             return logMessage;
-        }
-
-        public void Dispose()
-        {
-            _disposed = true;
-            _cts.Cancel();
-            _processingThread?.Join();
-            _messages.Dispose();
-        }
-
-        private void ThrowIfDisposed()
-        {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(this.GetType().FullName);
-            }
         }
     }
 }
