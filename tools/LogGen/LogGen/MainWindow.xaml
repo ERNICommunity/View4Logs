@@ -1,0 +1,32 @@
+﻿<Window
+    x:Class="LogGen.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:LogGen"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="665"
+    Height="70"
+    mc:Ignorable="d">
+    <StackPanel
+        VerticalAlignment="Center"
+        Orientation="Horizontal"
+        TextElement.FontSize="15">
+        <TextBox
+            Name="Message"
+            Width="500"
+            Text="Lorem ipsum..." />
+        <ComboBox Name="Level" Width="100">
+            <ComboBoxItem>Trace</ComboBoxItem>
+            <ComboBoxItem>Debug</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">Info</ComboBoxItem>
+            <ComboBoxItem>Warning</ComboBoxItem>
+            <ComboBoxItem>Error</ComboBoxItem>
+        </ComboBox>
+        <Button
+            Padding="5"
+            Click="WriteClick"
+            Content="Write" />
+    </StackPanel>
+</Window>
