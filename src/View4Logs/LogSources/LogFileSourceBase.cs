@@ -58,6 +58,8 @@ namespace View4Logs.LogSources
                 throw new InvalidOperationException("File log source can be started only once.");
             }
 
+            Initialize();
+
             _started = true;
             WatchFile();
             ReadBatch();
@@ -67,6 +69,29 @@ namespace View4Logs.LogSources
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Initialize()
+        {
+        }
+
+        protected abstract IList<LogMessage> ProcessStream(FileStream stream);
+
+        protected void ThrowIfDisposed()
+        {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(this.GetType().FullName);
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Clenaup();
+                _disposed = true;
+            }
         }
 
         private void WatchFile()
@@ -121,8 +146,8 @@ namespace View4Logs.LogSources
                 }
                 catch (Exception ex)
                 {
-                    Clenaup();
                     _messages.OnError(ex);
+                    Clenaup();
                     return;
                 }
 
@@ -132,25 +157,6 @@ namespace View4Logs.LogSources
                 {
                     _messages.OnNext(messages);
                 }
-            }
-        }
-
-        protected abstract IList<LogMessage> ProcessStream(FileStream stream);
-
-        protected void ThrowIfDisposed()
-        {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(this.GetType().FullName);
-            }
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Clenaup();
-                _disposed = true;
             }
         }
 

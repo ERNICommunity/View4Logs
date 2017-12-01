@@ -1,21 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
 using View4Logs.Common.Data;
 using View4Logs.Utils;
-using View4Logs.Utils.IO;
 
 namespace View4Logs.LogSources
 {
-    public sealed class Log4JXmlLogFileSource : LogFileSourceBase
+    public sealed class Log4JXmlLogFileSource : XmlLogFileSourceBase
     {
         private const string Log4JNamespaceName = "http://logging.apache.org/log4j/2.0/events";
-        private const string NLogNamespaceName = "http://www.nlog-project.org/schemas/NLog.xsd";
-
-        private static readonly string XmlPrefix = $"<root xmlns:log4j=\"{Log4JNamespaceName}\" xmlns:nlog=\"{NLogNamespaceName}\">";
-        private static readonly string XmlSufix = "</root>";
+        private const string NLogNamespaceName = "http://www.nlog-project.org/schemas/dummy.xsd";
 
         private static readonly Dictionary<string, LogLevel> LogLevelMapping = new Dictionary<string, LogLevel>
         {
@@ -27,53 +20,20 @@ namespace View4Logs.LogSources
             { "FATAL", LogLevel.Fatal },
         };
 
-        private static readonly XmlReaderSettings _readerSettings = new XmlReaderSettings
-        {
-            IgnoreComments = true,
-            IgnoreProcessingInstructions = true,
-            IgnoreWhitespace = true,
-            CloseInput = false
-        };
-
         public Log4JXmlLogFileSource(string path)
             : base(path)
         {
-
         }
 
-        protected override IList<LogMessage> ProcessStream(FileStream stream)
+        protected override XName LogMessageElementName { get; } = XName.Get("event", Log4JNamespaceName);
+
+        protected override (string prefix, string uri)[] KnownNamespaces { get; } =
         {
-            var eventName = XName.Get("event", Log4JNamespaceName);
-            var messages = new List<LogMessage>();
+            ("log4j", Log4JNamespaceName),
+            ("nlog", NLogNamespaceName)
+        };
 
-            // Log file is actually not well formed XML document.
-            // There is no root element and XML namespace prefixes are used without definition.
-            // Therefore we wrap the whole content by "fake" root element with needed prefix declarations.
-            using (var textReader = new ConcatTextReader(new StringReader(XmlPrefix), new StreamReader(stream, Encoding.Default, true, 1024, true), new StringReader(XmlSufix)))
-            using (var xmlReader = XmlReader.Create(textReader, _readerSettings))
-            {
-                xmlReader.MoveToContent();
-                xmlReader.Read();
-
-                while (xmlReader.NodeType != XmlNodeType.EndElement)
-                {
-                    var node = XNode.ReadFrom(xmlReader);
-                    if (node.NodeType == XmlNodeType.Element)
-                    {
-                        var el = (XElement)node;
-                        if (el.Name == eventName)
-                        {
-                            var msg = ConvertElementToLogMessage(el);
-                            messages.Add(msg);
-                        }
-                    }
-                }
-            }
-
-            return messages;
-        }
-
-        private LogMessage ConvertElementToLogMessage(XElement el)
+        protected override LogMessage ConvertElementToLogMessage(XElement el)
         {
             var timestamp = long.Parse(el.Attribute(XName.Get("timestamp")).Value);
 
