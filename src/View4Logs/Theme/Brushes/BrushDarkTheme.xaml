@@ -1,20 +1,26 @@
-﻿<ResourceDictionary
+﻿<theme:ThemeResourceDictionary
+    x:Class="View4Logs.Theme.Brushes.BrushDarkTheme"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:theme="clr-namespace:View4Logs.Theme">
+    xmlns:theme="clr-namespace:View4Logs.Theme"
+    Name="Dark"
+    Category="{x:Type theme:Brush}"
+    IsDefault="True">
+
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.AppBarBackground}"
-        Color="{x:Static theme:Color.AppBarBackground}" />
+        Color="#212121" />
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.Background}"
-        Color="{x:Static theme:Color.Background}" />
+        Color="#303030" />
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.Border}"
-        Color="{x:Static theme:Color.Border}" />
+        Color="#424242" />
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.HintText}"
-        Color="{x:Static theme:Color.HintText}" />
+        Color="#828489" />
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.Text}"
-        Color="{x:Static theme:Color.Text}" />
-</ResourceDictionary>
+        Color="#c0c0c2" />
+
+</theme:ThemeResourceDictionary>

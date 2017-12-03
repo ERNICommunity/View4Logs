@@ -4,6 +4,8 @@ using Autofac;
 using Autofac.Features.ResolveAnything;
 using View4Logs.Common.Interfaces;
 using View4Logs.Services;
+using View4Logs.Theme;
+using View4Logs.Theme.Brushes;
 using View4Logs.UI.Control;
 
 namespace View4Logs
@@ -12,25 +14,26 @@ namespace View4Logs
     {
         static App()
         {
-            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;            
+            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
         }
 
         private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(((Exception) e.ExceptionObject).Message);
+            System.Diagnostics.Debug.WriteLine(((Exception)e.ExceptionObject).Message);
         }
 
         public App()
         {
-            Container = ContainerFactory();
             Exit += OnExit;
         }
 
-        public IContainer Container { get; }
+        public IContainer Container { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            Container = ContainerFactory();
 
             var window = Container.Resolve<AppWindow>();
             window.Show();
@@ -47,6 +50,16 @@ namespace View4Logs
             //builder.RegisterType<Log4JXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
             //builder.RegisterType<Log4NetXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
             builder.RegisterType<JsonLogFileImportService>().As<ILogFileImporter>().SingleInstance();
+
+            // Theme
+            builder.RegisterType<BrushDarkTheme>().As<ThemeResourceDictionary>().SingleInstance().OnActivating(e => e.Instance.InitializeComponent());
+            builder.RegisterType<BrushLightTheme>().As<ThemeResourceDictionary>().SingleInstance().OnActivating(e => e.Instance.InitializeComponent());
+
+            builder.RegisterType<ThemeConfigurationService>()
+                .As<IThemeConfigurationService>()
+                .SingleInstance()
+                .AutoActivate()
+                .OnActivated(e => e.Instance.LoadConfiguration());
 
             return builder.Build();
         }
