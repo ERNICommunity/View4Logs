@@ -20,4 +20,9 @@
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.Text}"
         Color="#000000" />
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.Overlay}"
+        Opacity="0.1"
+        Color="Black" />
+
 </theme:ThemeResourceDictionary>

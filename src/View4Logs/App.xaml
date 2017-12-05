@@ -5,6 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/Resources/Button.xaml" />
                 <ResourceDictionary Source="Theme/Resources/FontFamily.xaml" />
                 <ResourceDictionary Source="Theme/Resources/FontSize.xaml" />
                 <ResourceDictionary Source="Theme/Resources/ItemsControl.xaml" />

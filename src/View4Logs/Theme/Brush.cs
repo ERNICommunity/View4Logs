@@ -9,5 +9,6 @@ namespace View4Logs.Theme
         public static readonly ComponentResourceKey Border = new ComponentResourceKey(typeof(Brush), nameof(Border));
         public static readonly ComponentResourceKey HintText = new ComponentResourceKey(typeof(Brush), nameof(HintText));
         public static readonly ComponentResourceKey Text = new ComponentResourceKey(typeof(Brush), nameof(Text));
+        public static readonly ComponentResourceKey Overlay = new ComponentResourceKey(typeof(Brush), nameof(Overlay));
     }
 }

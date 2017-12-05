@@ -23,7 +23,7 @@
     "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
     "Storyboard.*, From, To, Duration"
   ],
-  "FirstLineAttributes": "BasedOn, TargetType",
+  "FirstLineAttributes": "",
   "OrderAttributesByName": true,
   "PutEndingBracketOnNewLine": false,
   "RemoveEndingTagOfEmptyElement": true,

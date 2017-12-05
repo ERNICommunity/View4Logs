@@ -7,11 +7,15 @@
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
     <DataTemplate DataType="{x:Type vm:AppViewModel}">
-        <DockPanel LastChildFill="True">
-            <c:LogsSearch DockPanel.Dock="Top" />
-            <c:Timeline DockPanel.Dock="Bottom" />
-            <c:Logs />
-        </DockPanel>
+        <Grid>
+            <DockPanel LastChildFill="True">
+                <c:ToolBox DockPanel.Dock="Right" />
+                <c:LogsSearch DockPanel.Dock="Top" />
+                <c:Timeline DockPanel.Dock="Bottom" />
+                <c:Logs />
+            </DockPanel>
+            <c:DialogHost />
+        </Grid>
     </DataTemplate>
 
 </base:View>

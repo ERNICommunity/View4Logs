@@ -38,12 +38,7 @@ namespace View4Logs.Utils.Observables
 
         public bool CanExecute(object parameter)
         {
-            if (!(parameter is TParam param))
-            {
-                return false;
-            }
-
-            return CanExecute(param);
+            return CanExecute((TParam)parameter);
         }
 
         public bool CanExecute(TParam parameter)
@@ -56,15 +51,17 @@ namespace View4Logs.Utils.Observables
             // Coerce parameter to default value (important when TParam is value type).
             if (parameter == null)
             {
-                parameter = default(TParam);
+                Execute(default(TParam));
+                return;
             }
 
-            if (!(parameter is TParam param))
+            if (parameter is TParam param)
             {
-                throw new ArgumentException($"Command requires parameters of type {typeof(TParam).Name}, but received parameter of type {parameter.GetType().Name}.", nameof(parameter));
+                Execute(param);
+                return;
             }
 
-            Execute(param);
+            throw new ArgumentException($"Command requires parameters of type {typeof(TParam).Name}, but received parameter of type {parameter.GetType().Name}.", nameof(parameter));
         }
 
         public void Execute(TParam parameter)

@@ -24,9 +24,9 @@ namespace View4Logs.UI.ViewModel
                 .Subscribe(_messages);
 
             OpenFileCommand = Command.Create(async (string[] files) =>
-           {
-               await Task.Run(() => logFileImporter.Import(files[0]));
-           });
+            {
+                await Task.Run(() => logFileImporter.Import(files[0]));
+            });
         }
 
         public IList<LogMessage> Messages => _messages.Value;

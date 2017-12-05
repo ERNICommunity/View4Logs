@@ -6,13 +6,13 @@
 
     <Style TargetType="{x:Type Window}">
         <Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.Background}}" />
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.Text}}" />
         <Setter Property="FontFamily" Value="{DynamicResource {x:Static theme:FontFamily.Default}}" />
         <Setter Property="FontSize" Value="{DynamicResource {x:Static theme:FontSize.Normal}}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.Text}}" />
     </Style>
 
     <Style
-        BasedOn="{StaticResource {x:Type Window}}"
-        TargetType="{x:Type c:AppWindow}" />
+        TargetType="{x:Type c:AppWindow}"
+        BasedOn="{StaticResource {x:Type Window}}" />
 
 </ResourceDictionary>

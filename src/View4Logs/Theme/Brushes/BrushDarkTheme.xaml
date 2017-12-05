@@ -22,5 +22,9 @@
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.Text}"
         Color="#c0c0c2" />
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.Overlay}"
+        Opacity="0.3"
+        Color="Black" />
 
 </theme:ThemeResourceDictionary>

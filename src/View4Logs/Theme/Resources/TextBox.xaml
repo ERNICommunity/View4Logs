@@ -4,14 +4,14 @@
     xmlns:theme="clr-namespace:View4Logs.Theme">
 
     <Style
-        BasedOn="{StaticResource {x:Type TextBox}}"
-        TargetType="{x:Type TextBox}">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.Text}}" />
-        <Setter Property="CaretBrush" Value="{DynamicResource {x:Static theme:Brush.Text}}" />
+        TargetType="{x:Type TextBox}"
+        BasedOn="{StaticResource {x:Type TextBox}}">
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CaretBrush" Value="{DynamicResource {x:Static theme:Brush.Text}}" />
         <Setter Property="FontFamily" Value="{DynamicResource {x:Static theme:FontFamily.Default}}" />
         <Setter Property="FontSize" Value="{DynamicResource {x:Static theme:FontSize.Normal}}" />
         <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.Text}}" />
     </Style>
 
 </ResourceDictionary>

@@ -40,6 +40,24 @@ namespace View4Logs.Base
 
         protected TViewModel ViewModel { get; private set; }
 
+        protected virtual FrameworkElement ViewFactory()
+        {
+            return (FrameworkElement)ViewTemplate.Value.Template.LoadContent();
+        }
+
+        protected virtual TViewModel ViewModelFactory()
+        {
+            return Scope.Resolve<TViewModel>();
+        }
+
+        protected virtual void OnLoaded()
+        {
+        }
+
+        protected virtual void OnUnloaded()
+        {
+        }
+
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             View = ViewFactory();
@@ -49,22 +67,15 @@ namespace View4Logs.Base
             {
                 View.DataContext = ViewModel;
             }
+
+            OnLoaded();
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
+            OnUnloaded();
             View = null;
             (ViewModel as IDisposable)?.Dispose();
-        }
-
-        protected virtual FrameworkElement ViewFactory()
-        {
-            return (FrameworkElement)ViewTemplate.Value.Template.LoadContent();
-        }
-
-        protected virtual TViewModel ViewModelFactory()
-        {
-            return Scope.Resolve<TViewModel>();
         }
 
         private static TView ViewTemplateFactory()

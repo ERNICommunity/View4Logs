@@ -4,12 +4,12 @@
     xmlns:theme="clr-namespace:View4Logs.Theme">
 
     <Style
-        BasedOn="{StaticResource {x:Type TextBlock}}"
-        TargetType="{x:Type TextBlock}">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.Text}}" />
+        TargetType="{x:Type TextBlock}"
+        BasedOn="{StaticResource {x:Type TextBlock}}">
         <Setter Property="FontFamily" Value="{DynamicResource {x:Static theme:FontFamily.Default}}" />
         <Setter Property="FontSize" Value="{DynamicResource {x:Static theme:FontSize.Normal}}" />
         <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.Text}}" />
     </Style>
 
 </ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Threading;
 using Autofac;
 using Autofac.Features.ResolveAnything;
 using View4Logs.Common.Interfaces;
@@ -7,6 +8,8 @@ using View4Logs.Services;
 using View4Logs.Theme;
 using View4Logs.Theme.Brushes;
 using View4Logs.UI.Control;
+using View4Logs.UI.Interfaces;
+using View4Logs.UI.Services;
 
 namespace View4Logs
 {
@@ -44,9 +47,13 @@ namespace View4Logs
             var builder = new ContainerBuilder();
             builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
+            // Dispatcher
+            builder.RegisterInstance(Dispatcher);
+
             builder.RegisterType<LogFilterResultsService>().As<ILogFilterResultsService>().SingleInstance();
             builder.RegisterType<LogFilterService>().As<ILogFilterService>().SingleInstance();
             builder.RegisterType<LogSourceService>().As<ILogSourceService>().SingleInstance();
+            builder.RegisterType<DialogService>().As<IDialogService>().SingleInstance();
             //builder.RegisterType<Log4JXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
             //builder.RegisterType<Log4NetXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
             builder.RegisterType<JsonLogFileImportService>().As<ILogFileImporter>().SingleInstance();
