@@ -1,0 +1,17 @@
+<Project>
+  <Import Project="$(SolutionDir)\config\View4Logs.Sdk.props" />
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+
+  <ItemGroup Label="NuGet">
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.Reactive" Version="4.0.0-preview00001" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="Projects">
+    <ProjectReference Include="..\View4Logs.Common\View4Logs.Common.csproj" />
+  </ItemGroup>
+
+</Project>

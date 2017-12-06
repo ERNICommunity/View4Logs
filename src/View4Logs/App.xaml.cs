@@ -4,12 +4,13 @@ using System.Windows.Threading;
 using Autofac;
 using Autofac.Features.ResolveAnything;
 using View4Logs.Common.Interfaces;
-using View4Logs.Services;
+using View4Logs.Core.Services;
 using View4Logs.Theme;
 using View4Logs.Theme.Brushes;
 using View4Logs.UI.Control;
 using View4Logs.UI.Interfaces;
 using View4Logs.UI.Services;
+using View4Logs.UI.Theme;
 
 namespace View4Logs
 {

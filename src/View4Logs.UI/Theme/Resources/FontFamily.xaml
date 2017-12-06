@@ -1,0 +1,9 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:theme="clr-namespace:View4Logs.UI.Theme">
+
+    <FontFamily x:Key="{x:Static theme:FontFamily.Default}">Calibry</FontFamily>
+    <FontFamily x:Key="{x:Static theme:FontFamily.FontAwesome}">pack://application:,,,/View4Logs.UI;component/assets/Fonts/fontawesome-webfont.ttf#FontAwesome</FontFamily>
+
+</ResourceDictionary>

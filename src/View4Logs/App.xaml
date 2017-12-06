@@ -5,14 +5,14 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/Resources/Button.xaml" />
-                <ResourceDictionary Source="Theme/Resources/FontFamily.xaml" />
-                <ResourceDictionary Source="Theme/Resources/FontSize.xaml" />
-                <ResourceDictionary Source="Theme/Resources/ItemsControl.xaml" />
-                <ResourceDictionary Source="Theme/Resources/ListBox.xaml" />
-                <ResourceDictionary Source="Theme/Resources/TextBlock.xaml" />
-                <ResourceDictionary Source="Theme/Resources/TextBox.xaml" />
-                <ResourceDictionary Source="Theme/Resources/Window.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/FontFamily.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/FontSize.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/ItemsControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/ListBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/Window.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
