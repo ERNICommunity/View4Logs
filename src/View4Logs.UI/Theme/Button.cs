@@ -4,6 +4,6 @@ namespace View4Logs.UI.Theme
 {
     public static class Button
     {
-        public static readonly ComponentResourceKey Icon = new ComponentResourceKey(typeof(Button), nameof(Icon));
+        public static ComponentResourceKey Icon { get; } = new ComponentResourceKey(typeof(Button), nameof(Icon));
     }
 }

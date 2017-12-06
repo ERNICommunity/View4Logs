@@ -26,7 +26,6 @@
                     FontFamily="{DynamicResource {x:Static theme:FontFamily.FontAwesome}}"
                     Text="{x:Static theme:FontAwesome.Cog}"
                     TextElement.FontSize="{DynamicResource {x:Static theme:FontSize.Large}}" />
-
             </Button>
         </Grid>
     </DataTemplate>

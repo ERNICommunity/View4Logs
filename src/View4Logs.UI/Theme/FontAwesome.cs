@@ -2,9 +2,9 @@
 {
     public static class FontAwesome
     {
-        public const string Cog = "\uF013";
-        public const string Cogs = "\uF085";
-        public const string Database = "\uF1C0";
-        public const string Search = "\uF002";
+        public static string Cog { get; } = "\uF013";
+        public static string Cogs { get; } = "\uF085";
+        public static string Database { get; } = "\uF1C0";
+        public static string Search { get; } = "\uF002";
     }
 }
