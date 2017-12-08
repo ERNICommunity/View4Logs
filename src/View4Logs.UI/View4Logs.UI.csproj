@@ -51,6 +51,7 @@
   <ItemGroup Label="Properties">
     <Compile Include="Converters\IsNullOrEmptyConverter.cs" />
     <Compile Include="Converters\MultiplyConverter.cs" />
+    <Compile Include="Converters\RemoveLineBreaksConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
