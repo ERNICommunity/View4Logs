@@ -55,9 +55,9 @@ namespace View4Logs
             builder.RegisterType<LogFilterService>().As<ILogFilterService>().SingleInstance();
             builder.RegisterType<LogSourceService>().As<ILogSourceService>().SingleInstance();
             builder.RegisterType<DialogService>().As<IDialogService>().SingleInstance();
-            //builder.RegisterType<Log4JXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
+            builder.RegisterType<Log4JXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
             //builder.RegisterType<Log4NetXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
-            builder.RegisterType<JsonLogFileImportService>().As<ILogFileImporter>().SingleInstance();
+            //builder.RegisterType<JsonLogFileImportService>().As<ILogFileImporter>().SingleInstance();
 
             // Theme
             builder.RegisterType<BrushDarkTheme>().As<ThemeResourceDictionary>().SingleInstance().OnActivating(e => e.Instance.InitializeComponent());

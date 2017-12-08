@@ -11,18 +11,21 @@
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
     <DataTemplate DataType="{x:Type vm:LogsViewModel}">
-        <Grid Background="{DynamicResource {x:Static theme:Brush.LogsBackground}}" />
-        <!--<ListBox
+        <ListBox
             AllowDrop="True"
+            Background="{DynamicResource {x:Static theme:Brush.LogsBackground}}"
+            BorderThickness="0"
             ItemsSource="{Binding Path=Messages}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             VirtualizingPanel.VirtualizationMode="Recycling">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type data:LogMessage}">
                     <DataTemplate.Resources>
-                        <converters:LogLevelColorConverter x:Key="logLevelConverter" />
+                        <converters:LogLevelBrushConverter x:Key="LogLevelBrushConverter" />
                     </DataTemplate.Resources>
-                    <Grid Margin="5">
+                    <Grid
+                        Margin="5"
+                        TextElement.Foreground="{Binding Path=Level, Converter={StaticResource LogLevelBrushConverter}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition
                                 Width="auto"
@@ -31,19 +34,11 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             Grid.Column="0"
-                            Text="{Binding Path=TimeStamp, StringFormat='dd.MM.yyyy    H:mm:ss'}">
-                            <TextBlock.Foreground>
-                                <SolidColorBrush Color="{Binding Path=Level, Converter={StaticResource logLevelConverter}}" />
-                            </TextBlock.Foreground>
-                        </TextBlock>
+                            Text="{Binding Path=TimeStamp, StringFormat='dd.MM.yyyy    H:mm:ss'}" />
                         <TextBlock
                             Grid.Column="1"
                             Margin="20 0 0 0"
-                            Text="{Binding Path=Message, Mode=OneTime}">
-                            <TextBlock.Foreground>
-                                <SolidColorBrush Color="{Binding Path=Level, Converter={StaticResource logLevelConverter}}" />
-                            </TextBlock.Foreground>
-                        </TextBlock>
+                            Text="{Binding Path=Message, Mode=OneTime}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -51,15 +46,15 @@
                 <Style
                     TargetType="{x:Type ListBoxItem}"
                     BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static theme:Brush.Border}}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static theme:Brush.LogsBorder}}" />
                     <Setter Property="BorderThickness" Value="0 1 0 1" />
-                    <Setter Property="Focusable" Value="False" />
+                    <Setter Property="Focusable" Value="True" />
                 </Style>
             </ListBox.ItemContainerStyle>
             <i:Interaction.Behaviors>
                 <behaviors:DropFileBehavior Command="{Binding OpenFileCommand}" />
             </i:Interaction.Behaviors>
-        </ListBox>-->
+        </ListBox>
     </DataTemplate>
 
 </base:View>

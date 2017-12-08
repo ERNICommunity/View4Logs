@@ -60,5 +60,16 @@ namespace View4Logs.UI.Theme
         public static ComponentResourceKey DialogButtonBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(DialogButtonBackground));
 
         #endregion
+
+        #region ScrollBar
+
+        public static ComponentResourceKey ScrollBarBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(ScrollBarBackground));
+        public static ComponentResourceKey ScrollBar { get; } = new ComponentResourceKey(typeof(Brush), nameof(ScrollBar));
+        public static ComponentResourceKey ScrollBarHover { get; } = new ComponentResourceKey(typeof(Brush), nameof(ScrollBarHover));
+        public static ComponentResourceKey ScrollBarPressed { get; } = new ComponentResourceKey(typeof(Brush), nameof(ScrollBarPressed));
+        public static ComponentResourceKey ScrollBarDisabled { get; } = new ComponentResourceKey(typeof(Brush), nameof(ScrollBarDisabled));
+
+        #endregion
+
     }
 }
