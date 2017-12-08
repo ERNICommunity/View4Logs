@@ -7,27 +7,115 @@
     Category="{x:Type theme:Brush}"
     IsDefault="True">
 
+    <!--  LogLevel  -->
+
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.AppBarBackground}"
-        Color="#252526" />
+        x:Key="{x:Static theme:Brush.LogLevelTrace}"
+        Color="Gray" />
+
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.Background}"
-        Color="#1E1E1E" />
+        x:Key="{x:Static theme:Brush.LogLevelDebug}"
+        Color="DarkGray" />
+
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.Border}"
-        Color="#424242" />
+        x:Key="{x:Static theme:Brush.LogLevelInfo}"
+        Color="LightGray" />
+
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.HintText}"
-        Color="#828489" />
+        x:Key="{x:Static theme:Brush.LogLevelWarn}"
+        Color="DarkGoldenrod" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.LogLevelError}"
+        Color="DarkRed" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.LogLevelFatal}"
+        Color="Red" />
+
+    <!--  SideBar  -->
+
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.SideBarBackground}"
         Color="#333333" />
+
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.Overlay}"
+        x:Key="{x:Static theme:Brush.SideBarForeground}"
+        Color="#828489" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.SideBarForegroundHover}"
+        Color="White" />
+
+    <!--  SearchBar  -->
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.SearchBarBackground}"
+        Color="#252526" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.SearchBarBorder}"
+        Color="#424242" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.SearchBarForeground}"
+        Color="#828489" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.SearchBarForegroundHover}"
+        Color="White" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.SearchBarButtonBackground}"
+        Color="#333333" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.SearchBarButtonBackgroundHover}"
+        Color="#666666" />
+
+    <!--  Logs  -->
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.LogsBackground}"
+        Color="#1E1E1E" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.LogsBorder}"
+        Color="#424242" />
+
+    <!--  Dialog  -->
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.DialogOverlayBackground}"
         Opacity="0.3"
         Color="Black" />
+
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.Text}"
-        Color="#c0c0c2" />
+        x:Key="{x:Static theme:Brush.DialogBackground}"
+        Color="#252526" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.DialogBorder}"
+        Color="#424242" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.DialogForeground}"
+        Color="#828489" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.DialogHeaderBackground}"
+        Color="#333333" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.DialogHeaderForeground}"
+        Color="#828489" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.DialogHeaderForegroundHover}"
+        Color="#FFFFFF" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.DialogButtonBackground}"
+        Color="#252526" />
 
 </theme:ThemeResourceDictionary>

@@ -3,11 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:theme="clr-namespace:View4Logs.UI.Theme">
 
-    <Style
+    <!--<Style
         TargetType="{x:Type ItemsControl}"
         BasedOn="{StaticResource {x:Type ItemsControl}}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.Text}}" />
-    </Style>
+    </Style>-->
 
 </ResourceDictionary>

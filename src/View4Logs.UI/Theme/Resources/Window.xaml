@@ -4,7 +4,7 @@
     xmlns:c="clr-namespace:View4Logs.UI.Control"
     xmlns:theme="clr-namespace:View4Logs.UI.Theme">
 
-    <Style TargetType="{x:Type Window}">
+    <!--<Style TargetType="{x:Type Window}">
         <Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.Background}}" />
         <Setter Property="FontFamily" Value="{DynamicResource {x:Static theme:FontFamily.Default}}" />
         <Setter Property="FontSize" Value="{DynamicResource {x:Static theme:FontSize.Normal}}" />
@@ -13,6 +13,6 @@
 
     <Style
         TargetType="{x:Type c:AppWindow}"
-        BasedOn="{StaticResource {x:Type Window}}" />
+        BasedOn="{StaticResource {x:Type Window}}" />-->
 
 </ResourceDictionary>

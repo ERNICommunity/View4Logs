@@ -4,14 +4,8 @@ using View4Logs.UI.ViewModel;
 
 namespace View4Logs.UI.Control
 {
-    public sealed class AppSettingsDialog : Dialog<AppSettingsDialogView, AppSettingsDialogViewModelBase, Unit>
+    public sealed class AppSettingsDialog : Dialog<AppSettingsDialogView, AppSettingsDialogViewModel, Unit>
     {
         public string Label { get; set; }
-
-        protected override void OnLoaded()
-        {
-            base.OnLoaded();
-            ViewModel.Label = Label;
-        }
     }
 }

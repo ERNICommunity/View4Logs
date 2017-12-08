@@ -4,46 +4,135 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:base="clr-namespace:View4Logs.UI.Base"
     xmlns:c="clr-namespace:View4Logs.UI.Control"
+    xmlns:converters="clr-namespace:View4Logs.UI.Converters"
+    xmlns:data="clr-namespace:View4Logs.Common.Data;assembly=View4Logs.Common"
+    xmlns:icons="clr-namespace:View4Logs.UI.Theme.Icons"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:theme="clr-namespace:View4Logs.UI.Theme"
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
     <DataTemplate DataType="{x:Type vm:LogsSearchViewModel}">
         <DataTemplate.Resources>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Theme.xaml" />
+                    <ResourceDictionary>
+                        <converters:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter" />
+                        <converters:LogLevelBrushConverter x:Key="LogLevelBrushConverter" />
+                    </ResourceDictionary>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
         </DataTemplate.Resources>
-        <Grid Background="{DynamicResource {x:Static theme:Brush.AppBarBackground}}">
-            <Grid Margin="15">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+        <Grid
+            Height="60"
+            Background="{DynamicResource {x:Static theme:Brush.SearchBarBackground}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                Grid.Column="0"
+                Height="40"
+                Margin="25 0 40 0"
+                Padding="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="{DynamicResource {x:Static theme:Brush.SearchBarBackground}}"
+                BorderThickness="0"
+                SelectedIndex="0">
+                <ComboBox.Items>
+                    <data:LogLevel>Trace</data:LogLevel>
+                    <data:LogLevel>Debug</data:LogLevel>
+                    <data:LogLevel>Info</data:LogLevel>
+                    <data:LogLevel>Warn</data:LogLevel>
+                    <data:LogLevel>Error</data:LogLevel>
+                    <data:LogLevel>Fatal</data:LogLevel>
+                </ComboBox.Items>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel
+                            Margin="10"
+                            Orientation="Horizontal">
+                            <Border
+                                Width="20"
+                                Height="20"
+                                Margin="10 0 10 0"
+                                VerticalAlignment="Center"
+                                Background="{Binding Converter={StaticResource LogLevelBrushConverter}}"
+                                BorderThickness="1" />
+
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}"
+                                Text="{Binding}"
+                                Typography.Capitals="AllSmallCaps" />
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Grid
+                Grid.Column="1"
+                Height="30"
+                Margin="20 0">
 
                 <TextBlock
-                    Grid.Column="0"
-                    Padding="0 0 20 0"
                     HorizontalAlignment="Left"
-                    FontFamily="{DynamicResource {x:Static theme:FontFamily.FontAwesome}}"
-                    Foreground="{DynamicResource {x:Static theme:Brush.HintText}}"
-                    Text="{x:Static theme:FontAwesome.Search}"
-                    TextElement.FontSize="{DynamicResource {x:Static theme:FontSize.Large}}" />
-
-                <TextBlock
-                    Grid.Column="1"
-                    HorizontalAlignment="Left"
-                    Foreground="{DynamicResource {x:Static theme:Brush.HintText}}"
+                    Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}"
                     Text="Search"
-                    TextElement.FontSize="{DynamicResource {x:Static theme:FontSize.Large}}"
-                    Visibility="{Binding ElementName=SearchBox, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    TextElement.FontSize="{StaticResource {x:Static theme:FontSize.Large}}">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Query, Mode=OneWay, Converter={StaticResource IsNullOrEmptyConverter}}"
+                                    Value="true">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <TextBox
-                    x:Name="SearchBox"
-                    Grid.Column="1"
                     HorizontalAlignment="Stretch"
                     Background="Transparent"
-                    BorderBrush="{DynamicResource {x:Static theme:Brush.HintText}}"
+                    BorderBrush="{DynamicResource {x:Static theme:Brush.SearchBarBorder}}"
                     BorderThickness="0 0 0 1"
-                    Text="{Binding Path=Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    TextElement.FontSize="{DynamicResource {x:Static theme:FontSize.Large}}" />
+                    CaretBrush="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}"
+                    FontSize="{StaticResource {x:Static theme:FontSize.Large}}"
+                    FontWeight="Normal"
+                    Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForegroundHover}}"
+                    Text="{Binding Path=Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
+            <StackPanel
+                Grid.Column="2"
+                Height="40"
+                Orientation="Horizontal">
+                <ToggleButton
+                    Width="35"
+                    Height="35"
+                    Margin="5 0"
+                    Style="{StaticResource {x:Static theme:Button.SearchBarButton}}">
+                    <TextBlock
+                        FontSize="{StaticResource {x:Static theme:FontSize.Large}}"
+                        FontWeight="SemiBold"
+                        Text=".*" />
+                </ToggleButton>
+                <ToggleButton
+                    Width="35"
+                    Height="35"
+                    Margin="5 0 10 0"
+                    Style="{StaticResource {x:Static theme:Button.SearchBarButton}}">
+                    <TextBlock
+                        FontSize="{StaticResource {x:Static theme:FontSize.Large}}"
+                        FontWeight="SemiBold"
+                        Text="Aa" />
+                </ToggleButton>
+            </StackPanel>
         </Grid>
     </DataTemplate>
 

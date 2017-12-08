@@ -11,7 +11,8 @@
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
     <DataTemplate DataType="{x:Type vm:LogsViewModel}">
-        <ListBox
+        <Grid Background="{DynamicResource {x:Static theme:Brush.LogsBackground}}" />
+        <!--<ListBox
             AllowDrop="True"
             ItemsSource="{Binding Path=Messages}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -30,7 +31,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             Grid.Column="0"
-                            Text="{Binding Path=TimeStamp, StringFormat='dd.MM.yyyy H:mm:ss'}">
+                            Text="{Binding Path=TimeStamp, StringFormat='dd.MM.yyyy    H:mm:ss'}">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{Binding Path=Level, Converter={StaticResource logLevelConverter}}" />
                             </TextBlock.Foreground>
@@ -58,7 +59,7 @@
             <i:Interaction.Behaviors>
                 <behaviors:DropFileBehavior Command="{Binding OpenFileCommand}" />
             </i:Interaction.Behaviors>
-        </ListBox>
+        </ListBox>-->
     </DataTemplate>
 
 </base:View>

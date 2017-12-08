@@ -1,0 +1,22 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:icons="clr-namespace:View4Logs.UI.Theme.Icons"
+    xmlns:theme="clr-namespace:View4Logs.UI.Theme">
+
+    <Style TargetType="{x:Type icons:FileIcon}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type icons:FileIcon}">
+                    <Path
+                        Margin="{TemplateBinding Padding}"
+                        Data="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M11,4H6V20H11L18,20V11H11V4Z"
+                        Fill="{TemplateBinding Foreground}"
+                        Stretch="Uniform" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
