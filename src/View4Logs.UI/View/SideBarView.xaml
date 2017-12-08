@@ -1,5 +1,5 @@
 ﻿<base:View
-    x:Class="View4Logs.UI.View.ToolBoxView"
+    x:Class="View4Logs.UI.View.SideBarView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:base="clr-namespace:View4Logs.UI.Base"
@@ -7,7 +7,7 @@
     xmlns:theme="clr-namespace:View4Logs.UI.Theme"
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
-    <DataTemplate DataType="{x:Type vm:ToolBoxViewModel}">
+    <DataTemplate DataType="{x:Type vm:SideBarViewModel}">
 
         <DataTemplate.Resources>
             <ResourceDictionary>
@@ -32,13 +32,13 @@
             <StackPanel
                 Grid.Row="0"
                 Orientation="Vertical">
-                <Button Style="{StaticResource {x:Static theme:Button.SideBarButton}}">
+                <ToggleButton
+                    IsChecked="{Binding SearchPanelEnabled, Mode=TwoWay}"
+                    Style="{StaticResource {x:Static theme:Button.SideBarToggleButton}}">
                     <icons:SearchIcon Margin="{StaticResource IconMargin}" />
-                </Button>
+                </ToggleButton>
 
-                <Button
-                    Command="{Binding OpenAppSettingsDialog}"
-                    Style="{StaticResource {x:Static theme:Button.SideBarButton}}">
+                <Button Style="{StaticResource {x:Static theme:Button.SideBarButton}}">
                     <icons:FileIcon Margin="{StaticResource IconMargin}" />
                 </Button>
 

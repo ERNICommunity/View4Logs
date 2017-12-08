@@ -6,6 +6,5 @@ namespace View4Logs.UI.Control
 {
     public sealed class AppSettingsDialog : Dialog<AppSettingsDialogView, AppSettingsDialogViewModel, Unit>
     {
-        public string Label { get; set; }
     }
 }

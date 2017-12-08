@@ -7,6 +7,9 @@
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
     <DataTemplate DataType="{x:Type vm:AppViewModel}">
+        <DataTemplate.Resources>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </DataTemplate.Resources>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -31,9 +34,17 @@
             <DockPanel
                 Grid.Row="1"
                 LastChildFill="True">
-                <c:ToolBox DockPanel.Dock="Left" />
-                <c:LogsSearch DockPanel.Dock="Top" />
+
+                <c:SideBar
+                    x:Name="SideBar"
+                    DockPanel.Dock="Left" />
+
+                <c:LogsSearch
+                    DockPanel.Dock="Top"
+                    Visibility="{Binding ElementName=SideBar, Path=SearchPanelEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
                 <c:Timeline DockPanel.Dock="Bottom" />
+
                 <c:Logs />
             </DockPanel>
             <c:DialogHost Grid.Row="1" />
