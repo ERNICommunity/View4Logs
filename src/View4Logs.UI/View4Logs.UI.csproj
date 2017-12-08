@@ -92,7 +92,7 @@
     <Compile Include="Control\Logs.cs" />
     <Compile Include="Control\LogsSearch.cs" />
     <Compile Include="Control\Timeline.cs" />
-    <Compile Include="Control\ToolBox.cs" />
+    <Compile Include="Control\SideBar.cs" />
     <Compile Include="Converters\LogLevelBrushConverter.cs" />
     <Compile Include="Converters\MultiEqualsConverter.cs" />
     <Compile Include="Interfaces\IDialog.cs" />
@@ -127,7 +127,7 @@
     <Compile Include="ViewModel\LogsSearchViewModel.cs" />
     <Compile Include="ViewModel\LogsViewModel.cs" />
     <Compile Include="ViewModel\TimelineViewModel.cs" />
-    <Compile Include="ViewModel\ToolBoxViewModel.cs" />
+    <Compile Include="ViewModel\SideBarViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Theme\Brushes\BrushDarkTheme.xaml">
@@ -246,7 +246,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\ToolBoxView.xaml">
+    <Page Include="View\SideBarView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
