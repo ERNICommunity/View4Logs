@@ -1,5 +1,5 @@
 ﻿<base:View
-    x:Class="View4Logs.UI.View.LogsSearchView"
+    x:Class="View4Logs.UI.View.SearchPanelView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:base="clr-namespace:View4Logs.UI.Base"
@@ -11,7 +11,7 @@
     xmlns:theme="clr-namespace:View4Logs.UI.Theme"
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
-    <DataTemplate DataType="{x:Type vm:LogsSearchViewModel}">
+    <DataTemplate DataType="{x:Type vm:SearchPanelViewModel}">
         <DataTemplate.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>

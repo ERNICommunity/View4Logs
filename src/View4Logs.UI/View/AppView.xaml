@@ -39,7 +39,7 @@
                     x:Name="SideBar"
                     DockPanel.Dock="Left" />
 
-                <c:LogsSearch
+                <c:SearchPanel
                     DockPanel.Dock="Top"
                     Visibility="{Binding ElementName=SideBar, Path=SearchPanelEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" />
 

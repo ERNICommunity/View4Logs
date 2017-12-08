@@ -4,7 +4,7 @@ using View4Logs.UI.ViewModel;
 
 namespace View4Logs.UI.Control
 {
-    public sealed class LogsSearch : Component<LogsSearchView, LogsSearchViewModel>
+    public sealed class SearchPanel : Component<SearchPanelView, SearchPanelViewModel>
     {
         
     }

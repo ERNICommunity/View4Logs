@@ -90,7 +90,7 @@
     <Compile Include="Control\Dialog.cs" />
     <Compile Include="Control\DialogHost.cs" />
     <Compile Include="Control\Logs.cs" />
-    <Compile Include="Control\LogsSearch.cs" />
+    <Compile Include="Control\SearchPanel.cs" />
     <Compile Include="Control\Timeline.cs" />
     <Compile Include="Control\SideBar.cs" />
     <Compile Include="Converters\LogLevelBrushConverter.cs" />
@@ -124,7 +124,7 @@
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\DialogHostViewModel.cs" />
     <Compile Include="ViewModel\DialogViewModelBase.cs" />
-    <Compile Include="ViewModel\LogsSearchViewModel.cs" />
+    <Compile Include="ViewModel\SearchPanelViewModel.cs" />
     <Compile Include="ViewModel\LogsViewModel.cs" />
     <Compile Include="ViewModel\TimelineViewModel.cs" />
     <Compile Include="ViewModel\SideBarViewModel.cs" />
@@ -234,7 +234,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\LogsSearchView.xaml">
+    <Page Include="View\SearchPanelView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
