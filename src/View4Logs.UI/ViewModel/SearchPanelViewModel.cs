@@ -7,11 +7,11 @@ using View4Logs.UI.Base;
 
 namespace View4Logs.UI.ViewModel
 {
-    public sealed class LogsSearchViewModel : Base.ViewModel, IDisposable
+    public sealed class SearchPanelViewModel : Base.ViewModel, IDisposable
     {
         private readonly ObservableProperty<string> _query;
 
-        public LogsSearchViewModel(ILogFilterService logFilterService)
+        public SearchPanelViewModel(ILogFilterService logFilterService)
         {
             _query = CreateProperty<string>(nameof(Query));
             var filter = _query.Select(CreateFilter).DistinctUntilChanged();
