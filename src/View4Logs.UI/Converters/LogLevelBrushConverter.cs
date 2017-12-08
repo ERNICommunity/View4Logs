@@ -1,28 +1,32 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using View4Logs.Common.Data;
 
 namespace View4Logs.UI.Converters
 {
-    public class LogLevelColorConverter : IValueConverter
+    public class LogLevelBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             switch ((LogLevel)value)
             {
                 case LogLevel.Trace:
-                    return ColorConverter.ConvertFromString("#616161");
+                    return Application.Current.FindResource(Theme.Brush.LogLevelTrace);
                 case LogLevel.Debug:
-                    return ColorConverter.ConvertFromString("#9E9E9E");
+                    return Application.Current.FindResource(Theme.Brush.LogLevelDebug);
+                case LogLevel.Info:
+                    return Application.Current.FindResource(Theme.Brush.LogLevelInfo);
                 case LogLevel.Warn:
-                    return ColorConverter.ConvertFromString("#FFD600");
+                    return Application.Current.FindResource(Theme.Brush.LogLevelWarn);
                 case LogLevel.Error:
+                    return Application.Current.FindResource(Theme.Brush.LogLevelError);
                 case LogLevel.Fatal:
-                    return ColorConverter.ConvertFromString("#FF0000");
+                    return Application.Current.FindResource(Theme.Brush.LogLevelFatal);
                 default:
-                    return ColorConverter.ConvertFromString("#c0c0c2");
+                    return Application.Current.FindResource(Theme.Brush.LogLevelTrace);
             }
 
         }

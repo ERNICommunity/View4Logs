@@ -3,31 +3,84 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:theme="clr-namespace:View4Logs.UI.Theme">
 
-    <Style
-        x:Key="{x:Static theme:Button.Icon}"
-        TargetType="Button"
-        BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Background" Value="Transparent" />
+    <Style TargetType="{x:Type ButtonBase}">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
                     <Border
                         Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.Overlay}}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <!--  SearchBar  -->
+
+    <Style
+        x:Key="{x:Static theme:Button.SearchBarButton}"
+        TargetType="{x:Type ToggleButton}"
+        BasedOn="{StaticResource {x:Type ButtonBase}}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.SearchBarButtonBackground}}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static theme:Brush.SearchBarBorder}}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.SearchBarButtonBackgroundHover}}" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.SearchBarForegroundHover}}" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.SearchBarButtonBackgroundHover}}" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.SearchBarForegroundHover}}" />
+                <!--<Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.SearchBarButtonPressedBackground}}" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.SearchBarForegroundPressed}}" />-->
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  SideBar  -->
+
+    <Style
+        x:Key="{x:Static theme:Button.SideBarButton}"
+        TargetType="{x:Type Button}"
+        BasedOn="{StaticResource {x:Type ButtonBase}}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.SideBarForeground}}" />
+        <Setter Property="Height" Value="60" />
+        <Setter Property="Width" Value="60" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.SideBarForegroundHover}}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  Dialog  -->
+
+    <Style
+        x:Key="{x:Static theme:Button.DialogHeaderButton}"
+        TargetType="{x:Type Button}"
+        BasedOn="{StaticResource {x:Type ButtonBase}}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.DialogHeaderForeground}}" />
+        <Setter Property="Height" Value="15" />
+        <Setter Property="Width" Value="15" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.DialogHeaderForegroundHover}}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

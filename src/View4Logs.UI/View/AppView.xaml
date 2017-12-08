@@ -8,13 +8,35 @@
 
     <DataTemplate DataType="{x:Type vm:AppViewModel}">
         <Grid>
-            <DockPanel LastChildFill="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Menu Grid.Row="0">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open File" />
+                    <MenuItem Header="Open _Folder" />
+                    <MenuItem Header="Open _Recent" />
+                    <Separator />
+                    <MenuItem Header="_Preferences" />
+                    <Separator />
+                    <MenuItem Header="E_xit" />
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_About" />
+                </MenuItem>
+            </Menu>
+
+            <DockPanel
+                Grid.Row="1"
+                LastChildFill="True">
                 <c:ToolBox DockPanel.Dock="Left" />
                 <c:LogsSearch DockPanel.Dock="Top" />
                 <c:Timeline DockPanel.Dock="Bottom" />
                 <c:Logs />
             </DockPanel>
-            <c:DialogHost />
+            <c:DialogHost Grid.Row="1" />
         </Grid>
     </DataTemplate>
 

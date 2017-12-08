@@ -9,7 +9,6 @@
         <Setter Property="FontFamily" Value="{DynamicResource {x:Static theme:FontFamily.Default}}" />
         <Setter Property="FontSize" Value="{DynamicResource {x:Static theme:FontSize.Normal}}" />
         <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.Text}}" />
     </Style>
 
 </ResourceDictionary>

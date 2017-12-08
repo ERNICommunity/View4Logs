@@ -5,5 +5,6 @@
 
     <FontFamily x:Key="{x:Static theme:FontFamily.Default}">Calibry</FontFamily>
     <FontFamily x:Key="{x:Static theme:FontFamily.FontAwesome}">pack://application:,,,/View4Logs.UI;component/assets/Fonts/fontawesome-webfont.ttf#FontAwesome</FontFamily>
+    <FontFamily x:Key="{x:Static theme:FontFamily.MaterialIcons}">pack://application:,,,/View4Logs.UI;component/assets/Fonts/MaterialIcons-Regular.ttf#Material Icons</FontFamily>
 
 </ResourceDictionary>
