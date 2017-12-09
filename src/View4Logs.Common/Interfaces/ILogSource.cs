@@ -12,17 +12,17 @@ namespace View4Logs.Common.Interfaces
         string Name { get; }
 
         /// <summary>
-        /// Start processing input. Before this call, no message is streamed via <see cref="Messages"/> property.
+        /// Start processing input. Before this call, no log event is streamed via <see cref="LogEvents"/> property.
         /// </summary>
         void Start();
 
         /// <summary>
-        /// Buffered stream of log messages.
+        /// Buffered stream of log events.
         /// </summary>
-        IObservable<IList<LogMessage>> Messages { get; }
+        IObservable<IList<LogEvent>> LogEvents { get; }
 
         /// <summary>
-        /// Signals when all previous messages from this log source should be removed.
+        /// Signals when all previous log events from this log source should be removed.
         /// </summary>
         IObservable<ILogSource> Reset { get; }
     }

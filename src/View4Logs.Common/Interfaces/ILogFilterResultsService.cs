@@ -5,6 +5,6 @@ namespace View4Logs.Common.Interfaces
 {
     public interface ILogFilterResultsService
     {
-        INotifyListChanged<LogMessage> Messages { get; }
+        INotifyListChanged<LogEvent> Result { get; }
     }
 }

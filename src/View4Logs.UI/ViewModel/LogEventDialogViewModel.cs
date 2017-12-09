@@ -4,9 +4,9 @@ using View4Logs.UI.Base;
 
 namespace View4Logs.UI.ViewModel
 {
-    public class LogMessageDialogViewModel : DialogViewModelBase<Unit>
+    public class LogEventDialogViewModel : DialogViewModelBase<Unit>
     {
-        public LogMessageDialogViewModel()
+        public LogEventDialogViewModel()
         {
             CloseCommand = Command.Create((object o) => Return(Unit.Default));
         }

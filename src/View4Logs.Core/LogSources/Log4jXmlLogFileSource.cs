@@ -25,7 +25,7 @@ namespace View4Logs.Core.LogSources
         {
         }
 
-        protected override XName LogMessageElementName { get; } = XName.Get("event", Log4JNamespaceName);
+        protected override XName LogEventElementName { get; } = XName.Get("event", Log4JNamespaceName);
 
         protected override (string prefix, string uri)[] KnownNamespaces { get; } =
         {
@@ -33,11 +33,11 @@ namespace View4Logs.Core.LogSources
             ("nlog", NLogNamespaceName)
         };
 
-        protected override LogMessage ConvertElementToLogMessage(XElement el)
+        protected override LogEvent ConvertElementToLogEvent(XElement el)
         {
             var timestamp = long.Parse(el.Attribute(XName.Get("timestamp")).Value);
 
-            var logMessage = new LogMessage
+            var logEvent = new LogEvent
             {
                 Source = this,
                 Message = el.Element(XName.Get("message", Log4JNamespaceName)).Value,
@@ -45,7 +45,7 @@ namespace View4Logs.Core.LogSources
                 Level = LogLevelMapping[el.Attribute(XName.Get("level")).Value]
             };
 
-            return logMessage;
+            return logEvent;
         }
     }
 }

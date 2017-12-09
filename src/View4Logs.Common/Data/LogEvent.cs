@@ -3,7 +3,7 @@ using View4Logs.Common.Interfaces;
 
 namespace View4Logs.Common.Data
 {
-    public class LogMessage
+    public class LogEvent
     {
         public ILogSource Source { get; set; }
 

@@ -5,8 +5,8 @@ namespace View4Logs.Common.Interfaces
 {
     public interface ILogFilterService
     {
-        IObservable<Func<LogMessage, bool>> Filter { get; }
+        IObservable<Func<LogEvent, bool>> Filter { get; }
 
-        void AddFilter(IObservable<Func<LogMessage, bool>> filter);
+        void AddFilter(IObservable<Func<LogEvent, bool>> filter);
     }
 }

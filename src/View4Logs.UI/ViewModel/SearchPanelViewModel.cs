@@ -24,14 +24,14 @@ namespace View4Logs.UI.ViewModel
             set => _query.Value = value;
         }
 
-        private Func<LogMessage, bool> CreateFilter(string query)
+        private Func<LogEvent, bool> CreateFilter(string query)
         {
             if (string.IsNullOrEmpty(query))
             {
                 return LogFilter.PassAll;
             }
 
-            return msg => msg.Message.Contains(query);
+            return logEvent => logEvent.Message.Contains(query);
         }
 
         public void Dispose()

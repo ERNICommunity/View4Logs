@@ -13,13 +13,13 @@ namespace View4Logs.Core.Services
     public sealed class LogFilterService : ILogFilterService, IDisposable
     {
         private readonly object _filtersLock = new object();
-        private readonly BehaviorSubject<Func<LogMessage, bool>> _filter;
-        private readonly ObservableCowList<IObservable<Func<LogMessage, bool>>> _filters;
+        private readonly BehaviorSubject<Func<LogEvent, bool>> _filter;
+        private readonly ObservableCowList<IObservable<Func<LogEvent, bool>>> _filters;
 
         public LogFilterService()
         {
-            _filter = new BehaviorSubject<Func<LogMessage, bool>>(LogFilter.PassAll);
-            _filters = new ObservableCowList<IObservable<Func<LogMessage, bool>>>();
+            _filter = new BehaviorSubject<Func<LogEvent, bool>>(LogFilter.PassAll);
+            _filters = new ObservableCowList<IObservable<Func<LogEvent, bool>>>();
 
             _filters
                 .AsItemsBehaviorObservable()
@@ -31,9 +31,9 @@ namespace View4Logs.Core.Services
             Filter = _filter.AsObservable();
         }
 
-        public IObservable<Func<LogMessage, bool>> Filter { get; }
+        public IObservable<Func<LogEvent, bool>> Filter { get; }
 
-        public void AddFilter(IObservable<Func<LogMessage, bool>> filter)
+        public void AddFilter(IObservable<Func<LogEvent, bool>> filter)
         {
             lock (_filtersLock)
             {
@@ -41,7 +41,7 @@ namespace View4Logs.Core.Services
             }
         }
 
-        private Func<LogMessage, bool> CombineFilters(IList<Func<LogMessage, bool>> filters)
+        private Func<LogEvent, bool> CombineFilters(IList<Func<LogEvent, bool>> filters)
         {
             var activeFilters = filters.Where(f => f != LogFilter.PassAll).ToArray();
 
@@ -50,7 +50,7 @@ namespace View4Logs.Core.Services
                 return LogFilter.PassAll;
             }
 
-            return msg => Array.TrueForAll(activeFilters, f => f(msg));
+            return logEvent => Array.TrueForAll(activeFilters, f => f(logEvent));
         }
 
         public void Dispose()

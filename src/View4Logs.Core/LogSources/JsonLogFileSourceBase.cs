@@ -14,9 +14,9 @@ namespace View4Logs.Core.LogSources
         {
         }
 
-        protected override IList<LogMessage> ProcessStream(FileStream stream)
+        protected override IList<LogEvent> ProcessStream(FileStream stream)
         {
-            var result = new List<LogMessage>();
+            var result = new List<LogEvent>();
 
             using (var textReader = new StreamReader(stream, Encoding.Default, true, 1024, true))
             using (JsonReader jsonReader = new JsonTextReader(textReader) { SupportMultipleContent = true })
@@ -24,7 +24,7 @@ namespace View4Logs.Core.LogSources
                 while (jsonReader.Read())
                 {
                     var obj = JObject.Load(jsonReader);
-                    var msg = ConvertObjectToLogMessage(obj);
+                    var msg = ConvertObjectToLogEvent(obj);
                     result.Add(msg);
                 }
             }
@@ -32,6 +32,6 @@ namespace View4Logs.Core.LogSources
             return result;
         }
 
-        protected abstract LogMessage ConvertObjectToLogMessage(JObject obj);
+        protected abstract LogEvent ConvertObjectToLogEvent(JObject obj);
     }
 }

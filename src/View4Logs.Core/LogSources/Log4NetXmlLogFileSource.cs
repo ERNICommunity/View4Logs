@@ -23,16 +23,16 @@ namespace View4Logs.Core.LogSources
         {
         }
 
-        protected override XName LogMessageElementName { get; } = XName.Get("event", Log4netNamespaceName);
+        protected override XName LogEventElementName { get; } = XName.Get("event", Log4netNamespaceName);
 
         protected override (string prefix, string uri)[] KnownNamespaces { get; } =
         {
             ("log4net", Log4netNamespaceName),
         };
 
-        protected override LogMessage ConvertElementToLogMessage(XElement el)
+        protected override LogEvent ConvertElementToLogEvent(XElement el)
         {
-            var logMessage = new LogMessage
+            var logEvent = new LogEvent
             {
                 Source = this,
                 Message = el.Element(XName.Get("message", Log4netNamespaceName)).Value,
@@ -40,7 +40,7 @@ namespace View4Logs.Core.LogSources
                 Level = LogLevelMapping[el.Attribute(XName.Get("level")).Value]
             };
 
-            return logMessage;
+            return logEvent;
         }
     }
 }

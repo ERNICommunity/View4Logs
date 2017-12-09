@@ -5,6 +5,6 @@ namespace View4Logs.Common
 {
     public static class LogFilter
     {
-        public static readonly Func<LogMessage, bool> PassAll = _ => true;
+        public static readonly Func<LogEvent, bool> PassAll = _ => true;
     }
 }

@@ -12,26 +12,26 @@ namespace View4Logs.Core.Services
 {
     public sealed class LogFilterResultsService : ILogFilterResultsService
     {
-        private readonly ObservableCowList<LogMessage> _messages;
+        private readonly ObservableCowList<LogEvent> _logEvents;
 
         public LogFilterResultsService(ILogSourceService logSourceService, ILogFilterService logFilterService)
         {
-            _messages = new ObservableCowList<LogMessage>();
-            Messages = _messages;
+            _logEvents = new ObservableCowList<LogEvent>();
+            Result = _logEvents;
 
-            var sourceMessages = logSourceService.Messages.AsBehaviorObservable().Publish();
+            var sourceLogEvents = logSourceService.LogEvents.AsBehaviorObservable().Publish();
             var filterChanges = logFilterService.Filter.Publish();
-            var sourceResetMessages = sourceMessages.Where(e => e.Action == NotifyListChangedAction.Reset).Select(e => e.Items);
+            var sourceResetEvents = sourceLogEvents.Where(e => e.Action == NotifyListChangedAction.Reset).Select(e => e.Items);
 
             Observable.Merge(
                 Observable.WithLatestFrom(
-                    sourceResetMessages,
+                    sourceResetEvents,
                     filterChanges,
                     (items, filter) => (items, filter)
                 ),
                 Observable.WithLatestFrom(
                     filterChanges,
-                    sourceMessages.Select(e => e.Items),
+                    sourceLogEvents.Select(e => e.Items),
                     (filter, items) => (items, filter)
                 )
             )
@@ -40,7 +40,7 @@ namespace View4Logs.Core.Services
                 (var items, var filter) = x;
                 return Observable.Concat(
                     InvokeFilter(NotifyListChangedAction.Reset, items, filter),
-                    sourceMessages
+                    sourceLogEvents
                         .TakeWhile(e => e.Action == NotifyListChangedAction.Add)
                         .Select(e => InvokeFilter(e.Action, e.NewItems, filter))
                         .SelectMany(a => a)
@@ -52,10 +52,10 @@ namespace View4Logs.Core.Services
                 switch (action)
                 {
                     case NotifyListChangedAction.Add:
-                        _messages.Add(items);
+                        _logEvents.Add(items);
                         break;
                     case NotifyListChangedAction.Reset:
-                        _messages.Reset(items);
+                        _logEvents.Reset(items);
                         break;
                     default:
                         throw new NotSupportedException();
@@ -63,19 +63,19 @@ namespace View4Logs.Core.Services
             });
 
             filterChanges.Connect();
-            sourceMessages.Connect();
+            sourceLogEvents.Connect();
         }
 
-        public INotifyListChanged<LogMessage> Messages { get; }
+        public INotifyListChanged<LogEvent> Result { get; }
 
-        private IObservable<(NotifyListChangedAction, IList<LogMessage>)> InvokeFilter(NotifyListChangedAction action, IList<LogMessage> messages, Func<LogMessage, bool> filter)
+        private IObservable<(NotifyListChangedAction, IList<LogEvent>)> InvokeFilter(NotifyListChangedAction action, IList<LogEvent> logEvents, Func<LogEvent, bool> filter)
         {
-            return Observable.StartAsync(token => Task.Run(() => (action, ApplyFilter(messages, filter, token)), token));
+            return Observable.StartAsync(token => Task.Run(() => (action, ApplyFilter(logEvents, filter, token)), token));
         }
 
-        private IList<LogMessage> ApplyFilter(IList<LogMessage> messages, Func<LogMessage, bool> filter, CancellationToken token)
+        private IList<LogEvent> ApplyFilter(IList<LogEvent> logEvents, Func<LogEvent, bool> filter, CancellationToken token)
         {
-            return messages
+            return logEvents
                     .AsParallel()
                     .AsOrdered()
                     .WithCancellation(token)

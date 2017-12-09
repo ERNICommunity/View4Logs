@@ -1,5 +1,5 @@
 ﻿<base:View
-    x:Class="View4Logs.UI.View.LogMessageDialogView"
+    x:Class="View4Logs.UI.View.LogEventDialogView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:base="clr-namespace:View4Logs.UI.Base"
@@ -7,13 +7,13 @@
     xmlns:theme="clr-namespace:View4Logs.UI.Theme"
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
-    <DataTemplate DataType="{x:Type vm:LogMessageDialogViewModel}">
+    <DataTemplate DataType="{x:Type vm:LogEventDialogViewModel}">
 
         <ctrl:DialogContentControl
             Width="500"
             Height="500"
             CloseCommand="{Binding CloseCommand}"
-            Header="Log message">
+            Header="Log event">
             <ctrl:DialogContentControl.Content>
                 <Grid />
             </ctrl:DialogContentControl.Content>

@@ -14,31 +14,31 @@ namespace View4Logs.UI.ViewModel
 {
     public sealed class LogsViewModel : Base.ViewModel
     {
-        private readonly ObservableProperty<IList<LogMessage>> _messages;
+        private readonly ObservableProperty<IList<LogEvent>> _logEvents;
 
         public LogsViewModel(ILogFilterResultsService logFilterResultsService, ILogFileImporter logFileImporter, IDialogService dialogService)
         {
-            _messages = CreateProperty<IList<LogMessage>>(nameof(Messages));
+            _logEvents = CreateProperty<IList<LogEvent>>(nameof(LogEvents));
 
-            logFilterResultsService.Messages.AsItemsBehaviorObservable()
+            logFilterResultsService.Result.AsItemsBehaviorObservable()
                 .ObserveOn(DispatcherScheduler.Current)
-                .Subscribe(_messages);
+                .Subscribe(_logEvents);
 
             OpenFileCommand = Command.Create(async (string[] files) =>
             {
                 await Task.Run(() => logFileImporter.Import(files[0]));
             });
 
-            OpenLogMessageCommand = Command.Create(async (LogMessage msg) =>
+            OpenLogEventCommand = Command.Create(async (LogEvent msg) =>
             {
-                await dialogService.ShowDialog(new LogMessageDialog());
+                await dialogService.ShowDialog(new LogEventDialog());
             });
         }
 
-        public IList<LogMessage> Messages => _messages.Value;
+        public IList<LogEvent> LogEvents => _logEvents.Value;
 
         public ICommand OpenFileCommand { get; }
 
-        public ICommand OpenLogMessageCommand { get; }
+        public ICommand OpenLogEventCommand { get; }
     }
 }

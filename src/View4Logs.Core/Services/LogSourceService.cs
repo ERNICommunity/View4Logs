@@ -9,23 +9,23 @@ namespace View4Logs.Core.Services
 {
     public sealed class LogSourceService : ILogSourceService, IDisposable
     {
-        private readonly object _messagesLock;
+        private readonly object _logEventsLock;
         private readonly object _sourcesLock;
         private readonly ObservableCowList<ILogSource> _sources;
-        private readonly ObservableCowList<LogMessage> _messages;
+        private readonly ObservableCowList<LogEvent> _logEvents;
 
         public LogSourceService()
         {
-            _messagesLock = new object();
+            _logEventsLock = new object();
             _sourcesLock = new object();
             _sources = new ObservableCowList<ILogSource>();
-            _messages = new ObservableCowList<LogMessage>();
+            _logEvents = new ObservableCowList<LogEvent>();
 
             Sources = _sources;
-            Messages = _messages;
+            LogEvents = _logEvents;
         }
 
-        public INotifyListChanged<LogMessage> Messages { get; }
+        public INotifyListChanged<LogEvent> LogEvents { get; }
 
         public INotifyListChanged<ILogSource> Sources { get; }
 
@@ -35,7 +35,7 @@ namespace View4Logs.Core.Services
             {
                 _sources.Add(source);
 
-                source.Messages.Subscribe(
+                source.LogEvents.Subscribe(
                     Append,
                     () => _sources.Remove(source)
                 );
@@ -46,24 +46,24 @@ namespace View4Logs.Core.Services
 
         public void ResetSource(ILogSource source)
         {
-            lock (_messagesLock)
+            lock (_logEventsLock)
             {
-                var messages = _messages.Where(msg => msg.Source != source).ToList();
-                _messages.Reset(messages);
+                var logEvents = _logEvents.Where(logEvent => logEvent.Source != source).ToList();
+                _logEvents.Reset(logEvents);
             }
         }
 
-        private void Append(IList<LogMessage> messages)
+        private void Append(IList<LogEvent> logEvents)
         {
-            lock (_messagesLock)
+            lock (_logEventsLock)
             {
-                var needSort = messages.Zip(messages.Skip(1), (a, b) => a.TimeStamp < b.TimeStamp).Contains(false);
+                var needSort = logEvents.Zip(logEvents.Skip(1), (a, b) => a.TimeStamp < b.TimeStamp).Contains(false);
                 if (needSort)
                 {
-                    messages = messages.OrderBy(msg => msg.TimeStamp).ToList();
+                    logEvents = logEvents.OrderBy(logEvent => logEvent.TimeStamp).ToList();
                 }
 
-                _messages.Add(messages);
+                _logEvents.Add(logEvents);
             }
         }
 
@@ -71,7 +71,7 @@ namespace View4Logs.Core.Services
         {
             lock (_sourcesLock)
             {
-                lock (_messagesLock)
+                lock (_logEventsLock)
                 {
                     foreach (var src in _sources)
                     {
@@ -79,7 +79,7 @@ namespace View4Logs.Core.Services
                     }
 
                     _sources.Clear();
-                    _messages.Clear();
+                    _logEvents.Clear();
                 }
             }
         }

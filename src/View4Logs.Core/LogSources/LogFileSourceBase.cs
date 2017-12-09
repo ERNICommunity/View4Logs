@@ -13,7 +13,7 @@ namespace View4Logs.Core.LogSources
     /// Base class for processing log files.
     /// </summary>
     /// <remarks>
-    /// Derived classes must implement <see cref="ProcessStream(FileStream)"/> method to read log messages from stream.
+    /// Derived classes must implement <see cref="ProcessStream(FileStream)"/> method to read log events from stream.
     /// Opening file stream and watching for changes is implemented here.
     /// Log source is reset when the file is re-created or it detected shrink in size.
     /// Otherwise it's assumed that data were appended.
@@ -21,7 +21,7 @@ namespace View4Logs.Core.LogSources
     /// </remarks>
     public abstract class LogFileSourceBase : ILogSource
     {
-        private readonly Subject<IList<LogMessage>> _messages;
+        private readonly Subject<IList<LogEvent>> _logEvents;
         private readonly Subject<ILogSource> _reset;
         private readonly FileWatcher _fileWatcher;
         private bool _started;
@@ -33,11 +33,11 @@ namespace View4Logs.Core.LogSources
             Name = Path.GetFileNameWithoutExtension(path);
             FullPath = Path.GetFullPath(path);
 
-            _messages = new Subject<IList<LogMessage>>();
+            _logEvents = new Subject<IList<LogEvent>>();
             _reset = new Subject<ILogSource>();
             _fileWatcher = new FileWatcher(FullPath, TimeSpan.FromMilliseconds(500));
 
-            Messages = _messages.AsObservable();
+            LogEvents = _logEvents.AsObservable();
             Reset = _reset.AsObservable();
         }
 
@@ -45,7 +45,7 @@ namespace View4Logs.Core.LogSources
 
         public string FullPath { get; }
 
-        public IObservable<IList<LogMessage>> Messages { get; }
+        public IObservable<IList<LogEvent>> LogEvents { get; }
 
         public IObservable<ILogSource> Reset { get; }
 
@@ -75,7 +75,7 @@ namespace View4Logs.Core.LogSources
         {
         }
 
-        protected abstract IList<LogMessage> ProcessStream(FileStream stream);
+        protected abstract IList<LogEvent> ProcessStream(FileStream stream);
 
         protected void ThrowIfDisposed()
         {
@@ -115,7 +115,7 @@ namespace View4Logs.Core.LogSources
                     return;
                 }
 
-                // File is bigger, we assume one or more log messages has been appended to the file.
+                // File is bigger, we assume one or more log events has been appended to the file.
                 // if the file was modified in any other way, it will not work correctly.
                 if (_fileWatcher.FileInfo.Length < _position)
                 {
@@ -138,31 +138,31 @@ namespace View4Logs.Core.LogSources
 
                 fileStream.Position = _position;
 
-                IList<LogMessage> messages = null;
+                IList<LogEvent> logEvents = null;
 
                 try
                 {
-                    messages = ProcessStream(fileStream);
+                    logEvents = ProcessStream(fileStream);
                 }
                 catch (Exception ex)
                 {
-                    _messages.OnError(ex);
+                    _logEvents.OnError(ex);
                     Clenaup();
                     return;
                 }
 
                 _position = fileStream.Position;
 
-                if (messages.Count > 0)
+                if (logEvents.Count > 0)
                 {
-                    _messages.OnNext(messages);
+                    _logEvents.OnNext(logEvents);
                 }
             }
         }
 
         private void Clenaup()
         {
-            _messages?.Dispose();
+            _logEvents?.Dispose();
             _reset?.Dispose();
             _fileWatcher?.Dispose();
         }

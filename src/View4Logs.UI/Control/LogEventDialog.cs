@@ -4,7 +4,7 @@ using View4Logs.UI.ViewModel;
 
 namespace View4Logs.UI.Control
 {
-    public sealed class LogMessageDialog : Dialog<LogMessageDialogView, LogMessageDialogViewModel, Unit>
+    public sealed class LogEventDialog : Dialog<LogEventDialogView, LogEventDialogViewModel, Unit>
     {
     }
 }

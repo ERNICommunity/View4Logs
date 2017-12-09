@@ -22,16 +22,16 @@ namespace View4Logs.Core.LogSources
         {
         }
 
-        protected override LogMessage ConvertObjectToLogMessage(JObject obj)
+        protected override LogEvent ConvertObjectToLogEvent(JObject obj)
         {
-            var logMessage = new LogMessage
+            var logEvent = new LogEvent
             {
                 Level = LogLevelMapping[obj["level"].ToString()],
                 Message = obj["message"].ToString(),
                 TimeStamp = DateTime.Parse(obj["time"].ToString())
             };
 
-            return logMessage;
+            return logEvent;
         }
     }
 }

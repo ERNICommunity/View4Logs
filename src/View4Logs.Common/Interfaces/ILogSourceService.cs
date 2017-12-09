@@ -5,7 +5,7 @@ namespace View4Logs.Common.Interfaces
 {
     public interface ILogSourceService
     {
-        INotifyListChanged<LogMessage> Messages { get; }
+        INotifyListChanged<LogEvent> LogEvents { get; }
 
         INotifyListChanged<ILogSource> Sources { get; }
 

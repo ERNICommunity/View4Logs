@@ -16,7 +16,7 @@ namespace View4Logs.Core.LogSources
             : base(path)
         { }
 
-        protected abstract XName LogMessageElementName { get; }
+        protected abstract XName LogEventElementName { get; }
 
         protected abstract (string prefix, string uri)[] KnownNamespaces { get; }
 
@@ -45,9 +45,9 @@ namespace View4Logs.Core.LogSources
         // Log file is actually not well formed XML document.
         // There is no root element and XML namespace prefixes are used without definition.
         // Therefore we have to treat it as a stream of XML fragments and provide required contextual information
-        protected sealed override IList<LogMessage> ProcessStream(FileStream stream)
+        protected sealed override IList<LogEvent> ProcessStream(FileStream stream)
         {
-            var result = new List<LogMessage>();
+            var result = new List<LogEvent>();
 
             using (var textReader = new StreamReader(stream, Encoding.Default, true, 1024, true))
             using (var xmlReader = XmlReader.Create(textReader, _readerSettings, _parserContext))
@@ -60,9 +60,9 @@ namespace View4Logs.Core.LogSources
                     if (node.NodeType == XmlNodeType.Element)
                     {
                         var el = (XElement)node;
-                        if (el.Name == LogMessageElementName)
+                        if (el.Name == LogEventElementName)
                         {
-                            var msg = ConvertElementToLogMessage(el);
+                            var msg = ConvertElementToLogEvent(el);
                             result.Add(msg);
                         }
                     }
@@ -72,6 +72,6 @@ namespace View4Logs.Core.LogSources
             return result;
         }
 
-        protected abstract LogMessage ConvertElementToLogMessage(XElement el);
+        protected abstract LogEvent ConvertElementToLogEvent(XElement el);
     }
 }

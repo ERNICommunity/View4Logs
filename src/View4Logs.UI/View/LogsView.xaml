@@ -16,11 +16,11 @@
             AllowDrop="True"
             Background="{DynamicResource {x:Static theme:Brush.LogsBackground}}"
             BorderThickness="0"
-            ItemsSource="{Binding Path=Messages}"
+            ItemsSource="{Binding Path=LogEvents}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             VirtualizingPanel.VirtualizationMode="Recycling">
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type data:LogMessage}">
+                <DataTemplate DataType="{x:Type data:LogEvent}">
                     <DataTemplate.Resources>
                         <converters:LogLevelBrushConverter x:Key="LogLevelBrushConverter" />
                         <converters:RemoveLineBreaksConverter x:Key="RemoveLineBreaksConverter" />
@@ -45,7 +45,7 @@
                         <Grid.InputBindings>
                             <MouseBinding
                                 CommandParameter="{Binding}"
-                                Command="{Binding ElementName=Root, Path=DataContext.OpenLogMessageCommand}"
+                                Command="{Binding ElementName=Root, Path=DataContext.OpenLogEventCommand}"
                                 Gesture="LeftDoubleClick" />
                         </Grid.InputBindings>
                     </Grid>
@@ -64,7 +64,7 @@
                 <KeyBinding
                     Key="Return"
                     CommandParameter="{Binding ElementName=Root, Path=SelectedValue}"
-                    Command="{Binding OpenLogMessageCommand}" />
+                    Command="{Binding OpenLogEventCommand}" />
             </ListBox.InputBindings>
             <i:Interaction.Behaviors>
                 <behaviors:DropFileBehavior Command="{Binding OpenFileCommand}" />
