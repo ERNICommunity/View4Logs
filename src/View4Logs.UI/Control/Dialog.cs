@@ -41,10 +41,12 @@ namespace View4Logs.UI.Control
         protected override void OnLoaded()
         {
             base.OnLoaded();
+            
+            ViewModel.Result.Subscribe(_result);
 
             _previouslyFocusedElement = Keyboard.FocusedElement;
             Keyboard.ClearFocus();
-            ViewModel.Result.Subscribe(_result);
+            View?.Focus();
         }
 
         protected override void OnUnloaded()

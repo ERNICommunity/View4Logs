@@ -251,9 +251,13 @@
                             Style="{StaticResource ValueStyle}"
                             Text="{Binding LogEvent.Process.Name, Mode=OneTime, FallbackValue=''}" />
                     </Grid>
-
                 </StackPanel>
             </ctrl:DialogContentControl.Content>
+            <ctrl:DialogContentControl.InputBindings>
+                <KeyBinding
+                    Key="F1"
+                    Command="{Binding WebSearch}" />
+            </ctrl:DialogContentControl.InputBindings>
         </ctrl:DialogContentControl>
     </DataTemplate>
 

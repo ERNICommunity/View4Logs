@@ -53,6 +53,8 @@
     <Compile Include="Converters\IsNullOrEmptyConverter.cs" />
     <Compile Include="Converters\MultiplyConverter.cs" />
     <Compile Include="Converters\RemoveLineBreaksConverter.cs" />
+    <Compile Include="Interfaces\ITextSelectionProvider.cs" />
+    <Compile Include="Interfaces\IWebSearchService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,7 +107,9 @@
     <Compile Include="Base\ObservableCommand.cs" />
     <Compile Include="Base\ObservableProperty.cs" />
     <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\TextSelectionProvider.cs" />
     <Compile Include="Services\ThemeConfigurationService.cs" />
+    <Compile Include="Services\WebSearchService.cs" />
     <Compile Include="Theme\Brush.cs" />
     <Compile Include="Theme\Button.cs" />
     <Compile Include="Theme\Controls\DialogContentControl.cs" />

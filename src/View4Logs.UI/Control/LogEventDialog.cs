@@ -1,5 +1,6 @@
 ﻿using System.Reactive;
 using View4Logs.Common.Data;
+using View4Logs.UI.Services;
 using View4Logs.UI.View;
 using View4Logs.UI.ViewModel;
 
@@ -14,9 +15,10 @@ namespace View4Logs.UI.Control
             LogEvent = logEvent;
         }
 
-        protected override LogEventDialogViewModel ViewModelFactory()
+        protected override void OnLoaded()
         {
-            return new LogEventDialogViewModel(LogEvent);
+            base.OnLoaded();
+            ViewModel.LogEvent = LogEvent;
         }
     }
 }
