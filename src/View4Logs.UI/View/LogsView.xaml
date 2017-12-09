@@ -58,6 +58,7 @@
                     <Setter Property="BorderBrush" Value="{DynamicResource {x:Static theme:Brush.LogsBorder}}" />
                     <Setter Property="BorderThickness" Value="0 1 0 1" />
                     <Setter Property="Focusable" Value="True" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.InputBindings>
