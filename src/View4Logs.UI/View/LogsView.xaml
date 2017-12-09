@@ -12,6 +12,7 @@
 
     <DataTemplate DataType="{x:Type vm:LogsViewModel}">
         <ListBox
+            x:Name="Root"
             AllowDrop="True"
             Background="{DynamicResource {x:Static theme:Brush.LogsBackground}}"
             BorderThickness="0"
@@ -41,6 +42,12 @@
                             Margin="20 0 0 0"
                             Text="{Binding Path=Message, Mode=OneTime, Converter={StaticResource RemoveLineBreaksConverter}}"
                             TextTrimming="CharacterEllipsis" />
+                        <Grid.InputBindings>
+                            <MouseBinding
+                                CommandParameter="{Binding}"
+                                Command="{Binding ElementName=Root, Path=DataContext.OpenLogMessageCommand}"
+                                Gesture="LeftDoubleClick" />
+                        </Grid.InputBindings>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -53,6 +60,12 @@
                     <Setter Property="Focusable" Value="True" />
                 </Style>
             </ListBox.ItemContainerStyle>
+            <ListBox.InputBindings>
+                <KeyBinding
+                    Key="Return"
+                    CommandParameter="{Binding ElementName=Root, Path=SelectedValue}"
+                    Command="{Binding OpenLogMessageCommand}" />
+            </ListBox.InputBindings>
             <i:Interaction.Behaviors>
                 <behaviors:DropFileBehavior Command="{Binding OpenFileCommand}" />
             </i:Interaction.Behaviors>

@@ -1,8 +1,6 @@
 ﻿using System.Reactive;
-using System.Reactive.Linq;
 using System.Windows.Input;
 using View4Logs.UI.Base;
-using View4Logs.UI.Control;
 using View4Logs.UI.Interfaces;
 using View4Logs.UI.Theme;
 
@@ -20,7 +18,6 @@ namespace View4Logs.UI.ViewModel
         }
 
         public ICommand CloseCommand { get; }
-
 
         public ThemeResourceDictionary[] ColorThemes => _themeConfigurationService.ColorThemes;
 

@@ -71,5 +71,12 @@ namespace View4Logs.UI.Theme
 
         #endregion
 
+        #region List
+
+        public static ComponentResourceKey ListItemSelectedBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(ListItemSelectedBackground));
+        public static ComponentResourceKey ListItemSelectedBorder { get; } = new ComponentResourceKey(typeof(Brush), nameof(ListItemSelectedBorder));
+
+        #endregion
+
     }
 }

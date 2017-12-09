@@ -1,0 +1,24 @@
+﻿<base:View
+    x:Class="View4Logs.UI.View.LogMessageDialogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="clr-namespace:View4Logs.UI.Base"
+    xmlns:ctrl="clr-namespace:View4Logs.UI.Theme.Controls"
+    xmlns:theme="clr-namespace:View4Logs.UI.Theme"
+    xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
+
+    <DataTemplate DataType="{x:Type vm:LogMessageDialogViewModel}">
+
+        <ctrl:DialogContentControl
+            Width="500"
+            Height="500"
+            CloseCommand="{Binding CloseCommand}"
+            Header="Log message">
+            <ctrl:DialogContentControl.Content>
+                <Grid />
+            </ctrl:DialogContentControl.Content>
+        </ctrl:DialogContentControl>
+    </DataTemplate>
+
+</base:View>
+

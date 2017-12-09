@@ -8,6 +8,7 @@
         <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/FontFamily.xaml" />
         <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/FontSize.xaml" />
         <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/Icons.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/ListboxItem.xaml" />
         <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/ScrollBar.xaml" />
         <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/ScrollViewer.xaml" />
         <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/TextBlock.xaml" />

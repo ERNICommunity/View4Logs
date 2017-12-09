@@ -140,4 +140,14 @@
         x:Key="{x:Static theme:Brush.ScrollBarDisabled}"
         Color="#444444" />
 
+    <!--  List  -->
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.ListItemSelectedBackground}"
+        Color="#5426A0DA" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.ListItemSelectedBorder}"
+        Color="#FF26A0DA" />
+
 </theme:ThemeResourceDictionary>

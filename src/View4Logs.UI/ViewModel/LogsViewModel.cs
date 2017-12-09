@@ -7,6 +7,8 @@ using View4Logs.Common.Collections;
 using View4Logs.Common.Data;
 using View4Logs.Common.Interfaces;
 using View4Logs.UI.Base;
+using View4Logs.UI.Control;
+using View4Logs.UI.Interfaces;
 
 namespace View4Logs.UI.ViewModel
 {
@@ -14,7 +16,7 @@ namespace View4Logs.UI.ViewModel
     {
         private readonly ObservableProperty<IList<LogMessage>> _messages;
 
-        public LogsViewModel(ILogFilterResultsService logFilterResultsService, ILogFileImporter logFileImporter)
+        public LogsViewModel(ILogFilterResultsService logFilterResultsService, ILogFileImporter logFileImporter, IDialogService dialogService)
         {
             _messages = CreateProperty<IList<LogMessage>>(nameof(Messages));
 
@@ -26,10 +28,17 @@ namespace View4Logs.UI.ViewModel
             {
                 await Task.Run(() => logFileImporter.Import(files[0]));
             });
+
+            OpenLogMessageCommand = Command.Create(async (LogMessage msg) =>
+            {
+                await dialogService.ShowDialog(new LogMessageDialog());
+            });
         }
 
         public IList<LogMessage> Messages => _messages.Value;
 
         public ICommand OpenFileCommand { get; }
+
+        public ICommand OpenLogMessageCommand { get; }
     }
 }
