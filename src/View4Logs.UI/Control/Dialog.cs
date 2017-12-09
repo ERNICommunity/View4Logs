@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Markup;
 using View4Logs.UI.Base;
 using View4Logs.UI.Interfaces;
@@ -13,6 +15,7 @@ namespace View4Logs.UI.Control
         where TViewModel : DialogViewModelBase<TResult>
     {
         private readonly ReplaySubject<TResult> _result;
+        private IInputElement _previouslyFocusedElement;
 
         protected Dialog()
         {
@@ -37,7 +40,22 @@ namespace View4Logs.UI.Control
 
         protected override void OnLoaded()
         {
+            base.OnLoaded();
+
+            _previouslyFocusedElement = Keyboard.FocusedElement;
+            Keyboard.ClearFocus();
             ViewModel.Result.Subscribe(_result);
+        }
+
+        protected override void OnUnloaded()
+        {
+            if (_previouslyFocusedElement != null)
+            {
+                _previouslyFocusedElement.Focus();
+                _previouslyFocusedElement = null;
+            }
+
+            base.OnUnloaded();
         }
 
         protected virtual void Dispose(bool disposing)
