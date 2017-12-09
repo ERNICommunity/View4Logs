@@ -7,12 +7,15 @@ namespace View4Logs.UI.ViewModel
 {
     public class LogEventDialogViewModel : DialogViewModelBase<Unit>
     {
-        public LogEventDialogViewModel()
+        public LogEventDialogViewModel(LogEvent logEvent)
         {
+            LogEvent = logEvent;
             CloseCommand = Command.Create((object o) => Return(Unit.Default));
         }
-        public ICommand CloseCommand { get; }
 
         public LogEvent LogEvent { get; }
+
+        public ICommand CloseCommand { get; }
+
     }
 }

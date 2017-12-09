@@ -29,9 +29,9 @@ namespace View4Logs.UI.ViewModel
                 await Task.Run(() => logFileImporter.Import(files[0]));
             });
 
-            OpenLogEventCommand = Command.Create(async (LogEvent msg) =>
+            OpenLogEventCommand = Command.Create(async (LogEvent logEvent) =>
             {
-                await dialogService.ShowDialog(new LogEventDialog());
+                await dialogService.ShowDialog(new LogEventDialog(logEvent));
             });
         }
 

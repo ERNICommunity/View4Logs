@@ -18,23 +18,24 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <Style
-                x:Key="ValueBorderStyle"
-                TargetType="{x:Type Border}">
+                x:Key="ValueStyle"
+                TargetType="{x:Type TextBox}"
+                BasedOn="{StaticResource {x:Type TextBox}}">
+                <Setter Property="Background" Value="Transparent" />
                 <Setter Property="BorderBrush" Value="{DynamicResource {x:Static theme:Brush.DialogBorder}}" />
                 <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.DialogForeground}}" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="IsReadOnly" Value="True" />
                 <Setter Property="Margin" Value="10 5 0 5" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-            </Style>
-            <Style
-                x:Key="ContentBorderStyle"
-                TargetType="{x:Type Border}">
-                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static theme:Brush.DialogBorder}}" />
-                <Setter Property="BorderThickness" Value="1" />
             </Style>
 
         </DataTemplate.Resources>
         <ctrl:DialogContentControl
-            Width="800"
+            Width="1420"
             CloseCommand="{Binding CloseCommand}"
             Header="Log event">
             <ctrl:DialogContentControl.Content>
@@ -60,38 +61,33 @@
                             Grid.Column="0"
                             Style="{StaticResource LabelStyle}"
                             Text="Level:" />
-                        <Border
+                        <TextBox
                             Grid.Row="0"
                             Grid.Column="1"
-                            Style="{StaticResource ValueBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.Level, Mode=OneTime}" />
-                        </Border>
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Level, Mode=OneTime}" />
 
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
                             Style="{StaticResource LabelStyle}"
                             Text="Time:" />
-                        <Border
+                        <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
-                            Style="{StaticResource ValueBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.TimeStamp, Mode=OneTime}" />
-                        </Border>
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.TimeStamp, Mode=OneTime}" />
 
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="0"
                             Style="{StaticResource LabelStyle}"
                             Text="Logger:" />
-                        <Border
+                        <TextBox
                             Grid.Row="2"
                             Grid.Column="1"
-                            Style="{StaticResource ValueBorderStyle}">
-                            <TextBlock
-                                Style="{StaticResource LabelStyle}"
-                                Text="{Binding LogEvent.Logger, Mode=OneTime}" />
-                        </Border>
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Logger, Mode=OneTime}" />
 
                     </Grid>
 
@@ -100,13 +96,13 @@
                         Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
-                            <RowDefinition MinHeight="80" />
+                            <RowDefinition MinHeight="30" />
                             <RowDefinition />
-                            <RowDefinition MinHeight="80" />
+                            <RowDefinition MinHeight="30" />
                         </Grid.RowDefinitions>
 
                         <TextBlock
@@ -127,24 +123,26 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             Text="Message:" />
-                        <Border
+                        <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
-                            Style="{StaticResource ContentBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.Message, Mode=OneTime}" />
-                        </Border>
+                            Height="180"
+                            Margin="0"
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Message, Mode=OneTime}" />
 
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="1"
                             Margin="0 15 0 0"
                             Text="Exception:" />
-                        <Border
+                        <TextBox
                             Grid.Row="3"
                             Grid.Column="1"
-                            Style="{StaticResource ContentBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.Exception, Mode=OneTime}" />
-                        </Border>
+                            Height="180"
+                            Margin="0"
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Exception, Mode=OneTime}" />
 
                     </Grid>
 
@@ -167,48 +165,44 @@
                             Grid.Column="0"
                             Style="{StaticResource LabelStyle}"
                             Text="Class:" />
-                        <Border
+                        <TextBox
                             Grid.Row="0"
                             Grid.Column="1"
-                            Style="{StaticResource ValueBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.Code.Class, Mode=OneTime, FallbackValue=''}" />
-                        </Border>
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Code.Class, Mode=OneTime, FallbackValue=''}" />
 
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
                             Style="{StaticResource LabelStyle}"
                             Text="Method:" />
-                        <Border
+                        <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
-                            Style="{StaticResource ValueBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.Code.Method, Mode=OneTime, FallbackValue=''}" />
-                        </Border>
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Code.Method, Mode=OneTime, FallbackValue=''}" />
 
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="0"
                             Style="{StaticResource LabelStyle}"
                             Text="File:" />
-                        <Border
+                        <TextBox
                             Grid.Row="2"
                             Grid.Column="1"
-                            Style="{StaticResource ValueBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.Code.File, Mode=OneTime, FallbackValue=''}" />
-                        </Border>
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Code.File, Mode=OneTime, FallbackValue=''}" />
 
                         <TextBlock
                             Grid.Row="3"
                             Grid.Column="0"
                             Style="{StaticResource LabelStyle}"
                             Text="Line:" />
-                        <Border
+                        <TextBox
                             Grid.Row="3"
                             Grid.Column="1"
-                            Style="{StaticResource ValueBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.Code.Line, Mode=OneTime, FallbackValue=''}" />
-                        </Border>
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Code.Line, Mode=OneTime, FallbackValue=''}" />
                     </Grid>
 
                     <Grid
@@ -229,36 +223,33 @@
                             Grid.Column="0"
                             Style="{StaticResource LabelStyle}"
                             Text="Host:" />
-                        <Border
+                        <TextBox
                             Grid.Row="0"
                             Grid.Column="1"
-                            Style="{StaticResource ValueBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.Process.Host, Mode=OneTime, FallbackValue=''}" />
-                        </Border>
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Process.Host, Mode=OneTime, FallbackValue=''}" />
 
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
                             Style="{StaticResource LabelStyle}"
                             Text="User:" />
-                        <Border
+                        <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
-                            Style="{StaticResource ValueBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.Process.User, Mode=OneTime, FallbackValue=''}" />
-                        </Border>
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Process.User, Mode=OneTime, FallbackValue=''}" />
 
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="0"
                             Style="{StaticResource LabelStyle}"
                             Text="Process:" />
-                        <Border
+                        <TextBox
                             Grid.Row="2"
                             Grid.Column="1"
-                            Style="{StaticResource ValueBorderStyle}">
-                            <TextBlock Text="{Binding LogEvent.Process.Name, Mode=OneTime, FallbackValue=''}" />
-                        </Border>
+                            Style="{StaticResource ValueStyle}"
+                            Text="{Binding LogEvent.Process.Name, Mode=OneTime, FallbackValue=''}" />
                     </Grid>
 
                 </StackPanel>
