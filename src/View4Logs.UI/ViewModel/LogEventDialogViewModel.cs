@@ -1,6 +1,8 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Reactive;
 using System.Windows.Input;
 using View4Logs.Common.Data;
+using View4Logs.Common.Interfaces;
 using View4Logs.UI.Base;
 using View4Logs.UI.Interfaces;
 
@@ -8,11 +10,18 @@ namespace View4Logs.UI.ViewModel
 {
     public class LogEventDialogViewModel : DialogViewModelBase<Unit>
     {
-        public LogEventDialogViewModel(ITextSelectionProvider textSelectionProvider, IWebSearchService webSearchService)
+        private readonly ObservableProperty<LogEvent> _logEvent;
+        private readonly IDisposable _selectedLogEventSubscription;
+
+        public LogEventDialogViewModel(ILogsViewService logsViewService, ITextSelectionProvider textSelectionProvider, IWebSearchService webSearchService)
         {
+            _logEvent = CreateProperty<LogEvent>(nameof(LogEvent));
+
+            _selectedLogEventSubscription = logsViewService.SelectedLogEventProperty.Subscribe(_logEvent);
+
             CloseCommand = Command.Create((object o) => Return(Unit.Default));
 
-            WebSearch = Command.Create((object o) =>
+            WebSearchCommand = Command.Create((object o) =>
             {
                 var text = textSelectionProvider.GetSelectedText();
                 if (text != null)
@@ -20,12 +29,29 @@ namespace View4Logs.UI.ViewModel
                     webSearchService.OpenWebSearch(text);
                 }
             });
+
+            SelectNextCommand = Command.Create((object o) => logsViewService.SelectNext());
+            SelectPreviousCommand = Command.Create((object o) => logsViewService.SelectPrevious());
         }
 
-        public LogEvent LogEvent { get; set; }
+        public LogEvent LogEvent => _logEvent.Value;
 
         public ICommand CloseCommand { get; }
 
-        public ICommand WebSearch { get; }
+        public ICommand WebSearchCommand { get; }
+
+        public ICommand SelectNextCommand { get; }
+
+        public ICommand SelectPreviousCommand { get; }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _selectedLogEventSubscription.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

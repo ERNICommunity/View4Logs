@@ -70,6 +70,7 @@
             </ListBox.InputBindings>
             <i:Interaction.Behaviors>
                 <behaviors:DropFileBehavior Command="{Binding OpenFileCommand}" />
+                <behaviors:KeyboardNavigableListBoxBehavior />
             </i:Interaction.Behaviors>
         </ListBox>
     </DataTemplate>

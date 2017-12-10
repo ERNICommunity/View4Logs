@@ -49,6 +49,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Label="Properties">
+    <Compile Include="Behaviors\KeyboardNavigableListBoxBehavior .cs" />
     <Compile Include="Control\LogEventDialog.cs" />
     <Compile Include="Converters\IsNullOrEmptyConverter.cs" />
     <Compile Include="Converters\MultiplyConverter.cs" />

@@ -4,6 +4,7 @@ using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
 using View4Logs.UI.Base;
 using View4Logs.UI.Interfaces;
 using View4Logs.UI.ViewModel;
@@ -41,7 +42,7 @@ namespace View4Logs.UI.Control
         protected override void OnLoaded()
         {
             base.OnLoaded();
-            
+
             ViewModel.Result.Subscribe(_result);
 
             _previouslyFocusedElement = Keyboard.FocusedElement;
@@ -53,7 +54,11 @@ namespace View4Logs.UI.Control
         {
             if (_previouslyFocusedElement != null)
             {
-                _previouslyFocusedElement.Focus();
+                if (Keyboard.FocusedElement is Visual element && element.IsDescendantOf(View))
+                {
+                    _previouslyFocusedElement.Focus();
+                }
+
                 _previouslyFocusedElement = null;
             }
 

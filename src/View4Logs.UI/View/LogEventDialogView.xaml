@@ -65,7 +65,7 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Level, Mode=OneTime}" />
+                            Text="{Binding LogEvent.Level, Mode=OneWay}" />
 
                         <TextBlock
                             Grid.Row="1"
@@ -76,7 +76,7 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.TimeStamp, Mode=OneTime}" />
+                            Text="{Binding LogEvent.TimeStamp, Mode=OneWay}" />
 
                         <TextBlock
                             Grid.Row="2"
@@ -87,7 +87,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Logger, Mode=OneTime}" />
+                            Text="{Binding LogEvent.Logger, Mode=OneWay}" />
 
                     </Grid>
 
@@ -117,7 +117,7 @@
                             Background="Transparent"
                             BorderBrush="{DynamicResource {x:Static theme:Brush.DialogBorder}}"
                             BorderThickness="1"
-                            ItemsSource="{Binding LogEvent.Activities, Mode=OneTime}" />
+                            ItemsSource="{Binding LogEvent.Activities, Mode=OneWay}" />
 
                         <TextBlock
                             Grid.Row="0"
@@ -129,7 +129,7 @@
                             Height="180"
                             Margin="0"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Message, Mode=OneTime}" />
+                            Text="{Binding LogEvent.Message, Mode=OneWay}" />
 
                         <TextBlock
                             Grid.Row="2"
@@ -142,7 +142,7 @@
                             Height="180"
                             Margin="0"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Exception, Mode=OneTime}" />
+                            Text="{Binding LogEvent.Exception, Mode=OneWay}" />
 
                     </Grid>
 
@@ -169,7 +169,7 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Code.Class, Mode=OneTime, FallbackValue=''}" />
+                            Text="{Binding LogEvent.Code.Class, Mode=OneWay, FallbackValue=''}" />
 
                         <TextBlock
                             Grid.Row="1"
@@ -180,7 +180,7 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Code.Method, Mode=OneTime, FallbackValue=''}" />
+                            Text="{Binding LogEvent.Code.Method, Mode=OneWay, FallbackValue=''}" />
 
                         <TextBlock
                             Grid.Row="2"
@@ -191,7 +191,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Code.File, Mode=OneTime, FallbackValue=''}" />
+                            Text="{Binding LogEvent.Code.File, Mode=OneWay, FallbackValue=''}" />
 
                         <TextBlock
                             Grid.Row="3"
@@ -202,7 +202,7 @@
                             Grid.Row="3"
                             Grid.Column="1"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Code.Line, Mode=OneTime, FallbackValue=''}" />
+                            Text="{Binding LogEvent.Code.Line, Mode=OneWay, FallbackValue=''}" />
                     </Grid>
 
                     <Grid
@@ -227,7 +227,7 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Process.Host, Mode=OneTime, FallbackValue=''}" />
+                            Text="{Binding LogEvent.Process.Host, Mode=OneWay, FallbackValue=''}" />
 
                         <TextBlock
                             Grid.Row="1"
@@ -238,7 +238,7 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Process.User, Mode=OneTime, FallbackValue=''}" />
+                            Text="{Binding LogEvent.Process.User, Mode=OneWay, FallbackValue=''}" />
 
                         <TextBlock
                             Grid.Row="2"
@@ -249,14 +249,21 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             Style="{StaticResource ValueStyle}"
-                            Text="{Binding LogEvent.Process.Name, Mode=OneTime, FallbackValue=''}" />
+                            Text="{Binding LogEvent.Process.Name, Mode=OneWay, FallbackValue=''}" />
                     </Grid>
                 </StackPanel>
             </ctrl:DialogContentControl.Content>
             <ctrl:DialogContentControl.InputBindings>
                 <KeyBinding
                     Key="F1"
-                    Command="{Binding WebSearch}" />
+                    Command="{Binding WebSearchCommand}" />
+                <KeyBinding
+                    Key="Up"
+                    Command="{Binding SelectPreviousCommand}"
+                    Modifiers="Alt" />
+                <KeyBinding
+                    Key="Down"
+                    Command="{Binding SelectNextCommand}" />
             </ctrl:DialogContentControl.InputBindings>
         </ctrl:DialogContentControl>
     </DataTemplate>

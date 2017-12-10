@@ -8,17 +8,5 @@ namespace View4Logs.UI.Control
 {
     public sealed class LogEventDialog : Dialog<LogEventDialogView, LogEventDialogViewModel, Unit>
     {
-        public LogEvent LogEvent { get; }
-
-        public LogEventDialog(LogEvent logEvent)
-        {
-            LogEvent = logEvent;
-        }
-
-        protected override void OnLoaded()
-        {
-            base.OnLoaded();
-            ViewModel.LogEvent = LogEvent;
-        }
     }
 }
