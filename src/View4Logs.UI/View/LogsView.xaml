@@ -18,6 +18,7 @@
             BorderThickness="0"
             ItemsSource="{Binding Path=LogEvents}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            SelectedValue="{Binding SelectedLogEvent, Mode=TwoWay}"
             VirtualizingPanel.VirtualizationMode="Recycling">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type data:LogEvent}">

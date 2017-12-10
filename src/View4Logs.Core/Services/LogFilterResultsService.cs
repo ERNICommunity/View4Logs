@@ -75,12 +75,20 @@ namespace View4Logs.Core.Services
 
         private IList<LogEvent> ApplyFilter(IList<LogEvent> logEvents, Func<LogEvent, bool> filter, CancellationToken token)
         {
-            return logEvents
+            try
+            {
+                return logEvents
                     .AsParallel()
                     .AsOrdered()
                     .WithCancellation(token)
                     .Where(filter)
                     .ToList();
+            }
+            catch (OperationCanceledException)
+            {
+                // Safe to ignore
+                return Array.Empty<LogEvent>();
+            }
         }
     }
 }

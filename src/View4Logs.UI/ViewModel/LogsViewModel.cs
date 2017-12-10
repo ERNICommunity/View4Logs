@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace View4Logs.UI.ViewModel
     public sealed class LogsViewModel : Base.ViewModel
     {
         private readonly ObservableProperty<IList<LogEvent>> _logEvents;
+        private LogEvent _lastSelectedLogEvent;
 
         public LogsViewModel(ILogFilterResultsService logFilterResultsService, ILogFileImporter logFileImporter, IDialogService dialogService)
         {
@@ -23,6 +25,15 @@ namespace View4Logs.UI.ViewModel
             logFilterResultsService.Result.AsItemsBehaviorObservable()
                 .ObserveOn(DispatcherScheduler.Current)
                 .Subscribe(_logEvents);
+
+            // Refresh item selection
+            _logEvents.Subscribe(logEvents =>
+            {
+                if (logEvents != null && _lastSelectedLogEvent != null && logEvents.Contains(_lastSelectedLogEvent))
+                {
+                    SelectedLogEvent = _lastSelectedLogEvent;
+                }
+            });
 
             OpenFileCommand = Command.Create(async (string[] files) =>
             {
@@ -36,6 +47,21 @@ namespace View4Logs.UI.ViewModel
         }
 
         public IList<LogEvent> LogEvents => _logEvents.Value;
+
+        private LogEvent _selectedLogEvent;
+        public LogEvent SelectedLogEvent
+        {
+            get => _selectedLogEvent;
+            set
+            {
+                Set(ref _selectedLogEvent, value);
+
+                if (value != null)
+                {
+                    _lastSelectedLogEvent = value;
+                }
+            }
+        }
 
         public ICommand OpenFileCommand { get; }
 
