@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using View4Logs.Common;
@@ -37,7 +38,9 @@ namespace View4Logs.UI.ViewModel
                 return LogFilter.PassAll;
             }
 
-            return logEvent => logEvent.Message.Contains(query);
+            var culture = CultureInfo.CurrentCulture;
+
+            return logEvent => culture.CompareInfo.IndexOf(logEvent.Message, query, CompareOptions.IgnoreCase) >= 0;
         }
 
         public void Dispose()
