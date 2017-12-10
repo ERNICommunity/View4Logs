@@ -51,6 +51,8 @@
   <ItemGroup Label="Properties">
     <Compile Include="Behaviors\KeyboardNavigableListBoxBehavior .cs" />
     <Compile Include="Control\LogEventDialog.cs" />
+    <Compile Include="Control\LogSource.cs" />
+    <Compile Include="Control\LogSourcesDialog.cs" />
     <Compile Include="Converters\IsNullOrEmptyConverter.cs" />
     <Compile Include="Converters\MultiplyConverter.cs" />
     <Compile Include="Converters\RemoveLineBreaksConverter.cs" />
@@ -114,6 +116,9 @@
     <Compile Include="Services\ThemeConfigurationService.cs" />
     <Compile Include="Services\WebSearchService.cs" />
     <Compile Include="Theme\Brush.cs" />
+    <Compile Include="Theme\Icons\EyeIcon.cs" />
+    <Compile Include="Theme\Icons\EyeOffIcon.cs" />
+    <Compile Include="Theme\Template.cs" />
     <Compile Include="Theme\Button.cs" />
     <Compile Include="Theme\Controls\DialogContentControl.cs" />
     <Compile Include="Theme\FontFamily.cs" />
@@ -129,11 +134,15 @@
     <Compile Include="Theme\Icons\FileTreeIcon.cs" />
     <Compile Include="Theme\Scope.cs" />
     <Compile Include="Theme\ThemeResourceDictionary.cs" />
+    <Compile Include="Utils\BindingProxy.cs" />
+    <Compile Include="Utils\ComboBoxItemTemplateSelector.cs" />
     <Compile Include="ViewModel\LogEventDialogViewModel.cs" />
     <Compile Include="ViewModel\AppSettingsDialogViewModel.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\DialogHostViewModel.cs" />
     <Compile Include="ViewModel\DialogViewModelBase.cs" />
+    <Compile Include="ViewModel\LogSourceViewModel.cs" />
+    <Compile Include="ViewModel\LogSourcesDialogViewModel.cs" />
     <Compile Include="ViewModel\SearchPanelViewModel.cs" />
     <Compile Include="ViewModel\LogsViewModel.cs" />
     <Compile Include="ViewModel\TimelineViewModel.cs" />
@@ -160,6 +169,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Theme\Resources\Icons\EyeIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Theme\Resources\Icons\EyeOffIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Theme\Resources\Templates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Theme\Resources\ListBoxItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -177,6 +198,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Theme\Resources\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Theme\Resources\Templates\LogLevelDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -252,11 +277,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\LogSourceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\SearchPanelView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\LogsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\LogSourcesDialogView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -15,7 +15,6 @@ namespace View4Logs.Core.Services
         public void Import(string filename)
         {
             var source = new Log4JXmlLogFileSource(filename);
-            _logSourceService.Clear();
             _logSourceService.AddSource(source);
             source.Start();
         }

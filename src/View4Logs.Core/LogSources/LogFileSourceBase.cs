@@ -43,6 +43,8 @@ namespace View4Logs.Core.LogSources
 
         public string Name { get; }
 
+        public string FullName => FullPath;
+
         public string FullPath { get; }
 
         public IObservable<IList<LogEvent>> LogEvents { get; }
@@ -162,6 +164,9 @@ namespace View4Logs.Core.LogSources
 
         private void Clenaup()
         {
+            _logEvents?.OnCompleted();
+            _reset?.OnCompleted();
+
             _logEvents?.Dispose();
             _reset?.Dispose();
             _fileWatcher?.Dispose();

@@ -47,7 +47,10 @@
 
                 <c:Logs />
             </DockPanel>
-            <c:DialogHost Grid.Row="1" />
+
+            <c:DialogHost
+                Grid.Row="0"
+                Grid.RowSpan="2" />
         </Grid>
     </DataTemplate>
 

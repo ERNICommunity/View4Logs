@@ -3,15 +3,17 @@
 namespace View4Logs.UI.Theme
 {
     public static class Brush
-    {        
+    {
         #region LogLevel
 
+        public static ComponentResourceKey LogLevelAll { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogLevelAll));
         public static ComponentResourceKey LogLevelTrace { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogLevelTrace));
         public static ComponentResourceKey LogLevelDebug { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogLevelDebug));
         public static ComponentResourceKey LogLevelInfo { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogLevelInfo));
         public static ComponentResourceKey LogLevelWarn { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogLevelWarn));
         public static ComponentResourceKey LogLevelError { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogLevelError));
         public static ComponentResourceKey LogLevelFatal { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogLevelFatal));
+        public static ComponentResourceKey LogLevelOff { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogLevelOff));
 
         #endregion
 
@@ -34,13 +36,13 @@ namespace View4Logs.UI.Theme
 
         public static ComponentResourceKey SearchBarButtonBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarButtonBackground));
         public static ComponentResourceKey SearchBarButtonPressedBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarButtonPressedBackground));
-        public static  ComponentResourceKey SearchBarButtonBackgroundHover { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarButtonBackgroundHover));
+        public static ComponentResourceKey SearchBarButtonBackgroundHover { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarButtonBackgroundHover));
 
         #endregion
 
         #region Logs
 
-        public static  ComponentResourceKey LogsBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogsBackground));
+        public static ComponentResourceKey LogsBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogsBackground));
         public static ComponentResourceKey LogsBorder { get; } = new ComponentResourceKey(typeof(Brush), nameof(LogsBorder));
 
         #endregion

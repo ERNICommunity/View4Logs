@@ -12,6 +12,11 @@ namespace View4Logs.Common.Interfaces
         string Name { get; }
 
         /// <summary>
+        /// User friendly identifier of the source (e.g. file absolute path).
+        /// </summary>
+        string FullName { get; }
+
+        /// <summary>
         /// Start processing input. Before this call, no log event is streamed via <see cref="LogEvents"/> property.
         /// </summary>
         void Start();

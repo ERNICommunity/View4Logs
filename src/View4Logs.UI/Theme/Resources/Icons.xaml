@@ -2,6 +2,8 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/Icons/CloseIcon.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/Icons/EyeIcon.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/Icons/EyeOffIcon.xaml" />
         <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/Icons/FileIcon.xaml" />
         <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/Icons/FileTreeIcon.xaml" />
         <ResourceDictionary Source="pack://application:,,,/View4Logs.UI;component/Theme/Resources/Icons/FilterIcon.xaml" />

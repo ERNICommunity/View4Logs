@@ -37,7 +37,7 @@ namespace View4Logs.Core.Services
 
                 source.LogEvents.Subscribe(
                     Append,
-                    () => _sources.Remove(source)
+                    () => RemoveSource(source)
                 );
 
                 source.Reset.Subscribe(ResetSource);
@@ -51,6 +51,15 @@ namespace View4Logs.Core.Services
                 var logEvents = _logEvents.Where(logEvent => logEvent.Source != source).ToList();
                 _logEvents.Reset(logEvents);
             }
+        }
+
+        private void RemoveSource(ILogSource source)
+        {
+            // Remove all log events from this source
+            ResetSource(source);
+
+            // Remove source from sources list
+            _sources.Remove(source);
         }
 
         private void Append(IList<LogEvent> logEvents)

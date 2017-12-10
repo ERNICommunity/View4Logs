@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
 using View4Logs.Common.Data;
 
 namespace View4Logs.UI.Converters
@@ -13,6 +12,8 @@ namespace View4Logs.UI.Converters
         {
             switch ((LogLevel)value)
             {
+                case LogLevel.All:
+                    return Application.Current.FindResource(Theme.Brush.LogLevelAll);
                 case LogLevel.Trace:
                     return Application.Current.FindResource(Theme.Brush.LogLevelTrace);
                 case LogLevel.Debug:
@@ -25,8 +26,10 @@ namespace View4Logs.UI.Converters
                     return Application.Current.FindResource(Theme.Brush.LogLevelError);
                 case LogLevel.Fatal:
                     return Application.Current.FindResource(Theme.Brush.LogLevelFatal);
+                case LogLevel.Off:
+                    return Application.Current.FindResource(Theme.Brush.LogLevelOff);
                 default:
-                    return Application.Current.FindResource(Theme.Brush.LogLevelTrace);
+                    throw new InvalidOperationException();
             }
 
         }

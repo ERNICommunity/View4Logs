@@ -13,6 +13,7 @@ namespace View4Logs.UI.ViewModel
         {
             SearchPanelEnabledProperty = CreateProperty<bool>(nameof(SearchPanelEnabled));
 
+            OpenLogSourcesDialog = Command.Create<object>(o => dialogService.ShowDialog(new LogSourcesDialog()));
             OpenAppSettingsDialog = Command.Create<object>(o => dialogService.ShowDialog(new AppSettingsDialog()));
         }
 
@@ -22,6 +23,8 @@ namespace View4Logs.UI.ViewModel
             get => SearchPanelEnabledProperty.Value;
             set => SearchPanelEnabledProperty.Value = value;
         }
+
+        public ICommand OpenLogSourcesDialog { get; }
 
         public ICommand OpenAppSettingsDialog { get; }
     }

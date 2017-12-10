@@ -38,7 +38,9 @@
                     <icons:SearchIcon Margin="{StaticResource IconMargin}" />
                 </ToggleButton>
 
-                <Button Style="{StaticResource {x:Static theme:Button.SideBarButton}}">
+                <Button
+                    Command="{Binding OpenLogSourcesDialog}"
+                    Style="{StaticResource {x:Static theme:Button.SideBarButton}}">
                     <icons:FileIcon Margin="{StaticResource IconMargin}" />
                 </Button>
 
@@ -57,11 +59,14 @@
                 </Button>
             </StackPanel>
 
+            <!--  TODO  -->
+            <!--
             <Button
                 Grid.Row="1"
                 Style="{StaticResource {x:Static theme:Button.SideBarButton}}">
                 <icons:TimetableIcon Margin="{StaticResource IconMargin}" />
             </Button>
+            -->
         </Grid>
     </DataTemplate>
 

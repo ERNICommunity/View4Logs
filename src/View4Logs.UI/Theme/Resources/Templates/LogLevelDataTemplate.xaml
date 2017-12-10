@@ -1,0 +1,44 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:View4Logs.UI.Converters"
+    xmlns:theme="clr-namespace:View4Logs.UI.Theme">
+
+    <DataTemplate x:Key="{x:Static theme:Template.LogLevelColorBox}">
+        <DataTemplate.Resources>
+            <converters:LogLevelBrushConverter x:Key="LogLevelBrushConverter" />
+        </DataTemplate.Resources>
+
+        <Border
+            Width="20"
+            Height="20"
+            Margin="10 0 10 0"
+            VerticalAlignment="Center"
+            Background="{Binding Converter={StaticResource LogLevelBrushConverter}}"
+            BorderThickness="1" />
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="{x:Static theme:Template.LogLevel}">
+        <DataTemplate.Resources>
+            <converters:LogLevelBrushConverter x:Key="LogLevelBrushConverter" />
+        </DataTemplate.Resources>
+        <StackPanel
+            Margin="10"
+            Orientation="Horizontal">
+
+            <ContentPresenter
+                Content="{Binding}"
+                ContentTemplate="{StaticResource {x:Static theme:Template.LogLevelColorBox}}" />
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}"
+                Text="{Binding}"
+                Typography.Capitals="AllSmallCaps" />
+
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>
