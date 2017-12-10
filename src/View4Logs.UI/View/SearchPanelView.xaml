@@ -103,6 +103,9 @@
                     </TextBox.InputBindings>
                 </TextBox>
             </Grid>
+
+            <!--  TODO  -->
+            <!--
             <StackPanel
                 Grid.Column="2"
                 Height="40"
@@ -128,6 +131,7 @@
                         Text="Aa" />
                 </ToggleButton>
             </StackPanel>
+            -->
         </Grid>
     </DataTemplate>
 
