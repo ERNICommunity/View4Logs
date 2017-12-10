@@ -98,6 +98,7 @@
                     </TextBlock.Style>
                 </TextBlock>
                 <TextBox
+                    x:Name="SearchBox"
                     HorizontalAlignment="Stretch"
                     Background="Transparent"
                     BorderBrush="{DynamicResource {x:Static theme:Brush.SearchBarBorder}}"
@@ -106,7 +107,19 @@
                     FontSize="{StaticResource {x:Static theme:FontSize.Large}}"
                     FontWeight="Normal"
                     Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForegroundHover}}"
-                    Text="{Binding Path=Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding Path=Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding
+                            Key="Up"
+                            Command="{Binding SelectPreviousCommand}" />
+                        <KeyBinding
+                            Key="Down"
+                            Command="{Binding SelectNextCommand}" />
+                        <KeyBinding
+                            Key="Return"
+                            Command="{Binding OpenLogEventCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
             </Grid>
             <StackPanel
                 Grid.Column="2"

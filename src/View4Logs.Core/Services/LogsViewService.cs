@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using View4Logs.Common.Collections;
@@ -73,7 +74,12 @@ namespace View4Logs.Core.Services
                 {
                     var logEvents = _logEvents.Value;
                     var i = logEvents.IndexOf(SelectedLogEvent) + step;
-                    SelectedLogEvent = _logEvents.Value[i % logEvents.Count];
+                    var newIndex = (i % logEvents.Count + logEvents.Count) % logEvents.Count;
+                    SelectedLogEvent = _logEvents.Value[newIndex];
+                }
+                else
+                {
+                    SelectedLogEvent = _logEvents.Value.FirstOrDefault();
                 }
             }
         }

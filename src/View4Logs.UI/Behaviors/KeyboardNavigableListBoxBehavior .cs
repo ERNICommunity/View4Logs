@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interactivity;
+using System.Windows.Media;
 
 namespace View4Logs.UI.Behaviors
 {
@@ -18,8 +21,16 @@ namespace View4Logs.UI.Behaviors
 
         private void OnAssociatedObjectSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var container = AssociatedObject.ItemContainerGenerator.ContainerFromItem(AssociatedObject.SelectedItem) as UIElement;
-            container?.Focus();
+            if (e.AddedItems.Count > 0)
+            {
+                AssociatedObject.ScrollIntoView(e.AddedItems[0]);
+            }
+
+            if (Keyboard.FocusedElement is Visual element && element.IsAncestorOf(AssociatedObject))
+            {
+                var container = AssociatedObject.ItemContainerGenerator.ContainerFromItem(AssociatedObject.SelectedItem) as UIElement;
+                container?.Focus();
+            }
         }
     }
 }

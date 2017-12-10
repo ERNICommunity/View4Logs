@@ -259,8 +259,7 @@
                     Command="{Binding WebSearchCommand}" />
                 <KeyBinding
                     Key="Up"
-                    Command="{Binding SelectPreviousCommand}"
-                    Modifiers="Alt" />
+                    Command="{Binding SelectPreviousCommand}" />
                 <KeyBinding
                     Key="Down"
                     Command="{Binding SelectNextCommand}" />
