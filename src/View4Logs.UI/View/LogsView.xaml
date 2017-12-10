@@ -45,13 +45,25 @@
                             TextTrimming="CharacterEllipsis" />
                         <Grid.InputBindings>
                             <MouseBinding
-                                CommandParameter="{Binding}"
-                                Command="{Binding ElementName=Root, Path=DataContext.OpenLogEventCommand}"
+                                Command="{Binding ElementName=Root, Path=DataContext.LogsViewService.OpenLogEventCommand}"
                                 Gesture="LeftDoubleClick" />
                         </Grid.InputBindings>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=VirtualizingStackPanel}}"
+                                    Command="{Binding SetScrollHandleCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </VirtualizingStackPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
             <ListBox.ItemContainerStyle>
                 <Style
                     TargetType="{x:Type ListBoxItem}"
@@ -65,8 +77,7 @@
             <ListBox.InputBindings>
                 <KeyBinding
                     Key="Return"
-                    CommandParameter="{Binding ElementName=Root, Path=SelectedValue}"
-                    Command="{Binding OpenLogEventCommand}" />
+                    Command="{Binding LogsViewService.OpenLogEventCommand}" />
             </ListBox.InputBindings>
             <i:Interaction.Behaviors>
                 <behaviors:DropFileBehavior Command="{Binding OpenFileCommand}" />

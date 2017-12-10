@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using View4Logs.Common.Collections;
 using View4Logs.Common.Data;
@@ -10,6 +11,7 @@ using View4Logs.Common.Interfaces;
 using View4Logs.UI.Base;
 using View4Logs.UI.Control;
 using View4Logs.UI.Interfaces;
+using ILogsViewService = View4Logs.UI.Interfaces.ILogsViewService;
 
 namespace View4Logs.UI.ViewModel
 {
@@ -18,8 +20,10 @@ namespace View4Logs.UI.ViewModel
         private readonly ObservableProperty<IList<LogEvent>> _logEvents;
         private readonly ObservableProperty<LogEvent> _selectedLogEvent;
 
-        public LogsViewModel(ILogsViewService logsViewService, ILogFileImporter logFileImporter, IDialogService dialogService)
+        public LogsViewModel(ILogsViewService logsViewService, ILogFileImporter logFileImporter)
         {
+            LogsViewService = logsViewService;
+
             _logEvents = CreateProperty<IList<LogEvent>>(nameof(LogEvents));
             _selectedLogEvent = CreateProperty<LogEvent>(nameof(SelectedLogEvent));
 
@@ -37,10 +41,9 @@ namespace View4Logs.UI.ViewModel
                 await Task.Run(() => logFileImporter.Import(files[0]));
             });
 
-            OpenLogEventCommand = Command.Create(async (LogEvent logEvent) =>
+            SetScrollHandleCommand = Command.Create((IScrollInfo param) =>
             {
-                logsViewService.SelectedLogEvent = logEvent;
-                await dialogService.ShowDialog(new LogEventDialog());
+                logsViewService.SetScrollhandle(param);
             });
         }
 
@@ -52,8 +55,10 @@ namespace View4Logs.UI.ViewModel
             set => _selectedLogEvent.Value = value;
         }
 
+        public ILogsViewService LogsViewService { get; }
+
         public ICommand OpenFileCommand { get; }
 
-        public ICommand OpenLogEventCommand { get; }
+        public ICommand SetScrollHandleCommand { get; }
     }
 }

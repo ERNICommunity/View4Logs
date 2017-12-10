@@ -13,6 +13,7 @@ namespace View4Logs.UI.Control
         {
             var childScope = scope.BeginLifetimeScope(builder =>
             {
+                builder.RegisterType<LogsViewService>().As<ILogsViewService>().SingleInstance();
                 builder.RegisterType<DialogService>().As<IDialogService>().SingleInstance();
                 builder.RegisterType<TextSelectionProvider>().As<ITextSelectionProvider>().SingleInstance();
                 builder.RegisterType<WebSearchService>().As<IWebSearchService>().SingleInstance();

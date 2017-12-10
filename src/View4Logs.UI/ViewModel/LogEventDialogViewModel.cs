@@ -5,6 +5,7 @@ using View4Logs.Common.Data;
 using View4Logs.Common.Interfaces;
 using View4Logs.UI.Base;
 using View4Logs.UI.Interfaces;
+using ILogsViewService = View4Logs.UI.Interfaces.ILogsViewService;
 
 namespace View4Logs.UI.ViewModel
 {
@@ -13,11 +14,12 @@ namespace View4Logs.UI.ViewModel
         private readonly ObservableProperty<LogEvent> _logEvent;
         private readonly IDisposable _selectedLogEventSubscription;
 
-        public LogEventDialogViewModel(ILogsViewService logsViewService, ITextSelectionProvider textSelectionProvider, IWebSearchService webSearchService)
+        public LogEventDialogViewModel(ILogsViewService logsViewServiceService, ITextSelectionProvider textSelectionProvider, IWebSearchService webSearchService)
         {
-            _logEvent = CreateProperty<LogEvent>(nameof(LogEvent));
+            LogsViewService = logsViewServiceService;
 
-            _selectedLogEventSubscription = logsViewService.SelectedLogEventProperty.Subscribe(_logEvent);
+            _logEvent = CreateProperty<LogEvent>(nameof(LogEvent));
+            _selectedLogEventSubscription = logsViewServiceService.SelectedLogEventProperty.Subscribe(_logEvent);
 
             CloseCommand = Command.Create((object o) => Return(Unit.Default));
 
@@ -29,20 +31,15 @@ namespace View4Logs.UI.ViewModel
                     webSearchService.OpenWebSearch(text);
                 }
             });
-
-            SelectNextCommand = Command.Create((object o) => logsViewService.SelectNext());
-            SelectPreviousCommand = Command.Create((object o) => logsViewService.SelectPrevious());
         }
 
         public LogEvent LogEvent => _logEvent.Value;
 
+        public ILogsViewService LogsViewService { get; }
+
         public ICommand CloseCommand { get; }
 
         public ICommand WebSearchCommand { get; }
-
-        public ICommand SelectNextCommand { get; }
-
-        public ICommand SelectPreviousCommand { get; }
 
         protected override void Dispose(bool disposing)
         {

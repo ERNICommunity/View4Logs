@@ -111,13 +111,25 @@
                     <TextBox.InputBindings>
                         <KeyBinding
                             Key="Up"
-                            Command="{Binding SelectPreviousCommand}" />
+                            Command="{Binding LogsViewService.SelectPreviousCommand}" />
                         <KeyBinding
                             Key="Down"
-                            Command="{Binding SelectNextCommand}" />
+                            Command="{Binding LogsViewService.SelectNextCommand}" />
+                        <KeyBinding
+                            Key="PageUp"
+                            Command="{Binding LogsViewService.SelectPreviousPageCommand}" />
+                        <KeyBinding
+                            Key="PageDown"
+                            Command="{Binding LogsViewService.SelectNextPageCommand}" />
+                        <KeyBinding
+                            Key="Home"
+                            Command="{Binding LogsViewService.SelectFirstCommand}" />
+                        <KeyBinding
+                            Key="End"
+                            Command="{Binding LogsViewService.SelectLastCommand}" />
                         <KeyBinding
                             Key="Return"
-                            Command="{Binding OpenLogEventCommand}" />
+                            Command="{Binding LogsViewService.OpenLogEventCommand}" />
                     </TextBox.InputBindings>
                 </TextBox>
             </Grid>
