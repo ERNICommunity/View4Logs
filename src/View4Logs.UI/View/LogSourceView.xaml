@@ -30,6 +30,7 @@
                 BorderThickness="0"
                 ItemsSource="{x:Static data:LogLevels.All}"
                 SelectedIndex="0"
+                SelectedValue="{Binding LogLevel, Mode=TwoWay}"
                 TextElement.Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}"
                 ToolTip="{Binding Source.FullName, Mode=OneTime}">
                 <ComboBox.ItemTemplateSelector>

@@ -4,6 +4,7 @@ using System.Windows.Threading;
 using Autofac;
 using Autofac.Features.ResolveAnything;
 using View4Logs.Common.Interfaces;
+using View4Logs.Core.Filters;
 using View4Logs.Core.Services;
 using View4Logs.Theme;
 using View4Logs.Theme.Brushes;
@@ -54,6 +55,7 @@ namespace View4Logs
             builder.RegisterType<LogFilterResultsService>().As<ILogFilterResultsService>().SingleInstance();
             builder.RegisterType<LogFilterService>().As<ILogFilterService>().SingleInstance();
             builder.RegisterType<LogSourceService>().As<ILogSourceService>().SingleInstance();
+            builder.RegisterType<LogSourceLevelFilter>().As<ILogSourceLevelFilter>().SingleInstance();
             builder.RegisterType<Log4JXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
             //builder.RegisterType<Log4NetXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
             //builder.RegisterType<JsonLogFileImportService>().As<ILogFileImporter>().SingleInstance();
