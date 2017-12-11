@@ -28,7 +28,8 @@ namespace View4Logs.Core.LogSources
             {
                 Level = LogLevelMapping[obj["level"].ToString()],
                 Message = obj["message"].ToString(),
-                TimeStamp = DateTime.Parse(obj["time"].ToString())
+                TimeStamp = DateTime.Parse(obj["time"].ToString()),
+                Source = this
             };
 
             return logEvent;
