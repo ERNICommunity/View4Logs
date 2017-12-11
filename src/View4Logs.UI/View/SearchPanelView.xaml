@@ -42,7 +42,7 @@
                 BorderThickness="0"
                 ItemTemplate="{StaticResource {x:Static theme:Template.LogLevel}}"
                 ItemsSource="{x:Static data:LogLevels.All}"
-                SelectedIndex="0" />
+                SelectedValue="{Binding SelectedLogLevel, Mode=TwoWay}" />
 
             <Grid
                 Grid.Column="1"
