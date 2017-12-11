@@ -39,11 +39,11 @@
 
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.LogLevelError}"
-        Color="DarkRed" />
+        Color="Red" />
 
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.LogLevelFatal}"
-        Color="Red" />
+        Color="Purple" />
 
     <VisualBrush
         x:Key="{x:Static theme:Brush.LogLevelOff}"

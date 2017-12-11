@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:base="clr-namespace:View4Logs.UI.Base"
     xmlns:ctrl="clr-namespace:View4Logs.UI.Theme.Controls"
+    xmlns:data="clr-namespace:View4Logs.Common.Data;assembly=View4Logs.Common"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:theme="clr-namespace:View4Logs.UI.Theme"
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
@@ -121,7 +122,16 @@
                             Background="Transparent"
                             BorderBrush="{DynamicResource {x:Static theme:Brush.DialogBorder}}"
                             BorderThickness="1"
-                            ItemsSource="{Binding LogEvent.Activities, Mode=OneWay}" />
+                            ItemsSource="{Binding LogEvent.Activities, Mode=OneWay}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type data:ActivityInfo}">
+                                    <TextBlock
+                                        Foreground="{DynamicResource {x:Static theme:Brush.DialogForeground}}"
+                                        Text="{Binding Name, Mode=OneTime}"
+                                        ToolTip="{Binding Id, Mode=OneTime}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
 
                         <TextBlock
                             Grid.Row="0"
