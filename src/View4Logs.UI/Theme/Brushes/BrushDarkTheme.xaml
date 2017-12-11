@@ -110,7 +110,7 @@
 
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.DialogOverlayBackground}"
-        Opacity="0.3"
+        Opacity="0.5"
         Color="Black" />
 
     <SolidColorBrush
@@ -123,6 +123,10 @@
 
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.DialogForeground}"
+        Color="#FFFFFF" />
+
+    <SolidColorBrush
+        x:Key="{x:Static theme:Brush.DialogForegroundLabel}"
         Color="#828489" />
 
     <SolidColorBrush
@@ -131,7 +135,7 @@
 
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.DialogHeaderForeground}"
-        Color="#828489" />
+        Color="#FFFFFF" />
 
     <SolidColorBrush
         x:Key="{x:Static theme:Brush.DialogHeaderForegroundHover}"

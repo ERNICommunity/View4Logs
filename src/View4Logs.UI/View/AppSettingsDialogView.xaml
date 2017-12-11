@@ -31,7 +31,8 @@
                         <TextBlock
                             Grid.Column="0"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Center">
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource {x:Static theme:Brush.DialogForegroundLabel}}">
                             Theme:
                         </TextBlock>
 

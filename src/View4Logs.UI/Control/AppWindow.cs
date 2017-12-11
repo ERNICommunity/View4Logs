@@ -8,6 +8,7 @@ namespace View4Logs.UI.Control
         public AppWindow(ILifetimeScope scope)
         {
             WindowState = WindowState.Maximized;
+            Title = "View4Logs";
             Content = scope.Resolve<App>();
         }
     }

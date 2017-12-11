@@ -68,7 +68,7 @@ namespace View4Logs
 
             // Theme
             builder.RegisterType<BrushDarkTheme>().As<ThemeResourceDictionary>().SingleInstance().OnActivating(e => e.Instance.InitializeComponent());
-            builder.RegisterType<BrushLightTheme>().As<ThemeResourceDictionary>().SingleInstance().OnActivating(e => e.Instance.InitializeComponent());
+            ////builder.RegisterType<BrushLightTheme>().As<ThemeResourceDictionary>().SingleInstance().OnActivating(e => e.Instance.InitializeComponent());
 
             builder.RegisterType<ThemeConfigurationService>()
                 .As<IThemeConfigurationService>()

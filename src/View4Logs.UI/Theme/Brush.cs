@@ -54,6 +54,7 @@ namespace View4Logs.UI.Theme
         public static ComponentResourceKey DialogBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(DialogBackground));
         public static ComponentResourceKey DialogBorder { get; } = new ComponentResourceKey(typeof(Brush), nameof(DialogBorder));
         public static ComponentResourceKey DialogForeground { get; } = new ComponentResourceKey(typeof(Brush), nameof(DialogForeground));
+        public static ComponentResourceKey DialogForegroundLabel { get; } = new ComponentResourceKey(typeof(Brush), nameof(DialogForegroundLabel));
 
         public static ComponentResourceKey DialogHeaderBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(DialogHeaderBackground));
         public static ComponentResourceKey DialogHeaderForeground { get; } = new ComponentResourceKey(typeof(Brush), nameof(DialogHeaderForeground));
