@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Threading;
 using View4Logs.Common.Data;
 using View4Logs.Common.Interfaces;
 using View4Logs.UI.Base;
@@ -17,7 +18,7 @@ namespace View4Logs.UI.ViewModel
         private readonly ObservableProperty<IList<LogEvent>> _logEvents;
         private readonly ObservableProperty<LogEvent> _selectedLogEvent;
 
-        public LogsViewModel(ILogsViewService logsViewService, ILogFileImportService logFileImportService)
+        public LogsViewModel(ILogsViewService logsViewService, ILogFileImportService logFileImportService, Dispatcher dispatcher)
         {
             LogsViewService = logsViewService;
 
@@ -25,13 +26,21 @@ namespace View4Logs.UI.ViewModel
             _selectedLogEvent = CreateProperty<LogEvent>(nameof(SelectedLogEvent));
 
             logsViewService.LogEvents
-                .ObserveOn(DispatcherScheduler.Current)
-                .Subscribe(_logEvents);
+                .Subscribe(value =>
+                {
+                    _logEvents.Value = value;
 
-            logsViewService.SelectedLogEventProperty.Subscribe(_selectedLogEvent);
+                    // We need UI to refresh selection
+                    RaisePropertyChanged(nameof(SelectedLogEvent));
+                });
+
+            logsViewService
+                .SelectedLogEventProperty                
+                .Subscribe(_selectedLogEvent);
+
             _selectedLogEvent
                 .Where(logEvent => logEvent != null)
-                .Subscribe(LogEvent => logsViewService.SelectedLogEvent = LogEvent);
+                .Subscribe(logEvent => logsViewService.SelectedLogEvent = logEvent);
 
             OpenFileCommand = Command.Create((string[] files) =>
             {
