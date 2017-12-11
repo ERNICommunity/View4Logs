@@ -118,5 +118,24 @@ namespace View4Logs.UI.Base
                 }
             );
         }
+
+        public static ObservableCommand<Unit, Unit> Create(IObservable<bool> canExecute, Action execute)
+        {
+            return new ObservableCommand<Unit, Unit>(
+                canExecute.Select<bool, Func<Unit, bool>>(val => o => val),
+                param =>
+                {
+                    execute();
+                    return Task.FromResult(Unit.Default);
+                });
+        }
+
+        public static ObservableCommand<Unit, TResult> Create<TResult>(IObservable<bool> canExecute, Func<TResult> execute)
+        {
+            return new ObservableCommand<Unit, TResult>(
+                canExecute.Select<bool, Func<Unit, bool>>(val => o => val),
+                param => Task.FromResult(execute())
+            );
+        }
     }
 }

@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Features.ResolveAnything;
 using View4Logs.Common.Interfaces;
 using View4Logs.Core.Filters;
+using View4Logs.Core.LogFormats;
 using View4Logs.Core.Services;
 using View4Logs.Theme;
 using View4Logs.Theme.Brushes;
@@ -52,13 +53,18 @@ namespace View4Logs
             // Dispatcher
             builder.RegisterInstance(Dispatcher);
 
+            // Services
             builder.RegisterType<LogFilterResultsService>().As<ILogFilterResultsService>().SingleInstance();
             builder.RegisterType<LogFilterService>().As<ILogFilterService>().SingleInstance();
             builder.RegisterType<LogSourceService>().As<ILogSourceService>().SingleInstance();
+
+            // Filters
             builder.RegisterType<LogSourceLevelFilter>().As<ILogSourceLevelFilter>().SingleInstance();
-            builder.RegisterType<Log4JXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
-            //builder.RegisterType<Log4NetXmlLogFileImportService>().As<ILogFileImporter>().SingleInstance();
-            //builder.RegisterType<JsonLogFileImportService>().As<ILogFileImporter>().SingleInstance();
+
+            // File Formats
+            builder.RegisterType<JsonLogFileFormat>().As<ILogFormat>().SingleInstance();
+            builder.RegisterType<Log4JXmlLogFileFormat>().As<ILogFormat>().SingleInstance();
+            builder.RegisterType<Log4NetXmlLogFileFormat>().As<ILogFormat>().SingleInstance();
 
             // Theme
             builder.RegisterType<BrushDarkTheme>().As<ThemeResourceDictionary>().SingleInstance().OnActivating(e => e.Instance.InitializeComponent());

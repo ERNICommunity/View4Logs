@@ -41,8 +41,6 @@
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.SearchBarButtonBackgroundHover}}" />
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.SearchBarForegroundHover}}" />
-                <!--<Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.SearchBarButtonPressedBackground}}" />
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.SearchBarForegroundPressed}}" />-->
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -98,6 +96,22 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.DialogHeaderForegroundHover}}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="{x:Static theme:Button.DialogContentButton}"
+        TargetType="{x:Type Button}"
+        BasedOn="{StaticResource {x:Type ButtonBase}}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.SearchBarButtonBackground}}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static theme:Brush.SearchBarBorder}}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource {x:Static theme:Brush.SearchBarButtonBackgroundHover}}" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static theme:Brush.SearchBarForegroundHover}}" />
             </Trigger>
         </Style.Triggers>
     </Style>

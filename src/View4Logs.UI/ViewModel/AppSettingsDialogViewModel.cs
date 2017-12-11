@@ -14,7 +14,7 @@ namespace View4Logs.UI.ViewModel
         {
             _themeConfigurationService = themeConfigurationService;
 
-            CloseCommand = Command.Create((object o) => Close());
+            CloseCommand = Command.Create((object o) => Return(Unit.Default));
         }
 
         public ICommand CloseCommand { get; }

@@ -37,6 +37,12 @@ namespace View4Logs.UI.Base
 
         public bool CanExecute(object parameter)
         {
+            // Coerce parameter to default value (important when TParam is value type).
+            if (parameter == null)
+            {
+                return CanExecute(default(TParam));
+            }
+
             return CanExecute((TParam)parameter);
         }
 

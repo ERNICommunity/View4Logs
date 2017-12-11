@@ -10,5 +10,7 @@ namespace View4Logs.UI.Theme
         public static ComponentResourceKey SideBarToggleButton { get; } = new ComponentResourceKey(typeof(Button), nameof(SideBarToggleButton));
 
         public static ComponentResourceKey DialogHeaderButton { get; } = new ComponentResourceKey(typeof(Button), nameof(DialogHeaderButton));
+
+        public static ComponentResourceKey DialogContentButton { get; } = new ComponentResourceKey(typeof(Button), nameof(DialogContentButton));
     }
 }

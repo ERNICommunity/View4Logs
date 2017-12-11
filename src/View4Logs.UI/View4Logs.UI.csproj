@@ -51,8 +51,10 @@
   <ItemGroup Label="Properties">
     <Compile Include="Behaviors\KeyboardNavigableListBoxBehavior .cs" />
     <Compile Include="Control\LogEventDialog.cs" />
+    <Compile Include="Control\LogFormatSelectionDialog.cs" />
     <Compile Include="Control\LogSource.cs" />
     <Compile Include="Control\LogSourcesDialog.cs" />
+    <Compile Include="Control\MessageDialog.cs" />
     <Compile Include="Converters\IsNullOrEmptyConverter.cs" />
     <Compile Include="Converters\MultiplyConverter.cs" />
     <Compile Include="Converters\RemoveLineBreaksConverter.cs" />
@@ -111,6 +113,8 @@
     <Compile Include="Base\ObservableCommand.cs" />
     <Compile Include="Base\ObservableProperty.cs" />
     <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Interfaces\ILogFileImportService.cs" />
+    <Compile Include="Services\LogFileImportService.cs" />
     <Compile Include="Services\LogsViewService.cs" />
     <Compile Include="Services\TextSelectionProvider.cs" />
     <Compile Include="Services\ThemeConfigurationService.cs" />
@@ -141,8 +145,10 @@
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\DialogHostViewModel.cs" />
     <Compile Include="ViewModel\DialogViewModelBase.cs" />
+    <Compile Include="ViewModel\LogFormatSelectionDialogViewModel.cs" />
     <Compile Include="ViewModel\LogSourceViewModel.cs" />
     <Compile Include="ViewModel\LogSourcesDialogViewModel.cs" />
+    <Compile Include="ViewModel\MessageDialogViewModel.cs" />
     <Compile Include="ViewModel\SearchPanelViewModel.cs" />
     <Compile Include="ViewModel\LogsViewModel.cs" />
     <Compile Include="ViewModel\TimelineViewModel.cs" />
@@ -290,6 +296,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\LogSourcesDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MessageDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\LogFormatSelectionDialogView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
