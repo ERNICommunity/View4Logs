@@ -93,11 +93,14 @@ namespace View4Logs.UI.Base
             return _executeResults.Subscribe(observer);
         }
 
-        public void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            _isExecuting.Dispose();
-            _canExecuteSubscription.Dispose();
-            _executeResults.Dispose();
+            if (disposing)
+            {
+                _isExecuting.Dispose();
+                _canExecuteSubscription.Dispose();
+                _executeResults.Dispose();
+            }
         }
 
         private void OnCanExecuteNewValue(Func<TParam, bool> condition)

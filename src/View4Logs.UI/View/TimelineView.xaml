@@ -3,9 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:base="clr-namespace:View4Logs.UI.Base"
+    xmlns:theme="clr-namespace:View4Logs.UI.Theme"
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
-    <DataTemplate DataType="{x:Type vm:TimelineViewModel}" />
+    <DataTemplate DataType="{x:Type vm:TimelineViewModel}">
+        <Border
+            Height="80"
+            Background="{DynamicResource {x:Static theme:Brush.AppBarBackground}}" />
+    </DataTemplate>
 
 </base:View>
 

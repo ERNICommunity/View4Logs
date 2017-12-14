@@ -78,6 +78,9 @@
                 <KeyBinding
                     Key="Return"
                     Command="{Binding LogsViewService.OpenLogEventCommand}" />
+                <KeyBinding
+                    Key="Esc"
+                    Command="{Binding LogsViewService.HideLogEventCommand}" />
             </ListBox.InputBindings>
             <i:Interaction.Behaviors>
                 <behaviors:DropFileBehavior Command="{Binding OpenFileCommand}" />

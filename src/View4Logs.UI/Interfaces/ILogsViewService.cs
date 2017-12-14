@@ -16,6 +16,8 @@ namespace View4Logs.UI.Interfaces
 
         ICommand OpenLogEventCommand { get; }
 
+        ICommand HideLogEventCommand { get; }
+
         ICommand SelectNextCommand { get; }
 
         ICommand SelectPreviousCommand { get; }

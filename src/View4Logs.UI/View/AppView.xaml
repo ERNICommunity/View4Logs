@@ -4,11 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:base="clr-namespace:View4Logs.UI.Base"
     xmlns:c="clr-namespace:View4Logs.UI.Control"
+    xmlns:converters="clr-namespace:View4Logs.UI.Converters"
+    xmlns:theme="clr-namespace:View4Logs.UI.Theme"
     xmlns:vm="clr-namespace:View4Logs.UI.ViewModel">
 
     <DataTemplate DataType="{x:Type vm:AppViewModel}">
         <DataTemplate.Resources>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:MultiplyConverter x:Key="MultiplyConverter" />
         </DataTemplate.Resources>
         <Grid>
             <Grid.RowDefinitions>
@@ -34,22 +37,97 @@
             </Menu>
             -->
 
-            <DockPanel
-                Grid.Row="1"
-                LastChildFill="True">
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto">
+                        <ColumnDefinition.Style>
+                            <Style TargetType="{x:Type ColumnDefinition}">
+                                <Setter Property="MaxWidth" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Path=ActualWidth, Converter={StaticResource MultiplyConverter}, ConverterParameter=0.5}" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding LeftPanelVisible}"
+                                        Value="False">
+                                        <Setter Property="MaxWidth" Value="0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ColumnDefinition.Style>
+                    </ColumnDefinition>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
                 <c:SideBar
                     x:Name="SideBar"
-                    DockPanel.Dock="Left" />
+                    Grid.Column="0" />
 
-                <c:SearchPanel
-                    DockPanel.Dock="Top"
-                    Visibility="{Binding ElementName=SideBar, Path=SearchPanelEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <ScrollViewer
+                    Grid.Column="1"
+                    Background="{DynamicResource {x:Static theme:Brush.AppBarBackground}}"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto"
+                    Visibility="{Binding LeftPanelVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid>
+                        <c:LogSources Visibility="{Binding LogSourcesVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </Grid>
+                </ScrollViewer>
 
-                <c:Timeline DockPanel.Dock="Bottom" />
+                <GridSplitter
+                    Grid.Column="1"
+                    Width="5"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Stretch"
+                    Background="{DynamicResource {x:Static theme:Brush.AppBarBorder}}"
+                    ShowsPreview="True"
+                    Visibility="{Binding LeftPanelVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <c:Logs />
-            </DockPanel>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto">
+                            <RowDefinition.Style>
+                                <Style TargetType="{x:Type RowDefinition}">
+                                    <Setter Property="MaxHeight" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Path=ActualHeight, Converter={StaticResource MultiplyConverter}, ConverterParameter=0.5}" />
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding LogEventDetailVisible}"
+                                            Value="False">
+                                            <Setter Property="MaxHeight" Value="0" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RowDefinition.Style>
+                        </RowDefinition>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <c:SearchPanel
+                        Grid.Row="0"
+                        Visibility="{Binding SearchPanelVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                    <c:Logs Grid.Row="1" />
+
+                    <ScrollViewer
+                        Grid.Row="2"
+                        VerticalScrollBarVisibility="Auto">
+                        <c:LogEventDetail Visibility="{Binding LogEventDetailVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </ScrollViewer>
+
+                    <GridSplitter
+                        Grid.Row="2"
+                        Height="5"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Background="{DynamicResource {x:Static theme:Brush.AppBarBorder}}"
+                        ShowsPreview="True" />
+
+                    <c:Timeline
+                        Grid.Row="3"
+                        Visibility="{Binding TimeLineVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </Grid>
+
+            </Grid>
 
             <c:DialogHost
                 Grid.Row="0"

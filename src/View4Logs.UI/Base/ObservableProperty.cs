@@ -48,6 +48,7 @@ namespace View4Logs.UI.Base
 
         public void Dispose()
         {
+            _subject.OnCompleted();
             _subject.Dispose();
         }
 

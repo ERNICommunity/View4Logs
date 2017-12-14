@@ -22,7 +22,7 @@ namespace View4Logs.UI.Services
         private LogEvent _lastSelectedLogEvent;
         private IScrollInfo _scrollInfo;
 
-        public LogsViewService(ILogFilterResultsService logFilterResultsService, IDialogService dialogService)
+        public LogsViewService(ILogFilterResultsService logFilterResultsService, ILayoutService layoutService)
         {
             _logEvents = new BehaviorSubject<IList<LogEvent>>(Array.Empty<LogEvent>());
             _selectedLogEventProperty = new BehaviorSubject<LogEvent>(null);
@@ -44,10 +44,14 @@ namespace View4Logs.UI.Services
 
             OpenLogEventCommand = Command.Create(
                 SelectedLogEventProperty.Select<LogEvent, Func<object, bool>>(logEvent => param => logEvent != null),
-                async (param) =>
+                param =>
                 {
-                    await dialogService.ShowDialog(new LogEventDialog());
+                    layoutService.LogEventDetailVisibleProperty.OnNext(true);
                 }
+            );
+
+            HideLogEventCommand = Command.Create(
+                (object param) => layoutService.LogEventDetailVisibleProperty.OnNext(false)
             );
 
             SelectNextCommand = Command.Create((object o) => Move(1));
@@ -99,6 +103,8 @@ namespace View4Logs.UI.Services
         public IObservable<LogEvent> SelectedLogEventProperty { get; }
 
         public ICommand OpenLogEventCommand { get; }
+
+        public ICommand HideLogEventCommand { get; }
 
         public ICommand SelectNextCommand { get; }
 

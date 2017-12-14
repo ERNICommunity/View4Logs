@@ -26,12 +26,12 @@
                 Grid.Column="0"
                 Height="40"
                 VerticalAlignment="Center"
-                Background="{DynamicResource {x:Static theme:Brush.SearchBarBackground}}"
+                Background="{DynamicResource {x:Static theme:Brush.AppBarBackground}}"
                 BorderThickness="0"
                 ItemsSource="{x:Static data:LogLevels.All}"
                 SelectedIndex="0"
                 SelectedValue="{Binding LogLevel, Mode=TwoWay}"
-                TextElement.Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}"
+                TextElement.Foreground="{DynamicResource {x:Static theme:Brush.AppBarForeground}}"
                 ToolTip="{Binding Source.FullName, Mode=OneTime}">
                 <ComboBox.ItemTemplateSelector>
                     <utils:ComboBoxItemTemplateSelector>
@@ -46,7 +46,7 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Text="{Binding Source={StaticResource SourceName}, Path=Data}"
-                                        TextElement.Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}" />
+                                        TextElement.Foreground="{DynamicResource {x:Static theme:Brush.AppBarForeground}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </utils:ComboBoxItemTemplateSelector.SelectedTemplate>
@@ -65,7 +65,7 @@
                 Grid.Column="1"
                 Width="10"
                 Height="10"
-                Margin="20 0 0 0"
+                Margin="20 0 20 0"
                 Command="{Binding RemoveCommand}"
                 Style="{DynamicResource {x:Static theme:Button.SideBarButton}}">
                 <icons:CloseIcon />

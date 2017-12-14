@@ -25,18 +25,18 @@ namespace View4Logs.UI.Theme
 
         #endregion
 
-        #region SearchBar
+        #region AppBar
 
-        public static ComponentResourceKey SearchBarBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarBackground));
-        public static ComponentResourceKey SearchBarBorder { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarBorder));
-        public static ComponentResourceKey SearchBarForeground { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarForeground));
+        public static ComponentResourceKey AppBarBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(AppBarBackground));
+        public static ComponentResourceKey AppBarBorder { get; } = new ComponentResourceKey(typeof(Brush), nameof(AppBarBorder));
+        public static ComponentResourceKey AppBarForeground { get; } = new ComponentResourceKey(typeof(Brush), nameof(AppBarForeground));
 
-        public static ComponentResourceKey SearchBarForegroundPressed { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarForegroundPressed));
-        public static ComponentResourceKey SearchBarForegroundHover { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarForegroundHover));
+        public static ComponentResourceKey AppBarForegroundPressed { get; } = new ComponentResourceKey(typeof(Brush), nameof(AppBarForegroundPressed));
+        public static ComponentResourceKey AppBarForegroundHover { get; } = new ComponentResourceKey(typeof(Brush), nameof(AppBarForegroundHover));
 
-        public static ComponentResourceKey SearchBarButtonBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarButtonBackground));
-        public static ComponentResourceKey SearchBarButtonPressedBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarButtonPressedBackground));
-        public static ComponentResourceKey SearchBarButtonBackgroundHover { get; } = new ComponentResourceKey(typeof(Brush), nameof(SearchBarButtonBackgroundHover));
+        public static ComponentResourceKey AppBarButtonBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(AppBarButtonBackground));
+        public static ComponentResourceKey AppBarButtonPressedBackground { get; } = new ComponentResourceKey(typeof(Brush), nameof(AppBarButtonPressedBackground));
+        public static ComponentResourceKey AppBarButtonBackgroundHover { get; } = new ComponentResourceKey(typeof(Brush), nameof(AppBarButtonBackgroundHover));
 
         #endregion
 

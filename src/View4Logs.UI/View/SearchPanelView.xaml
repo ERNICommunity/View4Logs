@@ -24,7 +24,7 @@
         </DataTemplate.Resources>
         <Grid
             Height="60"
-            Background="{DynamicResource {x:Static theme:Brush.SearchBarBackground}}">
+            Background="{DynamicResource {x:Static theme:Brush.AppBarBackground}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -38,7 +38,7 @@
                 Padding="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Background="{DynamicResource {x:Static theme:Brush.SearchBarBackground}}"
+                Background="{DynamicResource {x:Static theme:Brush.AppBarBackground}}"
                 BorderThickness="0"
                 ItemTemplate="{StaticResource {x:Static theme:Template.LogLevel}}"
                 ItemsSource="{x:Static data:LogLevels.All}"
@@ -51,7 +51,7 @@
 
                 <TextBlock
                     HorizontalAlignment="Left"
-                    Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}"
+                    Foreground="{DynamicResource {x:Static theme:Brush.AppBarForeground}}"
                     Text="Search"
                     TextElement.FontSize="{StaticResource {x:Static theme:FontSize.Large}}">
                     <TextBlock.Style>
@@ -71,12 +71,12 @@
                     x:Name="SearchBox"
                     HorizontalAlignment="Stretch"
                     Background="Transparent"
-                    BorderBrush="{DynamicResource {x:Static theme:Brush.SearchBarBorder}}"
+                    BorderBrush="{DynamicResource {x:Static theme:Brush.AppBarBorder}}"
                     BorderThickness="0 0 0 1"
-                    CaretBrush="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}"
+                    CaretBrush="{DynamicResource {x:Static theme:Brush.AppBarForeground}}"
                     FontSize="{StaticResource {x:Static theme:FontSize.Large}}"
                     FontWeight="Normal"
-                    Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForegroundHover}}"
+                    Foreground="{DynamicResource {x:Static theme:Brush.AppBarForegroundHover}}"
                     Text="{Binding Path=Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding
@@ -100,6 +100,9 @@
                         <KeyBinding
                             Key="Return"
                             Command="{Binding LogsViewService.OpenLogEventCommand}" />
+                        <KeyBinding
+                            Key="Esc"
+                            Command="{Binding LogsViewService.HideLogEventCommand}" />
                     </TextBox.InputBindings>
                 </TextBox>
             </Grid>

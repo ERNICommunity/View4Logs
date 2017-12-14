@@ -33,24 +33,26 @@
                 Grid.Row="0"
                 Orientation="Vertical">
                 <ToggleButton
-                    IsChecked="{Binding SearchPanelEnabled, Mode=TwoWay}"
+                    IsChecked="{Binding SearchPanelVisible, Mode=TwoWay}"
                     Style="{StaticResource {x:Static theme:Button.SideBarToggleButton}}">
                     <icons:SearchIcon Margin="{StaticResource IconMargin}" />
                 </ToggleButton>
 
-                <Button
-                    Command="{Binding OpenLogSourcesDialog}"
-                    Style="{StaticResource {x:Static theme:Button.SideBarButton}}">
+                <ToggleButton
+                    IsChecked="{Binding LogSourcesVisible, Mode=TwoWay}"
+                    Style="{StaticResource {x:Static theme:Button.SideBarToggleButton}}">
                     <icons:FileIcon Margin="{StaticResource IconMargin}" />
-                </Button>
+                </ToggleButton>
 
-                <Button Style="{StaticResource {x:Static theme:Button.SideBarButton}}">
+                <ToggleButton
+                    IsChecked="{Binding LoggersTreeVisible, Mode=TwoWay}"
+                    Style="{StaticResource {x:Static theme:Button.SideBarToggleButton}}">
                     <icons:FileTreeIcon Margin="{StaticResource IconMargin}" />
-                </Button>
+                </ToggleButton>
 
-                <Button Style="{StaticResource {x:Static theme:Button.SideBarButton}}">
+                <!--<Button Style="{StaticResource {x:Static theme:Button.SideBarButton}}">
                     <icons:FilterIcon Margin="{StaticResource IconMargin}" />
-                </Button>
+                </Button>-->
 
                 <Button
                     Command="{Binding OpenAppSettingsDialog}"

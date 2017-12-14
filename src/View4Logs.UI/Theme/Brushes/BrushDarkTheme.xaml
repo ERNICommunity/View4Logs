@@ -73,27 +73,27 @@
     <!--  SearchBar  -->
 
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.SearchBarBackground}"
+        x:Key="{x:Static theme:Brush.AppBarBackground}"
         Color="#252526" />
 
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.SearchBarBorder}"
+        x:Key="{x:Static theme:Brush.AppBarBorder}"
         Color="#424242" />
 
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.SearchBarForeground}"
+        x:Key="{x:Static theme:Brush.AppBarForeground}"
         Color="#828489" />
 
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.SearchBarForegroundHover}"
+        x:Key="{x:Static theme:Brush.AppBarForegroundHover}"
         Color="White" />
 
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.SearchBarButtonBackground}"
+        x:Key="{x:Static theme:Brush.AppBarButtonBackground}"
         Color="#333333" />
 
     <SolidColorBrush
-        x:Key="{x:Static theme:Brush.SearchBarButtonBackgroundHover}"
+        x:Key="{x:Static theme:Brush.AppBarButtonBackgroundHover}"
         Color="#666666" />
 
     <!--  Logs  -->

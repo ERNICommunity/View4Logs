@@ -4,7 +4,7 @@ using System.Reactive.Subjects;
 
 namespace View4Logs.UI.ViewModel
 {
-    public abstract class DialogViewModelBase<TResult> : Base.ViewModel, IDisposable
+    public abstract class DialogViewModelBase<TResult> : Base.ViewModel
     {
         private readonly Subject<TResult> _result;
 
@@ -19,12 +19,6 @@ namespace View4Logs.UI.ViewModel
         public void Close()
         {
             _result.OnCompleted();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected void Yield(TResult value)
@@ -43,7 +37,7 @@ namespace View4Logs.UI.ViewModel
             _result.OnError(ex);
         }
 
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

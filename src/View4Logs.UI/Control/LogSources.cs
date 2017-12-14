@@ -3,7 +3,7 @@ using View4Logs.UI.ViewModel;
 
 namespace View4Logs.UI.Control
 {
-    public sealed class SideBar : Base.Component<SideBarView, SideBarViewModel>
+    public class LogSources : Base.Component<LogSourcesView, LogSourcesViewModel>
     {
     }
 }

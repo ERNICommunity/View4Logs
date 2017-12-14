@@ -50,14 +50,15 @@
   </ItemGroup>
   <ItemGroup Label="Properties">
     <Compile Include="Behaviors\KeyboardNavigableListBoxBehavior .cs" />
-    <Compile Include="Control\LogEventDialog.cs" />
+    <Compile Include="Control\LogEventDetail.cs" />
     <Compile Include="Control\LogFormatSelectionDialog.cs" />
     <Compile Include="Control\LogSource.cs" />
-    <Compile Include="Control\LogSourcesDialog.cs" />
+    <Compile Include="Control\LogSources.cs" />
     <Compile Include="Control\MessageDialog.cs" />
     <Compile Include="Converters\IsNullOrEmptyConverter.cs" />
     <Compile Include="Converters\MultiplyConverter.cs" />
     <Compile Include="Converters\RemoveLineBreaksConverter.cs" />
+    <Compile Include="Interfaces\ILayoutService.cs" />
     <Compile Include="Interfaces\ILogsViewService.cs" />
     <Compile Include="Interfaces\ITextSelectionProvider.cs" />
     <Compile Include="Interfaces\IWebSearchService.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Base\ObservableProperty.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Interfaces\ILogFileImportService.cs" />
+    <Compile Include="Services\LayoutService.cs" />
     <Compile Include="Services\LogFileImportService.cs" />
     <Compile Include="Services\LogsViewService.cs" />
     <Compile Include="Services\TextSelectionProvider.cs" />
@@ -140,14 +142,14 @@
     <Compile Include="Theme\ThemeResourceDictionary.cs" />
     <Compile Include="Utils\BindingProxy.cs" />
     <Compile Include="Utils\ComboBoxItemTemplateSelector.cs" />
-    <Compile Include="ViewModel\LogEventDialogViewModel.cs" />
+    <Compile Include="ViewModel\LogEventDetailViewModel.cs" />
     <Compile Include="ViewModel\AppSettingsDialogViewModel.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\DialogHostViewModel.cs" />
     <Compile Include="ViewModel\DialogViewModelBase.cs" />
     <Compile Include="ViewModel\LogFormatSelectionDialogViewModel.cs" />
     <Compile Include="ViewModel\LogSourceViewModel.cs" />
-    <Compile Include="ViewModel\LogSourcesDialogViewModel.cs" />
+    <Compile Include="ViewModel\LogSourcesViewModel.cs" />
     <Compile Include="ViewModel\MessageDialogViewModel.cs" />
     <Compile Include="ViewModel\SearchPanelViewModel.cs" />
     <Compile Include="ViewModel\LogsViewModel.cs" />
@@ -267,7 +269,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\LogEventDialogView.xaml">
+    <Page Include="View\LogEventDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -295,7 +297,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\LogSourcesDialogView.xaml">
+    <Page Include="View\LogSourcesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

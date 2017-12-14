@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reactive.Linq;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using View4Logs.UI.Base;
 using View4Logs.UI.Control;
 using View4Logs.UI.Interfaces;
@@ -9,22 +7,53 @@ namespace View4Logs.UI.ViewModel
 {
     public sealed class SideBarViewModel : Base.ViewModel
     {
-        public SideBarViewModel(IDialogService dialogService)
-        {
-            SearchPanelEnabledProperty = CreateProperty<bool>(nameof(SearchPanelEnabled));
+        private readonly ILayoutService _layoutService;
 
-            OpenLogSourcesDialog = Command.Create<object>(o => dialogService.ShowDialog(new LogSourcesDialog()));
+        public SideBarViewModel(ILayoutService layoutService, IDialogService dialogService)
+        {
+            _layoutService = layoutService;
+            SearchPanelVisibleProperty = CreateProperty<bool>(nameof(SearchPanelVisible));
+            LogSourcesVisibleProperty = CreateProperty<bool>(nameof(LogSourcesVisible));
+            LoggersTreeVisibleProperty = CreateProperty<bool>(nameof(LoggersTreeVisible));
+            TimelineVisibleProperty = CreateProperty<bool>(nameof(TimelineVisible));
+
+            _layoutService.SearchPanelVisibleProperty.Subscribe(SearchPanelVisibleProperty);
+            _layoutService.LogSourcesVisibleProperty.Subscribe(LogSourcesVisibleProperty);
+            _layoutService.LoggersTreeVisibleProperty.Subscribe(LoggersTreeVisibleProperty);
+            _layoutService.TimelineVisibleProperty.Subscribe(TimelineVisibleProperty);
+
             OpenAppSettingsDialog = Command.Create<object>(o => dialogService.ShowDialog(new AppSettingsDialog()));
         }
 
-        public ObservableProperty<bool> SearchPanelEnabledProperty { get; }
-        public bool SearchPanelEnabled
+        public ObservableProperty<bool> SearchPanelVisibleProperty { get; }
+        public ObservableProperty<bool> LogSourcesVisibleProperty { get; }
+        public ObservableProperty<bool> LoggersTreeVisibleProperty { get; }
+        public ObservableProperty<bool> TimelineVisibleProperty { get; }
+
+
+        public bool SearchPanelVisible
         {
-            get => SearchPanelEnabledProperty.Value;
-            set => SearchPanelEnabledProperty.Value = value;
+            get => SearchPanelVisibleProperty.Value;
+            set => _layoutService.SearchPanelVisibleProperty.OnNext(value);
         }
 
-        public ICommand OpenLogSourcesDialog { get; }
+        public bool LogSourcesVisible
+        {
+            get => LogSourcesVisibleProperty.Value;
+            set => _layoutService.LogSourcesVisibleProperty.OnNext(value);
+        }
+
+        public bool LoggersTreeVisible
+        {
+            get => LoggersTreeVisibleProperty.Value;
+            set => _layoutService.LoggersTreeVisibleProperty.OnNext(value);
+        }
+
+        public bool TimelineVisible
+        {
+            get => TimelineVisibleProperty.Value;
+            set => _layoutService.TimelineVisibleProperty.OnNext(value);
+        }
 
         public ICommand OpenAppSettingsDialog { get; }
     }

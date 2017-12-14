@@ -62,11 +62,5 @@ namespace View4Logs.UI.ViewModel
 
             return logEvent => culture.CompareInfo.IndexOf(logEvent.Message, query, CompareOptions.IgnoreCase) >= 0;
         }
-
-        public void Dispose()
-        {
-            _query.Dispose();
-            _selectedLogLevel.Dispose();
-        }
     }
 }

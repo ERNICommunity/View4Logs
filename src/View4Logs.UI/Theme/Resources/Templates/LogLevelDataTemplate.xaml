@@ -34,7 +34,7 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Foreground="{DynamicResource {x:Static theme:Brush.SearchBarForeground}}"
+                Foreground="{DynamicResource {x:Static theme:Brush.AppBarForeground}}"
                 Text="{Binding}"
                 Typography.Capitals="AllSmallCaps" />
 
